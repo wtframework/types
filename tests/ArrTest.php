@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use WTFramework\Types\Arr;
-use WTFramework\Types\Num;
 
 use function WTFramework\Types\arr;
 
@@ -187,10 +186,17 @@ it('can countvalues', function ()
 it('can current', function ()
 {
 
-  $arr = arr([1, 2, 3])->current();
+  expect(arr([1, 2, 3])->current())
+  ->toBe(1);
 
-  expect($arr())
-  ->toBe(current([1, 2, 3]));
+  $arr = arr([1, 2, 3])
+  ->current(return: $return);
+
+  expect($arr)
+  ->toBeInstanceOf(Arr::class);
+
+  expect($return)
+  ->toBe(1);
 
 });
 
@@ -247,21 +253,17 @@ it('can diffukey', function ()
 it('can end', function ()
 {
 
-  $test = [1, 2, 3];
+  expect(arr([1, 2, 3])->end())
+  ->toBe(3);
 
-  expect($num = arr([1, 2, 3])->end())
-  ->toBeInstanceOf(Num::class);
-
-  expect($num())
-  ->toBe(end($test));
-
-  $arr = arr([1, 2, 3])->end(return: $return);
+  $arr = arr([1, 2, 3])
+  ->end(return: $return);
 
   expect($arr)
   ->toBeInstanceOf(Arr::class);
 
   expect($return)
-  ->toBeInstanceOf(Num::class);
+  ->toBe(3);
 
 });
 
@@ -562,23 +564,22 @@ it('can pad', function ()
 it('can pop', function ()
 {
 
-  $test = [1, 2, 3];
-
   $num = arr([1, 2, 3])->pop();
 
   expect($num)
-  ->toBeInstanceOf(Num::class);
+  ->toBe(3);
 
-  expect($num())
-  ->toBe(array_pop($test));
-
-  $arr = arr([1, 2, 3])->pop(return: $return);
+  $arr = arr([1, 2, 3])
+  ->pop(return: $return);
 
   expect($arr)
   ->toBeInstanceOf(Arr::class);
 
+  expect($arr())
+  ->toBe([1, 2]);
+
   expect($return)
-  ->toBeInstanceOf(Num::class);
+  ->toBe(3);
 
 });
 
@@ -1151,22 +1152,16 @@ it('can max', function ()
   ->max();
 
   expect($num)
-  ->toBeInstanceOf(Num::class);
-
-  expect($num())
-  ->toBe(max(0.5, -1.5));
+  ->toBe(0.5);
 
   $arr = arr([0.5, -1.5])
-  ->max($num);
+  ->max(return: $return);
 
   expect($arr)
   ->toBeInstanceOf(Arr::class);
 
-  expect($num)
-  ->toBeInstanceOf(Num::class);
-
-  expect($num())
-  ->toBe(max(0.5, -1.5));
+  expect($return)
+  ->toBe(0.5);
 
 });
 
@@ -1177,22 +1172,16 @@ it('can min', function ()
   ->min();
 
   expect($num)
-  ->toBeInstanceOf(Num::class);
-
-  expect($num())
-  ->toBe(min(0.5, -1.5));
+  ->toBe(-1.5);
 
   $arr = arr([0.5, -1.5])
-  ->min($num);
+  ->min(return: $return);
 
   expect($arr)
   ->toBeInstanceOf(Arr::class);
 
-  expect($num)
-  ->toBeInstanceOf(Num::class);
-
-  expect($num())
-  ->toBe(min(0.5, -1.5));
+  expect($return)
+  ->toBe(-1.5);
 
 });
 

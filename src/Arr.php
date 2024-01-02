@@ -28,9 +28,6 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
       case is_array($value):
         return new Arr(array: $value);
 
-      case is_int($value) || is_float($value):
-        return new Num(num: $value);
-
       case is_string($value):
         return new Str(string: $value);
 
