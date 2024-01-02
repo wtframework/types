@@ -1,81 +1,6 @@
 # What the Framework?! types
 
-## Num
-
-The `WTFramework\Types\Num` object is a wrapper around many of PHP's number functions allowing for a fluent interface and a consistent naming system. The rules for method names are:
-
-1. Underscores are removed
-2. The primary number argument is removed
-
-Many of these methods can be chained to provide more readable code.
-
-```php
-num($number)
-->abs()
-->exp();
-```
-\
-Methods that do not require arguments can be called as properties rather than as methods.
-
-```php
-num($number)
-->abs
-->exp;
-```
-\
-Most methods that would return a string will return an instance of `WTFramework\Types\Str` allowing for further chaining.
-
-```php
-num($number)
-->dechex
-->toupper;
-```
-\
-Most methods that would return something other than the current object allow for a final `$return` argument passed by reference. If provided then the normal return value will be assigned to this variable and the method will return back the current object.
-
-```php
-num($number)
-->dechex(return: $str1)
-->dechex(return: $str2);
-```
-\
-The `echo` method allows you to easily `echo` the number. This method has optional `$prefix` and `$suffix` arguments.
-
-```php
-num($number)
-->echo(suffix: '<br>')
-->abs
-->echo(prefix: 'Abs: ');
-```
-\
-The `extract` method allows you to easily extract a clone of the current object.
-
-```php
-num($number)
-->abs
-->extract($abs)
-->exp
-->extract($exp);
-```
-\
-There are several ways to instantiate a new instance of `WTFramework\Types\Num`.
-
-```php
-use WTFramework\Types\Num;
-use function WTFramework\Types\num;
-
-$num = new Num(1);
-$num = Num::new(1);
-$num = num(1);
-```
-\
-Either use the `return` method or invoke the object as a function to return the number or cast it to a string to return the number as a string.
-
-```php
-$number = $num->return();
-$number = $num();
-$number = (string) $num;
-```
+## WTFramework\Types\Num
 
 ### Static methods
 
@@ -109,8 +34,8 @@ atan2(int|float $x): static
 baseconvert(
   int $from_base,
   int $to_base,
-  Str &$return = null
-): static|Str
+  string &$return = null
+): static|string
 
 bindec(): static
 
@@ -122,7 +47,7 @@ cosh(): static
 
 decbin(): static
 
-dechex(Str &$return = null): static|Str
+dechex(string &$return = null): static|string
 
 decoct(): static
 
