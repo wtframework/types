@@ -82,15 +82,15 @@ class Num implements Stringable
   public function baseconvert(
     int $from_base,
     int $to_base,
-    Str &$return = null
-  ): static|Str
+    string &$return = null
+  ): static|string
   {
 
-    $return = new Str(string: base_convert(
+    $return = base_convert(
       (string) (int) $this->num,
       $from_base,
       $to_base
-    ));
+    );
 
     return 3 === func_num_args() ? $this : $return;
 
@@ -141,10 +141,10 @@ class Num implements Stringable
 
   }
 
-  public function dechex(Str &$return = null): static|Str
+  public function dechex(string &$return = null): static|string
   {
 
-    $return = new Str(string: dechex((int) $this->num));
+    $return = dechex((int) $this->num);
 
     return func_num_args() ? $this : $return;
 

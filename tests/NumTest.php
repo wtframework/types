@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use WTFramework\Types\Num;
-use WTFramework\Types\Str;
 
 use function WTFramework\Types\num;
 
@@ -136,23 +135,17 @@ it('can atan2', function ()
 it('can base_convert', function ()
 {
 
-  $str1 = num(10)->baseconvert(8, 6);
+  $str = num(10)->baseconvert(8, 6);
 
-  expect($str1)
-  ->toBeInstanceOf(Str::class);
-
-  expect($str1())
+  expect($str)
   ->toBe(base_convert('10', 8, 6));
 
-  $num = num(10)->baseconvert(8, 6, $str2);
+  $num = num(10)->baseconvert(8, 6, return: $return);
 
   expect($num)
   ->toBeInstanceOf(Num::class);
 
-  expect($str2)
-  ->toBeInstanceOf(Str::class);
-
-  expect($str2())
+  expect($return)
   ->toBe(base_convert('10', 8, 6));
 
 });
@@ -210,23 +203,17 @@ it('can decbin', function ()
 it('can dechex', function ()
 {
 
-  $str1 = num(10.5)->dechex();
+  $str = num(10)->dechex();
 
-  expect($str1)
-  ->toBeInstanceOf(Str::class);
-
-  expect($str1())
+  expect($str)
   ->toBe(dechex(10));
 
-  $num = num(10.5)->dechex($str2);
+  $num = num(10)->dechex(return: $return);
 
   expect($num)
   ->toBeInstanceOf(Num::class);
 
-  expect($str2)
-  ->toBeInstanceOf(Str::class);
-
-  expect($str2())
+  expect($return)
   ->toBe(dechex(10));
 
 });
