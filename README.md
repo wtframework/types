@@ -255,14 +255,12 @@ $number = (string) $num;
 ```
 
 ### Extending the library
-When extending the `Str` class you can override the `Arr` class that is returned for array values by setting the `static $arr` property and when extending the `Arr` class you can override the `Str` class that is returned for string values by setting the `static $str` property. Each of these classes must extend the base `Arr` and `Str` classes respectively.
+To extend the library start by extending the base `Str` or `Arr` classes.
 ```php
 use WTFramework\Types\Str;
 
 class StrExtend extends Str
 {
-
-  protected static string $arr = ArrExtend::class;
 
   public function string(string $string): static
   {
@@ -281,8 +279,6 @@ use WTFramework\Types\Arr;
 class ArrExtend extends Arr
 {
 
-  protected static string $str = StrExtend::class;
-
   public function array(array $array): static
   {
 
@@ -292,6 +288,27 @@ class ArrExtend extends Arr
 
   }
 
+}
+```
+\
+To tell the `Str` class to use the extended `Arr` class when returning arrays pass the class name to the static `arr` method.
+To tell the `Arr` class to use the extended `Str` class when returning strings pass the class name to the static `str` method.
+```php
+Str::arr(ArrExtend::class);
+Arr::str(StrExtend::class);
+```
+\
+Alternatively, you can set the static `$arr` and `$str` properties on the new classes.
+```php
+class StrExtend extends Str
+{
+  protected static string $arr = ArrExtend::class;
+}
+```
+```php
+class ArrExtend extends Arr
+{
+  protected static string $str = StrExtend::class;
 }
 ```
 ```php

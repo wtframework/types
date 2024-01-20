@@ -18,6 +18,11 @@ class Str implements Stringable
     return new static(string: $string);
   }
 
+  public static function arr(string $arr): void
+  {
+    static::$arr = $arr;
+  }
+
   public function addcslashes(string $characters): static
   {
 

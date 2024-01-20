@@ -21,6 +21,11 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     return new static(array: $array);
   }
 
+  public static function str(string $str): void
+  {
+    static::$str = $str;
+  }
+
   protected function convert(mixed $value): mixed
   {
 
