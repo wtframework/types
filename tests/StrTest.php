@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Test\ArrExtend;
+use Test\StrExtend;
 use WTFramework\Types\Str;
 
 use function WTFramework\Types\str;
@@ -1723,5 +1725,26 @@ it('can use properties as methods', function ()
 
   expect($str->len)
   ->toBe(4);
+
+});
+
+it('can extend str', function ()
+{
+
+  $str = new StrExtend('test1-test2');
+
+  expect($str->len)
+  ->toBe(11);
+
+  $arr = $str->explode('-');
+
+  expect($arr)
+  ->toBeInstanceOf(ArrExtend::class);
+
+  expect($arr())
+  ->toBe(['test1', 'test2']);
+
+  expect($arr->array(['test'])())
+  ->toBe(['test']);
 
 });

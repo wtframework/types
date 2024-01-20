@@ -9,6 +9,8 @@ use Stringable;
 class Str implements Stringable
 {
 
+  protected static string $arr = Arr::class;
+
   public function __construct(protected string $string = '') {}
 
   public static function new(string $string = ''): static
@@ -174,7 +176,7 @@ class Str implements Stringable
     if (is_array($result = count_chars($this->string, $mode)))
     {
 
-      $return = new Arr(array: $result);
+      $return = new static::$arr(array: $result);
 
       return 2 === func_num_args() ? $this : $return;
 
@@ -235,7 +237,7 @@ class Str implements Stringable
   ): static|Arr
   {
 
-    $return = new Arr(array: explode($delimeter, $this->string, $limit));
+    $return = new static::$arr(array: explode($delimeter, $this->string, $limit));
 
     return 3 === func_num_args() ? $this : $return;
 
@@ -258,7 +260,7 @@ class Str implements Stringable
   ): static|Arr
   {
 
-    $return = new Arr(array: str_getcsv(
+    $return = new static::$arr(array: str_getcsv(
       $this->string,
       $separator,
       $enclosure,
@@ -420,7 +422,7 @@ class Str implements Stringable
 
     $result = json_decode($this->string, $associative, $depth, $flags);
 
-    $return = is_array($result) ? new Arr(array: $result) : $result;
+    $return = is_array($result) ? new static::$arr(array: $result) : $result;
 
     return 4 === func_num_args() ? $this : $return;
 
@@ -851,7 +853,7 @@ class Str implements Stringable
   ): static|Arr
   {
 
-    $return = new Arr(array: (array) mb_split($pattern, $this->string, $limit));
+    $return = new static::$arr(array: (array) mb_split($pattern, $this->string, $limit));
 
     return 3 === func_num_args() ? $this : $return;
 
@@ -902,7 +904,7 @@ class Str implements Stringable
   ): static|Arr
   {
 
-    $return = new Arr(array: mb_str_split($this->string, $limit, $encoding));
+    $return = new static::$arr(array: mb_str_split($this->string, $limit, $encoding));
 
     return 3 === func_num_args() ? $this : $return;
 
@@ -1072,7 +1074,7 @@ class Str implements Stringable
     if (!is_string($result = parse_url($this->string, $component)))
     {
 
-      $return = is_array($result) ? new Arr(array: $result) : $result;
+      $return = is_array($result) ? new static::$arr(array: $result) : $result;
 
       return 2 === func_num_args() ? $this : $return;
 
@@ -1247,7 +1249,7 @@ class Str implements Stringable
   ): static|Arr
   {
 
-    $return = new Arr(array: preg_split(
+    $return = new static::$arr(array: preg_split(
       $pattern,
       $this->string,
       $limit,
@@ -1447,7 +1449,7 @@ class Str implements Stringable
   ): static|Arr
   {
 
-    $return = new Arr(array: str_split($this->string, $length));
+    $return = new static::$arr(array: str_split($this->string, $length));
 
     return 2 === func_num_args() ? $this : $return;
 
@@ -1484,7 +1486,7 @@ class Str implements Stringable
 
     if (is_array($result = sscanf($this->string, $format, ...$vars)))
     {
-      return new Arr(array: $result);
+      return new static::$arr(array: $result);
     }
 
     return $result;
@@ -1676,7 +1678,7 @@ class Str implements Stringable
 
     if (!is_string($result = unserialize($data, $options)))
     {
-      return is_array($result) ? new Arr(array: $result) : $result;
+      return is_array($result) ? new static::$arr(array: $result) : $result;
     }
 
     return new static(string: $result);
@@ -1719,7 +1721,7 @@ class Str implements Stringable
 
     $result = str_word_count($this->string, $format, $characters);
 
-    $return = is_array($result) ? new Arr(array: $result) : $result;
+    $return = is_array($result) ? new static::$arr(array: $result) : $result;
 
     return 3 === func_num_args() ? $this : $return;
 

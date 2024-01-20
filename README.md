@@ -17,6 +17,8 @@ The `WTFramework\Types\Str` object is a wrapper around many of PHP's string func
 2. "str" is removed as a prefix
 3. The primary string argument is removed
 
+[Str method list](docs/str.md)
+
 ```php
 use function WTFramework\Types\str;
 
@@ -98,6 +100,8 @@ The `WTFramework\Types\Arr` object is a wrapper around many of PHP's array funct
 1. Underscores are removed
 2. "array" is removed as a prefix
 3. The primary array argument is removed
+
+[Arr method list](docs/arr.md)
 
 `WTFramework\Types\Arr` implements `ArrayAccess`, `Countable`, `Iterator`, and `Serializable`.
 
@@ -186,6 +190,8 @@ The `WTFramework\Types\Num` object is a wrapper around many of PHP's number func
 1. Underscores are removed
 2. The primary number argument is removed
 
+[Num method list](docs/num.md)
+
 ```php
 use function WTFramework\Types\num;
 
@@ -248,8 +254,58 @@ $number = $num();
 $number = (string) $num;
 ```
 
-## Method lists
+### Extending the library
+When extending the `Str` class you can override the `Arr` class that is returned for array values by setting the `static $arr` property and when extending the `Arr` class you can override the `Str` class that is returned for string values by setting the `static $str` property. Each of these classes must extend the base `Arr` and `Str` classes respectively.
+```php
+use WTFramework\Types\Str;
 
-[Str](docs/str.md)\
-[Arr](docs/arr.md)\
-[Num](docs/num.md)
+class StrExtend extends Str
+{
+
+  protected static string $arr = ArrExtend::class;
+
+  public function string(string $string): static
+  {
+
+    $this->string = $string;
+
+    return $this;
+
+  }
+
+}
+```
+```php
+use WTFramework\Types\Arr;
+
+class ArrExtend extends Arr
+{
+
+  protected static string $str = StrExtend::class;
+
+  public function array(array $array): static
+  {
+
+    $this->array = $array;
+
+    return $this;
+
+  }
+
+}
+```
+```php
+$str = new StrExtend('test');
+
+$str->string('test1-test2');
+
+$arr = $str->explode('-');
+
+// $arr = new ArrExtend(['test1', 'test2'])
+
+$arr->array(['test']);
+
+$str = $arr->implode('-');
+
+// $str = new StrExtend('test')
+```

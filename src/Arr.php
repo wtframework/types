@@ -12,6 +12,8 @@ use Serializable;
 class Arr implements ArrayAccess, Countable, Iterator, Serializable
 {
 
+  protected static string $str = Str::class;
+
   public function __construct(protected array $array = []) {}
 
   public static function new(array $array = []): static
@@ -29,7 +31,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
         return new Arr(array: $value);
 
       case is_string($value):
-        return new Str(string: $value);
+        return new static::$str(string: $value);
 
       default:
         return $value;
@@ -260,7 +262,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   ): static|Str
   {
 
-    $return = new Str(string: implode($delimeter, $this->array));
+    $return = new static::$str(string: implode($delimeter, $this->array));
 
     return 2 === func_num_args() ? $this : $return;
 
@@ -337,7 +339,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   ): static|Str
   {
 
-    $return = new Str(string: (string) json_encode($this->array, $flags, $depth));
+    $return = new static::$str(string: (string) json_encode($this->array, $flags, $depth));
 
     return 3 === func_num_args() ? $this : $return;
 
