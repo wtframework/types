@@ -1,0 +1,27 @@
+{
+  "name": "wtframework/types",
+  "description": "What the Framework?! types",
+  "license": "MIT",
+  "require": {
+    "php": "^8.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "WTFramework\\Types\\": "src/"
+    },
+    "files": ["src/functions.php"]
+  },
+  "require-dev": {
+    "pestphp/pest": "^2.30"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Test\\": "tests/src"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}
