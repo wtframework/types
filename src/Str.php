@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace WTFramework\Types;
 
 use Stringable;
-use WTFramework\Types\Interfaces\IsArr;
 use WTFramework\Types\Interfaces\IsStr;
 use WTFramework\Types\Traits\Str\AddCSlashes;
 use WTFramework\Types\Traits\Str\AddSlashes;
