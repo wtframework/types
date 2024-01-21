@@ -5,107 +5,107 @@
 ### Static methods
 
 ```php
-new(int|float $num = 0.00): static
+new(int|float $num = 0.00): static|IsNum
 
-max(int|float ...$values): static
+max(int|float ...$values): static|IsNum
 
-min(int|float ...$values): static
+min(int|float ...$values): static|IsNum
 
-pi(): static
+pi(): static|IsNum
 ```
 
 ### Non-static methods
 
 ```php
-abs(): static
+abs(): static|IsNum
 
-acos(): static
+acos(): static|IsNum
 
-acosh(): static
+acosh(): static|IsNum
 
-asin(): static
+asin(): static|IsNum
 
-asinh(): static
+asinh(): static|IsNum
 
-atan(): static
+atan(): static|IsNum
 
-atan2(int|float $x): static
+atan2(int|float $x): static|IsNum
 
 baseconvert(
   int $from_base,
   int $to_base,
   string &$return = null
-): static|string
+): static|IsNum|string
 
-bindec(): static
+bindec(): static|IsNum
 
-ceil(): static
+ceil(): static|IsNum
 
-cos(): static
+cos(): static|IsNum
 
-cosh(): static
+cosh(): static|IsNum
 
-decbin(): static
+decbin(): static|IsNum
 
-dechex(string &$return = null): static|string
+dechex(string &$return = null): static|IsNum|string
 
-decoct(): static
+decoct(): static|IsNum
 
-deg2rad(): static
+deg2rad(): static|IsNum
 
 echo(
   string $prefix = '',
   string $suffix = ''
-): static
+): static|IsNum
 
-exp(): static
+exp(): static|IsNum
 
-expm1(): static
+expm1(): static|IsNum
 
-extract(?self &$var): static
+extract(?self &$var): static|IsNum
 
-fdiv(int|float $num): static
+fdiv(int|float $num): static|IsNum
 
-floor(): static
+floor(): static|IsNum
 
-fmod(int|float $num): static
+fmod(int|float $num): static|IsNum
 
-hypot(int|float $y): static
+hypot(int|float $y): static|IsNum
 
-intdiv(int $num): static
+intdiv(int $num): static|IsNum
 
-isfinite(bool &$return = null): static|bool
+isfinite(bool &$return = null): static|IsNum|bool
 
-isinfinite(bool &$return = null): static|bool
+isinfinite(bool &$return = null): static|IsNum|bool
 
-isnan(bool &$return = null): static|bool
+isnan(bool &$return = null): static|IsNum|bool
 
-log(int|float $base = M_E): static
+log(int|float $base = M_E): static|IsNum
 
-log10(): static
+log10(): static|IsNum
 
-log1p(): static
+log1p(): static|IsNum
 
-octdec(): static
+octdec(): static|IsNum
 
-pow(int|float $exponent): static
+pow(int|float $exponent): static|IsNum
 
-rad2deg(): static
+rad2deg(): static|IsNum
 
 return(): int|float
 
 round(
   int $precision = 0,
   int $mode = PHP_ROUND_HALF_UP
-): static
+): static|IsNum
 
-sin(): static
+sin(): static|IsNum
 
-sinh(): static
+sinh(): static|IsNum
 
-sqrt(): static
+sqrt(): static|IsNum
 
-tan(): static
+tan(): static|IsNum
 
-tanh(): static
+tanh(): static|IsNum
 ```

@@ -296,31 +296,21 @@ $str->string('test');
 You can also replace the base `Str`, `Arr`, and `Num` classes by implementing the `IsStr`, `isArr`, and `isNum` interfaces.
 ```php
 use WTFramework\Types\Interfaces\IsArr;
-use WTFramework\Types\Str;
+use WTFramework\Types\Str as StrType;
+use WTFramework\Types\Traits\Construct;
+use WTFramework\Types\Traits\MagicInvoke;
+use WTFramework\Types\Traits\Str;
 
 class ArrReplace implements IsArr
 {
 
-  /**
-   * The custom class to return when returning strings
-   */
-  protected static string $str = Str::class;
+  use Construct;
+  use MagicInvoke;
+  use Str;
 
-  public function __construct(protected array $array = []) {}
-
-  public static function str(string $str): void
-  {
-    static::$str = $str;
-  }
-
-  public function toString(): Str|IsStr
+  public function toString(): StrType|IsStr
   {
     return new static::$str(string: implode('-', $this->array));
-  }
-
-  public function __invoke(): array
-  {
-    return $this->array;
   }
 
 }
@@ -336,4 +326,21 @@ $arr = str(['test1-test2'])
 // $arr = new ArrayReplace(['test1', 'test2']);
 
 $arr->array(['test']);
+```
+\
+When replacing one of the base classes you can reuse one or more of its methods by using the relevant trait(s).
+```php
+use WTFramework\Types\Interfaces\IsNum;
+use WTFramework\Types\Traits\Num\Construct;
+use WTFramework\Types\Traits\Num\MagicInvoke;
+use WTFramework\Types\Traits\Num\Max;
+use WTFramework\Types\Traits\Num\Min;
+
+class NumReplace implements IsNum
+{
+  use Construct;
+  use MagicInvoke;
+  use Max;
+  use Min;
+}
 ```
