@@ -5,18 +5,19 @@ declare(strict_types=1);
 namespace WTFramework\Types;
 
 use Stringable;
+use WTFramework\Types\Interfaces\IsNum;
 
-class Num implements Stringable
+class Num implements IsNum, Stringable
 {
 
   public function __construct(protected int|float $num = 0.0) {}
 
-  public static function new(int|float $num = 0.00): static
+  public static function new(int|float $num = 0.00): static|IsNum
   {
     return new static(num: $num);
   }
 
-  public function abs(): static
+  public function abs(): static|IsNum
   {
 
     $this->num = abs($this->num);
@@ -25,7 +26,7 @@ class Num implements Stringable
 
   }
 
-  public function acos(): static
+  public function acos(): static|IsNum
   {
 
     $this->num = acos($this->num);
@@ -34,7 +35,7 @@ class Num implements Stringable
 
   }
 
-  public function acosh(): static
+  public function acosh(): static|IsNum
   {
 
     $this->num = acosh($this->num);
@@ -43,7 +44,7 @@ class Num implements Stringable
 
   }
 
-  public function asin(): static
+  public function asin(): static|IsNum
   {
 
     $this->num = asin($this->num);
@@ -52,7 +53,7 @@ class Num implements Stringable
 
   }
 
-  public function asinh(): static
+  public function asinh(): static|IsNum
   {
 
     $this->num = asinh($this->num);
@@ -61,7 +62,7 @@ class Num implements Stringable
 
   }
 
-  public function atan(): static
+  public function atan(): static|IsNum
   {
 
     $this->num = atan($this->num);
@@ -70,7 +71,7 @@ class Num implements Stringable
 
   }
 
-  public function atan2(int|float $x): static
+  public function atan2(int|float $x): static|IsNum
   {
 
     $this->num = atan2($this->num, $x);
@@ -83,7 +84,7 @@ class Num implements Stringable
     int $from_base,
     int $to_base,
     string &$return = null
-  ): static|string
+  ): static|IsNum|string
   {
 
     $return = base_convert(
@@ -96,7 +97,7 @@ class Num implements Stringable
 
   }
 
-  public function bindec(): static
+  public function bindec(): static|IsNum
   {
 
     $this->num = bindec((string) (int) $this->num);
@@ -105,7 +106,7 @@ class Num implements Stringable
 
   }
 
-  public function ceil(): static
+  public function ceil(): static|IsNum
   {
 
     $this->num = ceil($this->num);
@@ -114,7 +115,7 @@ class Num implements Stringable
 
   }
 
-  public function cos(): static
+  public function cos(): static|IsNum
   {
 
     $this->num = cos($this->num);
@@ -123,7 +124,7 @@ class Num implements Stringable
 
   }
 
-  public function cosh(): static
+  public function cosh(): static|IsNum
   {
 
     $this->num = cosh($this->num);
@@ -132,7 +133,7 @@ class Num implements Stringable
 
   }
 
-  public function decbin(): static
+  public function decbin(): static|IsNum
   {
 
     $this->num = (int) decbin((int) $this->num);
@@ -141,7 +142,7 @@ class Num implements Stringable
 
   }
 
-  public function dechex(string &$return = null): static|string
+  public function dechex(string &$return = null): static|IsNum|string
   {
 
     $return = dechex((int) $this->num);
@@ -150,7 +151,7 @@ class Num implements Stringable
 
   }
 
-  public function decoct(): static
+  public function decoct(): static|IsNum
   {
 
     $this->num = (int) decoct((int) $this->num);
@@ -159,7 +160,7 @@ class Num implements Stringable
 
   }
 
-  public function deg2rad(): static
+  public function deg2rad(): static|IsNum
   {
 
     $this->num = deg2rad($this->num);
@@ -171,7 +172,7 @@ class Num implements Stringable
   public function echo(
     string $prefix = '',
     string $suffix = ''
-  ): static
+  ): static|IsNum
   {
 
     echo "$prefix$this->num$suffix";
@@ -180,7 +181,7 @@ class Num implements Stringable
 
   }
 
-  public function exp(): static
+  public function exp(): static|IsNum
   {
 
     $this->num = exp($this->num);
@@ -189,7 +190,7 @@ class Num implements Stringable
 
   }
 
-  public function expm1(): static
+  public function expm1(): static|IsNum
   {
 
     $this->num = expm1($this->num);
@@ -198,7 +199,7 @@ class Num implements Stringable
 
   }
 
-  public function extract(?self &$var): static
+  public function extract(?self &$var): static|IsNum
   {
 
     $var = clone $this;
@@ -207,7 +208,7 @@ class Num implements Stringable
 
   }
 
-  public function fdiv(int|float $num): static
+  public function fdiv(int|float $num): static|IsNum
   {
 
     $this->num = fdiv($this->num, $num);
@@ -216,7 +217,7 @@ class Num implements Stringable
 
   }
 
-  public function floor(): static
+  public function floor(): static|IsNum
   {
 
     $this->num = floor($this->num);
@@ -225,7 +226,7 @@ class Num implements Stringable
 
   }
 
-  public function fmod(int|float $num): static
+  public function fmod(int|float $num): static|IsNum
   {
 
     $this->num = fmod($this->num, $num);
@@ -234,7 +235,7 @@ class Num implements Stringable
 
   }
 
-  public function hypot(int|float $y): static
+  public function hypot(int|float $y): static|IsNum
   {
 
     $this->num = hypot($this->num, $y);
@@ -243,7 +244,7 @@ class Num implements Stringable
 
   }
 
-  public function intdiv(int $num): static
+  public function intdiv(int $num): static|IsNum
   {
 
     $this->num = intdiv((int) $this->num, $num);
@@ -252,7 +253,7 @@ class Num implements Stringable
 
   }
 
-  public function isfinite(bool &$return = null): static|bool
+  public function isfinite(bool &$return = null): static|IsNum|bool
   {
 
     $return = is_finite($this->num);
@@ -261,7 +262,7 @@ class Num implements Stringable
 
   }
 
-  public function isinfinite(bool &$return = null): static|bool
+  public function isinfinite(bool &$return = null): static|IsNum|bool
   {
 
     $return = is_infinite($this->num);
@@ -270,7 +271,7 @@ class Num implements Stringable
 
   }
 
-  public function isnan(bool &$return = null): static|bool
+  public function isnan(bool &$return = null): static|IsNum|bool
   {
 
     $return = is_nan($this->num);
@@ -279,7 +280,7 @@ class Num implements Stringable
 
   }
 
-  public function log(int|float $base = M_E): static
+  public function log(int|float $base = M_E): static|IsNum
   {
 
     $this->num = log($this->num, $base);
@@ -288,7 +289,7 @@ class Num implements Stringable
 
   }
 
-  public function log10(): static
+  public function log10(): static|IsNum
   {
 
     $this->num = log10($this->num);
@@ -297,7 +298,7 @@ class Num implements Stringable
 
   }
 
-  public function log1p(): static
+  public function log1p(): static|IsNum
   {
 
     $this->num = log1p($this->num);
@@ -306,17 +307,17 @@ class Num implements Stringable
 
   }
 
-  public static function max(int|float ...$values): static
+  public static function max(int|float ...$values): static|IsNum
   {
     return new static(num: max(...$values));
   }
 
-  public static function min(int|float ...$values): static
+  public static function min(int|float ...$values): static|IsNum
   {
     return new static(num: min(...$values));
   }
 
-  public function octdec(): static
+  public function octdec(): static|IsNum
   {
 
     $this->num = (int) octdec((string) (int) $this->num);
@@ -325,12 +326,12 @@ class Num implements Stringable
 
   }
 
-  public static function pi(): static
+  public static function pi(): static|IsNum
   {
     return new static(num: M_PI);
   }
 
-  public function pow(int|float $exponent): static
+  public function pow(int|float $exponent): static|IsNum
   {
 
     $this->num = pow($this->num, $exponent);
@@ -339,7 +340,7 @@ class Num implements Stringable
 
   }
 
-  public function rad2deg(): static
+  public function rad2deg(): static|IsNum
   {
 
     $this->num = rad2deg($this->num);
@@ -356,7 +357,7 @@ class Num implements Stringable
   public function round(
     int $precision = 0,
     int $mode = PHP_ROUND_HALF_UP
-  ): static
+  ): static|IsNum
   {
 
     $this->num = round($this->num, $precision, $mode);
@@ -365,7 +366,7 @@ class Num implements Stringable
 
   }
 
-  public function sin(): static
+  public function sin(): static|IsNum
   {
 
     $this->num = sin($this->num);
@@ -374,7 +375,7 @@ class Num implements Stringable
 
   }
 
-  public function sinh(): static
+  public function sinh(): static|IsNum
   {
 
     $this->num = sinh($this->num);
@@ -383,7 +384,7 @@ class Num implements Stringable
 
   }
 
-  public function sqrt(): static
+  public function sqrt(): static|IsNum
   {
 
     $this->num = sqrt($this->num);
@@ -392,7 +393,7 @@ class Num implements Stringable
 
   }
 
-  public function tan(): static
+  public function tan(): static|IsNum
   {
 
     $this->num = tan($this->num);
@@ -401,7 +402,7 @@ class Num implements Stringable
 
   }
 
-  public function tanh(): static
+  public function tanh(): static|IsNum
   {
 
     $this->num = tanh($this->num);

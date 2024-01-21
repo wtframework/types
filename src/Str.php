@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace WTFramework\Types;
 
 use Stringable;
+use WTFramework\Types\Interfaces\IsArr;
+use WTFramework\Types\Interfaces\IsStr;
 
-class Str implements Stringable
+class Str implements IsStr, Stringable
 {
 
   protected static string $arr = Arr::class;
 
   public function __construct(protected string $string = '') {}
 
-  public static function new(string $string = ''): static
+  public static function new(string $string = ''): static|IsStr
   {
     return new static(string: $string);
   }
@@ -23,7 +25,7 @@ class Str implements Stringable
     static::$arr = $arr;
   }
 
-  public function addcslashes(string $characters): static
+  public function addcslashes(string $characters): static|IsStr
   {
 
     $this->string = addcslashes($this->string, $characters);
@@ -32,7 +34,7 @@ class Str implements Stringable
 
   }
 
-  public function addslashes(): static
+  public function addslashes(): static|IsStr
   {
 
     $this->string = addslashes($this->string);
@@ -41,7 +43,7 @@ class Str implements Stringable
 
   }
 
-  public function base64decode(bool $strict = false): static
+  public function base64decode(bool $strict = false): static|IsStr
   {
 
     $this->string = (string) base64_decode($this->string, $strict);
@@ -50,7 +52,7 @@ class Str implements Stringable
 
   }
 
-  public function base64encode(): static
+  public function base64encode(): static|IsStr
   {
 
     $this->string = base64_encode($this->string);
@@ -62,7 +64,7 @@ class Str implements Stringable
   public function baseconvert(
     int $from_base,
     int $to_base
-  ): static
+  ): static|IsStr
   {
 
     $this->string = base_convert($this->string, $from_base, $to_base);
@@ -71,7 +73,7 @@ class Str implements Stringable
 
   }
 
-  public function bin2hex(): static
+  public function bin2hex(): static|IsStr
   {
 
     $this->string = bin2hex($this->string);
@@ -83,7 +85,7 @@ class Str implements Stringable
   public function casecmp(
     string $string,
     int &$return = null
-  ): static|int
+  ): static|IsStr|int
   {
 
     $return = strcasecmp($this->string, $string);
@@ -95,7 +97,7 @@ class Str implements Stringable
   public function chunksplit(
     int $length = 76,
     string $separator = "\r\n"
-  ): static
+  ): static|IsStr
   {
 
     $this->string = chunk_split($this->string, $length, $separator);
@@ -107,7 +109,7 @@ class Str implements Stringable
   public function cmp(
     string $string,
     int &$return = null
-  ): static|int
+  ): static|IsStr|int
   {
 
     $return = strcmp($this->string, $string);
@@ -119,7 +121,7 @@ class Str implements Stringable
   public function coll(
     string $string,
     int &$return = null
-  ): static|int
+  ): static|IsStr|int
   {
 
     $return = strcoll($this->string, $string);
@@ -128,7 +130,7 @@ class Str implements Stringable
 
   }
 
-  public function convertuudecode(): static
+  public function convertuudecode(): static|IsStr
   {
 
     $this->string = (string) convert_uudecode($this->string);
@@ -137,7 +139,7 @@ class Str implements Stringable
 
   }
 
-  public function convertuuencode(): static
+  public function convertuuencode(): static|IsStr
   {
 
     $this->string = convert_uuencode($this->string);
@@ -149,7 +151,7 @@ class Str implements Stringable
   public function contains(
     string $needle,
     bool &$return = null
-  ): static|bool
+  ): static|IsStr|bool
   {
 
     $return = str_contains($this->string, $needle);
@@ -163,7 +165,7 @@ class Str implements Stringable
     int $offset = 0,
     int $length = null,
     int &$return = null
-  ): static|int
+  ): static|IsStr|int
   {
 
     $return = strcspn($this->string, $characters, $offset, $length);
@@ -174,8 +176,8 @@ class Str implements Stringable
 
   public function countchars(
     int $mode = 0,
-    Arr &$return = null
-  ): static|Arr
+    Arr|IsArr &$return = null
+  ): static|IsStr|Arr|IsArr
   {
 
     if (is_array($result = count_chars($this->string, $mode)))
@@ -193,7 +195,7 @@ class Str implements Stringable
 
   }
 
-  public function crc32(int &$return = null): static|int
+  public function crc32(int &$return = null): static|IsStr|int
   {
 
     $return = crc32($this->string);
@@ -202,7 +204,7 @@ class Str implements Stringable
 
   }
 
-  public function crypt(string $salt): static
+  public function crypt(string $salt): static|IsStr
   {
 
     $this->string = crypt($this->string, $salt);
@@ -214,7 +216,7 @@ class Str implements Stringable
   public function echo(
     string $prefix = '',
     string $suffix = ''
-  ): static
+  ): static|IsStr
   {
 
     echo "$prefix$this->string$suffix";
@@ -226,7 +228,7 @@ class Str implements Stringable
   public function endswith(
     string $needle,
     bool &$return = null
-  ): static|bool
+  ): static|IsStr|bool
   {
 
     $return = str_ends_with($this->string, $needle);
@@ -238,8 +240,8 @@ class Str implements Stringable
   public function explode(
     string $delimeter,
     int $limit = PHP_INT_MAX,
-    Arr &$return = null
-  ): static|Arr
+    Arr|IsArr &$return = null
+  ): static|IsStr|Arr|IsArr
   {
 
     $return = new static::$arr(array: explode($delimeter, $this->string, $limit));
@@ -248,7 +250,7 @@ class Str implements Stringable
 
   }
 
-  public function extract(?self &$var): static
+  public function extract(?self &$var): static|IsStr
   {
 
     $var = clone $this;
@@ -261,8 +263,8 @@ class Str implements Stringable
     string $separator = ',',
     string $enclosure = '"',
     string $escape = '\\',
-    Arr &$return = null
-  ): static|Arr
+    Arr|IsArr &$return = null
+  ): static|IsStr|Arr|IsArr
   {
 
     $return = new static::$arr(array: str_getcsv(
@@ -276,7 +278,7 @@ class Str implements Stringable
 
   }
 
-  public function hebrev(int $max_chars_per_line = 0): static
+  public function hebrev(int $max_chars_per_line = 0): static|IsStr
   {
 
     $this->string = hebrev($this->string, $max_chars_per_line);
@@ -285,7 +287,7 @@ class Str implements Stringable
 
   }
 
-  public function hex2bin(): static
+  public function hex2bin(): static|IsStr
   {
 
     $this->string = (string) hex2bin($this->string);
@@ -294,7 +296,7 @@ class Str implements Stringable
 
   }
 
-  public function hexdec(Num &$return = null): static|Num
+  public function hexdec(Num &$return = null): static|IsStr|Num
   {
 
     $return = new Num(num: hexdec($this->string));
@@ -308,7 +310,7 @@ class Str implements Stringable
     string $numeric_prefix = '',
     string $arg_separator = null,
     int $encoding_type = PHP_QUERY_RFC1738
-  ): static
+  ): static|IsStr
   {
 
     return new static(string: http_build_query(
@@ -324,7 +326,7 @@ class Str implements Stringable
     int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401,
     string $encoding = null,
     bool $double_encode = true
-  ): static
+  ): static|IsStr
   {
 
     $this->string = htmlentities(
@@ -341,7 +343,7 @@ class Str implements Stringable
   public function htmlentitydecode(
     int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401,
     string $encoding = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = html_entity_decode($this->string, $flags, $encoding);
@@ -354,7 +356,7 @@ class Str implements Stringable
     int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401,
     string $encoding = null,
     bool $double_encode = true
-  ): static
+  ): static|IsStr
   {
 
     $this->string = htmlspecialchars(
@@ -370,7 +372,7 @@ class Str implements Stringable
 
   public function htmlspecialcharsdecode(
     int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401
-  ): static
+  ): static|IsStr
   {
 
     $this->string = htmlspecialchars_decode($this->string, $flags);
@@ -383,7 +385,7 @@ class Str implements Stringable
     string $needle,
     int $offset = 0,
     int|false &$return = null
-  ): static|int|false
+  ): static|IsStr|int|false
   {
 
     $return = stripos($this->string, $needle, $offset);
@@ -396,7 +398,7 @@ class Str implements Stringable
     array|string $search,
     array|string $replace,
     int &$count = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = str_ireplace($search, $replace, $this->string, $count);
@@ -408,7 +410,7 @@ class Str implements Stringable
   public function istr(
     string $needle,
     bool $before_needle = false
-  ): static
+  ): static|IsStr
   {
 
     $this->string = (string) stristr($this->string, $needle, $before_needle);
@@ -433,7 +435,7 @@ class Str implements Stringable
 
   }
 
-  public function lcfirst(): static
+  public function lcfirst(): static|IsStr
   {
 
     $this->string = lcfirst($this->string);
@@ -442,7 +444,7 @@ class Str implements Stringable
 
   }
 
-  public function len(int &$return = null): static|int
+  public function len(int &$return = null): static|IsStr|int
   {
 
     $return = strlen($this->string);
@@ -457,7 +459,7 @@ class Str implements Stringable
     int $replacement_cost = 1,
     int $deletion_cost = 1,
     int &$return = null
-  ): static|int
+  ): static|IsStr|int
   {
 
     $return = levenshtein(
@@ -472,7 +474,7 @@ class Str implements Stringable
 
   }
 
-  public function ltrim(string $characters = " \n\r\t\v\x00"): static
+  public function ltrim(string $characters = " \n\r\t\v\x00"): static|IsStr
   {
 
     $this->string = ltrim($this->string, $characters);
@@ -484,7 +486,7 @@ class Str implements Stringable
   public function mbcheckencoding(
     string $encoding = null,
     bool &$return = null
-  ): static|bool
+  ): static|IsStr|bool
   {
 
     $return = mb_check_encoding($this->string, $encoding);
@@ -496,7 +498,7 @@ class Str implements Stringable
   public function mbconvertcase(
     int $mode,
     string $encoding = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = mb_convert_case($this->string, $mode, $encoding);
@@ -508,7 +510,7 @@ class Str implements Stringable
   public function mbconvertencoding(
     string $to_encoding,
     string|array $from_encoding = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = mb_convert_encoding(
@@ -524,7 +526,7 @@ class Str implements Stringable
   public function mbconvertkana(
     string $mode = 'KV',
     string $encoding = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = mb_convert_kana($this->string, $mode, $encoding);
@@ -537,7 +539,7 @@ class Str implements Stringable
     int $start,
     int $length = null,
     string $encoding = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = mb_strcut($this->string, $start, $length, $encoding);
@@ -546,7 +548,7 @@ class Str implements Stringable
 
   }
 
-  public function mbdecodemimeheader(): static
+  public function mbdecodemimeheader(): static|IsStr
   {
 
     $this->string = mb_decode_mimeheader($this->string);
@@ -558,7 +560,7 @@ class Str implements Stringable
   public function mbdecodenumericentity(
     array $map,
     string $encoding = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = mb_decode_numericentity($this->string, $map, $encoding);
@@ -571,7 +573,7 @@ class Str implements Stringable
     array|string $encodings = null,
     bool $strict = false,
     string|false &$return = null
-  ): static|string|false
+  ): static|IsStr|string|false
   {
 
     $return = mb_detect_encoding($this->string, $encodings, $strict);
@@ -585,7 +587,7 @@ class Str implements Stringable
     string $transfer_encoding = 'B',
     string $newline = "\r\n",
     int $indent = 0
-  ): static
+  ): static|IsStr
   {
 
     $this->string = mb_encode_mimeheader(
@@ -604,7 +606,7 @@ class Str implements Stringable
     array $map,
     string $encoding = null,
     bool $hex = false
-  ): static
+  ): static|IsStr
   {
 
     $this->string = mb_encode_numericentity(
@@ -622,7 +624,7 @@ class Str implements Stringable
     string $pattern,
     array &$matches = null,
     bool &$return = null
-  ): static|bool
+  ): static|IsStr|bool
   {
 
     $return = mb_ereg($pattern, $this->string, $matches);
@@ -635,7 +637,7 @@ class Str implements Stringable
     string $pattern,
     array &$matches = null,
     bool &$return = null
-  ): static|bool
+  ): static|IsStr|bool
   {
 
     $return = mb_eregi($pattern, $this->string, $matches);
@@ -648,7 +650,7 @@ class Str implements Stringable
     string $pattern,
     string $replacement,
     string $options = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = (string) mb_eregi_replace(
@@ -666,7 +668,7 @@ class Str implements Stringable
     string $pattern,
     string $options = null,
     bool &$return = null
-  ): static|bool
+  ): static|IsStr|bool
   {
 
     $return = mb_ereg_match($pattern, $this->string, $options);
@@ -679,7 +681,7 @@ class Str implements Stringable
     string $pattern,
     string $replacement,
     string $options = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = (string) mb_ereg_replace(
@@ -697,7 +699,7 @@ class Str implements Stringable
     string $pattern,
     callable $callback,
     string $options = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = (string) mb_ereg_replace_callback(
@@ -711,7 +713,7 @@ class Str implements Stringable
 
   }
 
-  public function mbparse(?array &$result): static
+  public function mbparse(?array &$result): static|IsStr
   {
 
     mb_parse_str($this->string, $result);
@@ -725,7 +727,7 @@ class Str implements Stringable
     int $offset = 0,
     string $encoding = null,
     int|false &$return = null
-  ): static|int|false
+  ): static|IsStr|int|false
   {
 
     $return = mb_stripos($this->string, $needle, $offset, $encoding);
@@ -738,7 +740,7 @@ class Str implements Stringable
     string $needle,
     bool $before_needle = false,
     string $encoding = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = (string) mb_stristr(
@@ -755,7 +757,7 @@ class Str implements Stringable
   public function mblen(
     string $encoding = null,
     int &$return = null
-  ): static|int
+  ): static|IsStr|int
   {
 
     $return = mb_strlen($this->string, $encoding);
@@ -769,7 +771,7 @@ class Str implements Stringable
     int $offset = 0,
     string $encoding = null,
     int|false &$return = null
-  ): static|int|false
+  ): static|IsStr|int|false
   {
 
     $return = mb_strpos($this->string, $needle, $offset, $encoding);
@@ -782,7 +784,7 @@ class Str implements Stringable
     string $needle,
     bool $before_needle = false,
     string $encoding = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = (string) mb_strrchr(
@@ -800,7 +802,7 @@ class Str implements Stringable
     string $needle,
     bool $before_needle = false,
     string $encoding = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = (string) mb_strrichr(
@@ -819,7 +821,7 @@ class Str implements Stringable
     int $offset = 0,
     string $encoding = null,
     int|false &$return = null
-  ): static|int|false
+  ): static|IsStr|int|false
   {
 
     $return = mb_strripos($this->string, $needle, $offset, $encoding);
@@ -833,7 +835,7 @@ class Str implements Stringable
     int $offset = 0,
     string $encoding = null,
     int|false &$return = null
-  ): static|int|false
+  ): static|IsStr|int|false
   {
 
     $return = mb_strrpos($this->string, $needle, $offset, $encoding);
@@ -842,7 +844,7 @@ class Str implements Stringable
 
   }
 
-  public function mbscrub(string $encoding = null): static
+  public function mbscrub(string $encoding = null): static|IsStr
   {
 
     $this->string = mb_scrub($this->string, $encoding);
@@ -854,8 +856,8 @@ class Str implements Stringable
   public function mbsplit(
     string $pattern,
     int $limit = -1,
-    Arr &$return = null
-  ): static|Arr
+    Arr|IsArr &$return = null
+  ): static|IsStr|Arr|IsArr
   {
 
     $return = new static::$arr(array: (array) mb_split($pattern, $this->string, $limit));
@@ -868,7 +870,7 @@ class Str implements Stringable
     string $needle,
     bool $before_needle = false,
     string $encoding = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = (string) mb_strstr(
@@ -887,7 +889,7 @@ class Str implements Stringable
     int $width,
     string $trim_marker = '',
     string $encoding = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = mb_strimwidth(
@@ -905,8 +907,8 @@ class Str implements Stringable
   public function mbstrsplit(
     int $limit = 1,
     string $encoding = null,
-    Arr &$return = null
-  ): static|Arr
+    Arr|IsArr &$return = null
+  ): static|IsStr|Arr|IsArr
   {
 
     $return = new static::$arr(array: mb_str_split($this->string, $limit, $encoding));
@@ -919,7 +921,7 @@ class Str implements Stringable
     int $start,
     int $length = null,
     string $encoding = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = mb_substr($this->string, $start, $length, $encoding);
@@ -932,7 +934,7 @@ class Str implements Stringable
     string $needle,
     string $encoding = null,
     int &$return = null
-  ): static|int
+  ): static|IsStr|int
   {
 
     $return = mb_substr_count($this->string, $needle, $encoding);
@@ -941,7 +943,7 @@ class Str implements Stringable
 
   }
 
-  public function mbtolower(string $encoding = null): static
+  public function mbtolower(string $encoding = null): static|IsStr
   {
 
     $this->string = mb_strtolower($this->string, $encoding);
@@ -950,7 +952,7 @@ class Str implements Stringable
 
   }
 
-  public function mbtoupper(string $encoding = null): static
+  public function mbtoupper(string $encoding = null): static|IsStr
   {
 
     $this->string = mb_strtoupper($this->string, $encoding);
@@ -962,7 +964,7 @@ class Str implements Stringable
   public function mbwidth(
     string $encoding = null,
     int &$return = null
-  ): static|int
+  ): static|IsStr|int
   {
 
     $return = mb_strwidth($this->string, $encoding);
@@ -971,7 +973,7 @@ class Str implements Stringable
 
   }
 
-  public function md5(bool $binary = false): static
+  public function md5(bool $binary = false): static|IsStr
   {
 
     $this->string = md5($this->string, $binary);
@@ -980,7 +982,7 @@ class Str implements Stringable
 
   }
 
-  public function metaphone(int $max_phonemes = 0): static
+  public function metaphone(int $max_phonemes = 0): static|IsStr
   {
 
     $this->string = metaphone($this->string, $max_phonemes);
@@ -992,7 +994,7 @@ class Str implements Stringable
   public function natcmp(
     string $string,
     int &$return = null
-  ): static|int
+  ): static|IsStr|int
   {
 
     $return = strnatcmp($this->string, $string);
@@ -1004,7 +1006,7 @@ class Str implements Stringable
   public function natcasecmp(
     string $string,
     int &$return = null
-  ): static|int
+  ): static|IsStr|int
   {
 
     $return = strnatcasecmp($this->string, $string);
@@ -1017,7 +1019,7 @@ class Str implements Stringable
     string $string,
     int $length,
     int &$return = null
-  ): static|int
+  ): static|IsStr|int
   {
 
     $return = strncasecmp($this->string, $string, $length);
@@ -1030,7 +1032,7 @@ class Str implements Stringable
     string $string,
     int $length,
     int &$return = null
-  ): static|int
+  ): static|IsStr|int
   {
 
     $return = strncmp($this->string, $string, $length);
@@ -1039,7 +1041,7 @@ class Str implements Stringable
 
   }
 
-  public function nl2br(bool $use_xhtml = true): static
+  public function nl2br(bool $use_xhtml = true): static|IsStr
   {
 
     $this->string = nl2br($this->string, $use_xhtml);
@@ -1052,7 +1054,7 @@ class Str implements Stringable
     int $length,
     string $pad_string = ' ',
     int $pad_type = STR_PAD_RIGHT
-  ): static
+  ): static|IsStr
   {
 
     $this->string = str_pad($this->string, $length, $pad_string, $pad_type);
@@ -1061,7 +1063,7 @@ class Str implements Stringable
 
   }
 
-  public function parse(?array &$result): static
+  public function parse(?array &$result): static|IsStr
   {
 
     parse_str($this->string, $result);
@@ -1072,8 +1074,8 @@ class Str implements Stringable
 
   public function parseurl(
     int $component = -1,
-    Arr|int|null|false &$return = null
-  ): static|Arr|int|null|false
+    Arr|IsArr|int|null|false &$return = null
+  ): static|IsStr|Arr|IsArr|int|null|false
   {
 
     if (!is_string($result = parse_url($this->string, $component)))
@@ -1091,7 +1093,7 @@ class Str implements Stringable
 
   }
 
-  public function pbrk(string $characters): static
+  public function pbrk(string $characters): static|IsStr
   {
 
     $this->string = (string) strpbrk($this->string, $characters);
@@ -1104,7 +1106,7 @@ class Str implements Stringable
     string $needle,
     int $offset = 0,
     int|false &$return = null
-  ): static|int|false
+  ): static|IsStr|int|false
   {
 
     $return = strpos($this->string, $needle, $offset);
@@ -1118,7 +1120,7 @@ class Str implements Stringable
     string|array $replacement,
     int $limit = -1,
     int &$count = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = (string) preg_filter(
@@ -1139,7 +1141,7 @@ class Str implements Stringable
     int $flags = 0,
     int $offset = 0,
     int|false &$return = null
-  ): static|int|false
+  ): static|IsStr|int|false
   {
 
     $return = preg_match(
@@ -1160,7 +1162,7 @@ class Str implements Stringable
     int $flags = 0,
     int $offset = 0,
     int|false &$return = null
-  ): static|int|false
+  ): static|IsStr|int|false
   {
 
     $return = preg_match_all(
@@ -1175,7 +1177,7 @@ class Str implements Stringable
 
   }
 
-  public function pregquote(string $delimeter = null): static
+  public function pregquote(string $delimeter = null): static|IsStr
   {
 
     $this->string = preg_quote($this->string, $delimeter);
@@ -1189,7 +1191,7 @@ class Str implements Stringable
     string|array $replacement,
     int $limit = -1,
     int &$count = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = (string) preg_replace(
@@ -1210,7 +1212,7 @@ class Str implements Stringable
     int $limit = -1,
     int &$count = null,
     int $flags = 0
-  ): static
+  ): static|IsStr
   {
 
     $this->string = (string) preg_replace_callback(
@@ -1231,7 +1233,7 @@ class Str implements Stringable
     int $limit = -1,
     int &$count = null,
     int $flags = 0
-  ): static
+  ): static|IsStr
   {
 
     $this->string = (string) preg_replace_callback_array(
@@ -1250,8 +1252,8 @@ class Str implements Stringable
     string $pattern,
     int $limit = -1,
     int $flags = 0,
-    Arr &$return = null
-  ): static|Arr
+    Arr|IsArr &$return = null
+  ): static|IsStr|Arr|IsArr
   {
 
     $return = new static::$arr(array: preg_split(
@@ -1265,7 +1267,7 @@ class Str implements Stringable
 
   }
 
-  public function quotedprintabledecode(): static
+  public function quotedprintabledecode(): static|IsStr
   {
 
     $this->string = quoted_printable_decode($this->string);
@@ -1274,7 +1276,7 @@ class Str implements Stringable
 
   }
 
-  public function quotedprintableencode(): static
+  public function quotedprintableencode(): static|IsStr
   {
 
     $this->string = quoted_printable_encode($this->string);
@@ -1283,7 +1285,7 @@ class Str implements Stringable
 
   }
 
-  public function quotemeta(): static
+  public function quotemeta(): static|IsStr
   {
 
     $this->string = quotemeta($this->string);
@@ -1292,7 +1294,7 @@ class Str implements Stringable
 
   }
 
-  public function rawurldecode(): static
+  public function rawurldecode(): static|IsStr
   {
 
     $this->string = rawurldecode($this->string);
@@ -1301,7 +1303,7 @@ class Str implements Stringable
 
   }
 
-  public function rawurlencode(): static
+  public function rawurlencode(): static|IsStr
   {
 
     $this->string = rawurlencode($this->string);
@@ -1310,7 +1312,7 @@ class Str implements Stringable
 
   }
 
-  public function rchr(string $needle): static
+  public function rchr(string $needle): static|IsStr
   {
 
     $this->string = (string) strrchr($this->string, $needle);
@@ -1319,7 +1321,7 @@ class Str implements Stringable
 
   }
 
-  public function repeat(int $times): static
+  public function repeat(int $times): static|IsStr
   {
 
     $this->string = str_repeat($this->string, $times);
@@ -1332,7 +1334,7 @@ class Str implements Stringable
     array|string $search,
     array|string $replace,
     int &$count = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = str_replace($search, $replace, $this->string, $count);
@@ -1346,7 +1348,7 @@ class Str implements Stringable
     return $this->string;
   }
 
-  public function rev(): static
+  public function rev(): static|IsStr
   {
 
     $this->string = strrev($this->string);
@@ -1359,7 +1361,7 @@ class Str implements Stringable
     string $needle,
     int $offset = 0,
     int|false &$return = null
-  ): static|int|false
+  ): static|IsStr|int|false
   {
 
     $return = strripos($this->string, $needle, $offset);
@@ -1368,7 +1370,7 @@ class Str implements Stringable
 
   }
 
-  public function rot13(): static
+  public function rot13(): static|IsStr
   {
 
     $this->string = str_rot13($this->string);
@@ -1381,7 +1383,7 @@ class Str implements Stringable
     string $needle,
     int $offset = 0,
     int|false &$return = null
-  ): static|int|false
+  ): static|IsStr|int|false
   {
 
     $return = strrpos($this->string, $needle, $offset);
@@ -1390,7 +1392,7 @@ class Str implements Stringable
 
   }
 
-  public function rtrim(string $characters = " \n\r\t\v\x00"): static
+  public function rtrim(string $characters = " \n\r\t\v\x00"): static|IsStr
   {
 
     $this->string = rtrim($this->string, $characters);
@@ -1399,7 +1401,7 @@ class Str implements Stringable
 
   }
 
-  public function serialize(string &$return = null): static|string
+  public function serialize(string &$return = null): static|IsStr|string
   {
 
     $return = serialize($this->string);
@@ -1408,7 +1410,7 @@ class Str implements Stringable
 
   }
 
-  public function sha1(bool $binary = false): static
+  public function sha1(bool $binary = false): static|IsStr
   {
 
     $this->string = sha1($this->string, $binary);
@@ -1417,7 +1419,7 @@ class Str implements Stringable
 
   }
 
-  public function shuffle(): static
+  public function shuffle(): static|IsStr
   {
 
     $this->string = str_shuffle($this->string);
@@ -1430,7 +1432,7 @@ class Str implements Stringable
     string $string,
     float &$percent = null,
     int &$return = null
-  ): static|int
+  ): static|IsStr|int
   {
 
     $return = similar_text($this->string, $string, $percent);
@@ -1439,7 +1441,7 @@ class Str implements Stringable
 
   }
 
-  public function soundex(): static
+  public function soundex(): static|IsStr
   {
 
     $this->string = soundex($this->string);
@@ -1450,8 +1452,8 @@ class Str implements Stringable
 
   public function split(
     int $length = 1,
-    Arr &$return = null
-  ): static|Arr
+    Arr|IsArr &$return = null
+  ): static|IsStr|Arr|IsArr
   {
 
     $return = new static::$arr(array: str_split($this->string, $length));
@@ -1465,7 +1467,7 @@ class Str implements Stringable
     int $offset = 0,
     int $length = null,
     int &$return = null
-  ): static|int
+  ): static|IsStr|int
   {
 
     $return = strspn($this->string, $characters, $offset, $length);
@@ -1474,7 +1476,7 @@ class Str implements Stringable
 
   }
 
-  public function sprintf(mixed ...$values): static
+  public function sprintf(mixed ...$values): static|IsStr
   {
 
     $this->string = sprintf($this->string, ...$values);
@@ -1486,7 +1488,7 @@ class Str implements Stringable
   public function sscanf(
     string $format,
     mixed &...$vars
-  ): Arr|int|null
+  ): Arr|IsArr|int|null
   {
 
     if (is_array($result = sscanf($this->string, $format, ...$vars)))
@@ -1501,7 +1503,7 @@ class Str implements Stringable
   public function startswith(
     string $needle,
     bool &$return = null
-  ): static|bool
+  ): static|IsStr|bool
   {
 
     $return = str_starts_with($this->string, $needle);
@@ -1513,7 +1515,7 @@ class Str implements Stringable
   public function str(
     string $needle,
     bool $before_needle = false
-  ): static
+  ): static|IsStr
   {
 
     $this->string = (string) strstr($this->string, $needle, $before_needle);
@@ -1522,7 +1524,7 @@ class Str implements Stringable
 
   }
 
-  public function stripcslashes(): static
+  public function stripcslashes(): static|IsStr
   {
 
     $this->string = stripcslashes($this->string);
@@ -1531,7 +1533,7 @@ class Str implements Stringable
 
   }
 
-  public function stripslashes(): static
+  public function stripslashes(): static|IsStr
   {
 
     $this->string = stripslashes($this->string);
@@ -1540,7 +1542,7 @@ class Str implements Stringable
 
   }
 
-  public function striptags(array|string $allowed_tags = null): static
+  public function striptags(array|string $allowed_tags = null): static|IsStr
   {
 
     $this->string = strip_tags($this->string, $allowed_tags);
@@ -1552,7 +1554,7 @@ class Str implements Stringable
   public function substr(
     array|int $offset,
     array|int $length = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = substr($this->string, $offset, $length);
@@ -1567,7 +1569,7 @@ class Str implements Stringable
     int $length = null,
     bool $case_insensitive = false,
     int &$return = null
-  ): static|int
+  ): static|IsStr|int
   {
 
     $return = substr_compare(
@@ -1587,7 +1589,7 @@ class Str implements Stringable
     int $offset = 0,
     int $length = null,
     int &$return = null
-  ): static|int
+  ): static|IsStr|int
   {
 
     $return = substr_count($this->string, $needle, $offset, $length);
@@ -1600,7 +1602,7 @@ class Str implements Stringable
     string $replace,
     int $offset,
     int $length = null
-  ): static
+  ): static|IsStr
   {
 
     $this->string = substr_replace($this->string, $replace, $offset, $length);
@@ -1609,7 +1611,7 @@ class Str implements Stringable
 
   }
 
-  public function tok(string $token): static
+  public function tok(string $token): static|IsStr
   {
 
     $this->string = strtok($this->string, $token);
@@ -1618,7 +1620,7 @@ class Str implements Stringable
 
   }
 
-  public function tolower(): static
+  public function tolower(): static|IsStr
   {
 
     $this->string = strtolower($this->string);
@@ -1627,7 +1629,7 @@ class Str implements Stringable
 
   }
 
-  public function toupper(): static
+  public function toupper(): static|IsStr
   {
 
     $this->string = strtoupper($this->string);
@@ -1639,7 +1641,7 @@ class Str implements Stringable
   public function tr(
     string|array $from,
     ?string $to
-  ): static
+  ): static|IsStr
   {
 
     $this->string = strtr($this->string, ...func_get_args());
@@ -1648,7 +1650,7 @@ class Str implements Stringable
 
   }
 
-  public function trim(string $characters = " \n\r\t\v\x00"): static
+  public function trim(string $characters = " \n\r\t\v\x00"): static|IsStr
   {
 
     $this->string = trim($this->string, $characters);
@@ -1657,7 +1659,7 @@ class Str implements Stringable
 
   }
 
-  public function ucfirst(): static
+  public function ucfirst(): static|IsStr
   {
 
     $this->string = ucfirst($this->string);
@@ -1666,7 +1668,7 @@ class Str implements Stringable
 
   }
 
-  public function ucwords(): static
+  public function ucwords(): static|IsStr
   {
 
     $this->string = ucwords($this->string);
@@ -1690,7 +1692,7 @@ class Str implements Stringable
 
   }
 
-  public function urldecode(): static
+  public function urldecode(): static|IsStr
   {
 
     $this->string = urldecode($this->string);
@@ -1699,7 +1701,7 @@ class Str implements Stringable
 
   }
 
-  public function urlencode(): static
+  public function urlencode(): static|IsStr
   {
 
     $this->string = urlencode($this->string);
@@ -1708,7 +1710,7 @@ class Str implements Stringable
 
   }
 
-  public function vsprintf(array $values): static
+  public function vsprintf(array $values): static|IsStr
   {
 
     $this->string = vsprintf($this->string, $values);
@@ -1720,8 +1722,8 @@ class Str implements Stringable
   public function wordcount(
     int $format = 0,
     string $characters = null,
-    Arr|int &$return = null
-  ): static|Arr|int
+    Arr|IsArr|int &$return = null
+  ): static|IsStr|Arr|IsArr|int
   {
 
     $result = str_word_count($this->string, $format, $characters);
@@ -1736,7 +1738,7 @@ class Str implements Stringable
     int $width = 75,
     string $break = "\n",
     bool $cut_long_words = false
-  ): static
+  ): static|IsStr
   {
 
     $this->string = wordwrap($this->string, $width, $break, $cut_long_words);

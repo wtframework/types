@@ -255,12 +255,19 @@ $number = (string) $num;
 ```
 
 ### Extending the library
-To extend the library start by extending the base `Str` or `Arr` classes.
+To extend the library you can extend the base `Str`, `Arr`, and `Num` classes.
 ```php
+use WTFramework\Types\Arr;
 use WTFramework\Types\Str;
 
 class StrExtend extends Str
 {
+
+  /**
+   * Optional
+   * The custom class to return when returning arrays
+   */
+  protected static string $arr = ArrExtend::class;
 
   public function string(string $string): static
   {
@@ -273,56 +280,60 @@ class StrExtend extends Str
 
 }
 ```
+\
+Pass the class name to the static `str` method to tell the `Arr` class to use the `StrExtend` class when returning strings.
 ```php
-use WTFramework\Types\Arr;
+Arr::str(StrExtend::class);
 
-class ArrExtend extends Arr
+$str = arr(['test1', 'test2'])
+->implode('-');
+
+// $str = new StrExtend('test1-test2');
+
+$str->string('test');
+```
+\
+You can also replace the base `Str`, `Arr`, and `Num` classes by implementing the `IsStr`, `isArr`, and `isNum` interfaces.
+```php
+use WTFramework\Types\Interfaces\IsArr;
+use WTFramework\Types\Str;
+
+class ArrReplace implements IsArr
 {
 
-  public function array(array $array): static
+  /**
+   * The custom class to return when returning strings
+   */
+  protected static string $str = Str::class;
+
+  public function __construct(protected array $array = []) {}
+
+  public static function str(string $str): void
   {
+    static::$str = $str;
+  }
 
-    $this->array = $array;
+  public function toString(): Str|IsStr
+  {
+    return new static::$str(string: implode('-', $this->array));
+  }
 
-    return $this;
-
+  public function __invoke(): array
+  {
+    return $this->array;
   }
 
 }
 ```
 \
-To tell the `Str` class to use the extended `Arr` class when returning arrays pass the class name to the static `arr` method.
-To tell the `Arr` class to use the extended `Str` class when returning strings pass the class name to the static `str` method.
+Pass the class name to the static `arr` method to tell the `Str` class to use the `ArrReplace` class when returning arrays.
 ```php
-Str::arr(ArrExtend::class);
-Arr::str(StrExtend::class);
-```
-\
-Alternatively, you can set the static `$arr` and `$str` properties on the new classes.
-```php
-class StrExtend extends Str
-{
-  protected static string $arr = ArrExtend::class;
-}
-```
-```php
-class ArrExtend extends Arr
-{
-  protected static string $str = StrExtend::class;
-}
-```
-```php
-$str = new StrExtend('test');
+Str::arr(ArrayReplace::class);
 
-$str->string('test1-test2');
+$arr = str(['test1-test2'])
+->explode('-');
 
-$arr = $str->explode('-');
-
-// $arr = new ArrExtend(['test1', 'test2'])
+// $arr = new ArrayReplace(['test1', 'test2']);
 
 $arr->array(['test']);
-
-$str = $arr->implode('-');
-
-// $str = new StrExtend('test')
 ```

@@ -8,15 +8,17 @@ use ArrayAccess;
 use Countable;
 use Iterator;
 use Serializable;
+use WTFramework\Types\Interfaces\IsArr;
+use WTFramework\Types\Interfaces\IsStr;
 
-class Arr implements ArrayAccess, Countable, Iterator, Serializable
+class Arr implements IsArr, ArrayAccess, Countable, Iterator, Serializable
 {
 
   protected static string $str = Str::class;
 
   public function __construct(protected array $array = []) {}
 
-  public static function new(array $array = []): static
+  public static function new(array $array = []): static|IsArr
   {
     return new static(array: $array);
   }
@@ -44,7 +46,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     }
   }
 
-  public function advance(): static
+  public function advance(): static|IsArr
   {
 
     next($this->array);
@@ -53,7 +55,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function arsort(int $flags = SORT_REGULAR): static
+  public function arsort(int $flags = SORT_REGULAR): static|IsArr
   {
 
     arsort($this->array, $flags);
@@ -62,7 +64,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function asort(int $flags = SORT_REGULAR): static
+  public function asort(int $flags = SORT_REGULAR): static|IsArr
   {
 
     asort($this->array, $flags);
@@ -71,7 +73,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function changekeycase(int $case = CASE_LOWER): static
+  public function changekeycase(int $case = CASE_LOWER): static|IsArr
   {
 
     $this->array = array_change_key_case($this->array, $case);
@@ -83,7 +85,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function chunk(
     int $length,
     bool $preserve_keys = false
-  ): static
+  ): static|IsArr
   {
 
     $this->array = array_chunk($this->array, $length, $preserve_keys);
@@ -95,7 +97,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function column(
     int|string|null $column_key,
     int|string|null $index_key = null
-  ): static
+  ): static|IsArr
   {
 
     $this->array = array_column($this->array, $column_key, $index_key);
@@ -104,7 +106,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function combine(array $values): static
+  public function combine(array $values): static|IsArr
   {
 
     $this->array = array_combine($this->array, $values);
@@ -117,7 +119,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     mixed $needle,
     bool $strict = false,
     bool &$return = null
-  ): static|bool
+  ): static|IsArr|bool
   {
 
     $return = in_array($needle, $this->array, $strict);
@@ -131,7 +133,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     return count($this->array, $mode);
   }
 
-  public function countvalues(): static
+  public function countvalues(): static|IsArr
   {
 
     $this->array = array_count_values($this->array);
@@ -149,7 +151,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function diff(array ...$arrays): static
+  public function diff(array ...$arrays): static|IsArr
   {
 
     $this->array = array_diff($this->array, ...$arrays);
@@ -158,7 +160,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function diffassoc(array ...$arrays): static
+  public function diffassoc(array ...$arrays): static|IsArr
   {
 
     $this->array = array_diff_assoc($this->array, ...$arrays);
@@ -167,7 +169,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function diffkey(array ...$arrays): static
+  public function diffkey(array ...$arrays): static|IsArr
   {
 
     $this->array = array_diff_key($this->array, ...$arrays);
@@ -179,7 +181,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function diffuassoc(
     callable $key_compare_func,
     array ...$arrays
-  ): static
+  ): static|IsArr
   {
 
     $arrays[] = $key_compare_func;
@@ -193,7 +195,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function diffukey(
     callable $key_compare_func,
     array ...$arrays
-  ): static
+  ): static|IsArr
   {
 
     $arrays[] = $key_compare_func;
@@ -213,7 +215,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function extract(?self &$var): static
+  public function extract(?self &$var): static|IsArr
   {
 
     $var = clone $this;
@@ -226,12 +228,12 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     int $start_index,
     int $count,
     mixed $value
-  ): static
+  ): static|IsArr
   {
     return new static(array_fill($start_index, $count, $value));
   }
 
-  public function fillkeys(mixed $value): static
+  public function fillkeys(mixed $value): static|IsArr
   {
 
     $this->array = array_fill_keys($this->array, $value);
@@ -243,7 +245,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function filter(
     callable $callback = null,
     int $mode = 0
-  ): static
+  ): static|IsArr
   {
 
     $this->array = array_filter($this->array, $callback, $mode);
@@ -252,7 +254,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function flip(): static
+  public function flip(): static|IsArr
   {
 
     $this->array = array_flip($this->array);
@@ -263,8 +265,8 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   public function implode(
     string $delimeter = '',
-    Str &$return = null
-  ): static|Str
+    Str|IsStr &$return = null
+  ): static|IsArr|Str|IsStr
   {
 
     $return = new static::$str(string: implode($delimeter, $this->array));
@@ -273,7 +275,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function intersect(array ...$arrays): static
+  public function intersect(array ...$arrays): static|IsArr
   {
 
     $this->array = array_intersect($this->array, ...$arrays);
@@ -282,7 +284,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function intersectassoc(array ...$arrays): static
+  public function intersectassoc(array ...$arrays): static|IsArr
   {
 
     $this->array = array_intersect_assoc($this->array, ...$arrays);
@@ -291,7 +293,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function intersectkey(array ...$arrays): static
+  public function intersectkey(array ...$arrays): static|IsArr
   {
 
     $this->array = array_intersect_key($this->array, ...$arrays);
@@ -303,7 +305,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function intersectuassoc(
     callable $key_compare_func,
     array ...$arrays
-  ): static
+  ): static|IsArr
   {
 
     $arrays[] = $key_compare_func;
@@ -317,7 +319,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function intersectukey(
     callable $key_compare_func,
     array ...$arrays
-  ): static
+  ): static|IsArr
   {
 
     $arrays[] = $key_compare_func;
@@ -328,7 +330,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function islist(bool &$return = null): static|bool
+  public function islist(bool &$return = null): static|IsArr|bool
   {
 
     $return = array_is_list($this->array);
@@ -340,8 +342,8 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function jsonencode(
     int $flags = 0,
     int $depth = 512,
-    Str &$return = null
-  ): static|Str
+    Str|IsStr &$return = null
+  ): static|IsArr|Str|IsStr
   {
 
     $return = new static::$str(string: (string) json_encode($this->array, $flags, $depth));
@@ -350,7 +352,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function key(int|string|null &$return = null): static|int|string|null
+  public function key(int|string|null &$return = null): static|IsArr|int|string|null
   {
 
     $return = key($this->array);
@@ -362,7 +364,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function keys(
     mixed $filter_value = null,
     bool $strict = false
-  ): static
+  ): static|IsArr
   {
 
     $this->array = array_keys($this->array, ...func_get_args());
@@ -374,7 +376,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function keyexists(
     string|int $key,
     bool &$return = null
-  ): static|bool
+  ): static|IsArr|bool
   {
 
     $return = array_key_exists($key, $this->array);
@@ -383,7 +385,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function keyfirst(int|string|null &$return = null): static|int|string|null
+  public function keyfirst(int|string|null &$return = null): static|IsArr|int|string|null
   {
 
     $return = array_key_first($this->array);
@@ -392,7 +394,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function keylast(int|string|null &$return = null): static|int|string|null
+  public function keylast(int|string|null &$return = null): static|IsArr|int|string|null
   {
 
     $return = array_key_last($this->array);
@@ -401,7 +403,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function krsort(int $flags = SORT_REGULAR): static
+  public function krsort(int $flags = SORT_REGULAR): static|IsArr
   {
 
     krsort($this->array, $flags);
@@ -410,7 +412,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function ksort(int $flags = SORT_REGULAR): static
+  public function ksort(int $flags = SORT_REGULAR): static|IsArr
   {
 
     ksort($this->array, $flags);
@@ -422,7 +424,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function map(
     callable $callback = null,
     array ...$arrays
-  ): static
+  ): static|IsArr
   {
 
     $this->array = array_map($callback, $this->array, ...$arrays);
@@ -440,7 +442,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function merge(array ...$arrays): static
+  public function merge(array ...$arrays): static|IsArr
   {
 
     $this->array = array_merge($this->array, ...$arrays);
@@ -449,7 +451,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function mergerecursive(array ...$arrays): static
+  public function mergerecursive(array ...$arrays): static|IsArr
   {
 
     $this->array = array_merge_recursive($this->array, ...$arrays);
@@ -471,7 +473,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     mixed $array1_sort_order = SORT_ASC,
     mixed $array1_sort_flags = SORT_REGULAR,
     mixed ...$rest
-  ): static
+  ): static|IsArr
   {
 
     array_multisort(
@@ -485,7 +487,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function natcasesort(): static
+  public function natcasesort(): static|IsArr
   {
 
     natcasesort($this->array);
@@ -494,7 +496,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function natsort(): static
+  public function natsort(): static|IsArr
   {
 
     natsort($this->array);
@@ -534,7 +536,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function pad(
     int $length,
     mixed $value
-  ): static
+  ): static|IsArr
   {
 
     $this->array = array_pad($this->array, $length, $value);
@@ -552,7 +554,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function prev(): static
+  public function prev(): static|IsArr
   {
 
     prev($this->array);
@@ -566,7 +568,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     string|array $replacement,
     int $limit = -1,
     int &$count = null
-  ): static
+  ): static|IsArr
   {
 
     $this->array = (array) preg_filter(
@@ -584,7 +586,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function preggrep(
     string $pattern,
     int $flags = 0
-  ): static
+  ): static|IsArr
   {
 
     $this->array = (array) preg_grep($pattern, $this->array, $flags);
@@ -598,7 +600,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     string|array $replacement,
     int $limit = -1,
     int &$count = null
-  ): static
+  ): static|IsArr
   {
 
     $this->array = (array) preg_replace(
@@ -619,7 +621,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     int $limit = -1,
     int &$count = null,
     int $flags = 0
-  ): static
+  ): static|IsArr
   {
 
     $this->array = (array) preg_replace_callback(
@@ -640,7 +642,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     int $limit = -1,
     int &$count = null,
     int $flags = 0
-  ): static
+  ): static|IsArr
   {
 
     $this->array = (array) preg_replace_callback_array(
@@ -655,7 +657,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function printr(): static
+  public function printr(): static|IsArr
   {
 
     print_r($this->array);
@@ -664,7 +666,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function product(int|float &$return = null): static|int|float
+  public function product(int|float &$return = null): static|IsArr|int|float
   {
 
     $return = array_product($this->array);
@@ -672,7 +674,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     return func_num_args() ? $this : $return;
   }
 
-  public function push(mixed ...$values): static
+  public function push(mixed ...$values): static|IsArr
   {
 
     array_push($this->array, ...$values);
@@ -684,7 +686,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function rand(
     int $num = 1,
     int|string|array &$return = null
-  ): static|int|string|array
+  ): static|IsArr|int|string|array
   {
 
     $return = array_rand($this->array, $num);
@@ -697,7 +699,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     string|int|float $start,
     string|int|float $end,
     int|float $step = 1
-  ): static
+  ): static|IsArr
   {
     return new static(array: range($start, $end, $step));
   }
@@ -715,7 +717,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function replace(array ...$replacements): static
+  public function replace(array ...$replacements): static|IsArr
   {
 
     $this->array = array_replace($this->array, ...$replacements);
@@ -724,7 +726,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function replacerecursive(array ...$replacements): static
+  public function replacerecursive(array ...$replacements): static|IsArr
   {
 
     $this->array = array_replace_recursive($this->array, ...$replacements);
@@ -733,7 +735,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function reset(): static
+  public function reset(): static|IsArr
   {
 
     reset($this->array);
@@ -747,7 +749,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     return $this->array;
   }
 
-  public function reverse(bool $preserve_keys = false): static
+  public function reverse(bool $preserve_keys = false): static|IsArr
   {
 
     $this->array = array_reverse($this->array, $preserve_keys);
@@ -761,7 +763,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     reset($this->array);
   }
 
-  public function rsort(int $flags = SORT_REGULAR): static
+  public function rsort(int $flags = SORT_REGULAR): static|IsArr
   {
 
     rsort($this->array, $flags);
@@ -774,7 +776,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     mixed $needle,
     bool $strict = false,
     int|string|false &$return = null
-  ): static|int|string|false
+  ): static|IsArr|int|string|false
   {
 
     $return = array_search($needle, $this->array, $strict);
@@ -783,7 +785,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function serialize(string &$return = null): static|string
+  public function serialize(string &$return = null): static|IsArr|string
   {
 
     $return = serialize($this->array);
@@ -801,7 +803,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function shuffle(): static
+  public function shuffle(): static|IsArr
   {
 
     shuffle($this->array);
@@ -814,7 +816,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     int $offset,
     int $length = null,
     bool $preserve_keys = false
-  ): static
+  ): static|IsArr
   {
 
     $this->array = array_slice($this->array, $offset, $length, $preserve_keys);
@@ -823,7 +825,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function sort(): static
+  public function sort(): static|IsArr
   {
 
     sort($this->array);
@@ -836,7 +838,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     int $offset,
     int $length = null,
     mixed $replacement = []
-  ): static
+  ): static|IsArr
   {
 
     array_splice(
@@ -855,7 +857,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     array|string $search,
     array|string $replace,
     int &$count = null
-  ): static
+  ): static|IsArr
   {
 
     $this->array = str_ireplace($search, $replace, $this->array, $count);
@@ -868,7 +870,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     array|string $search,
     array|string $replace,
     int &$count = null
-  ): static
+  ): static|IsArr
   {
 
     $this->array = str_replace($search, $replace, $this->array, $count);
@@ -881,7 +883,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     array|string $replace,
     array|int $offset,
     array|int $length = null
-  ): static
+  ): static|IsArr
   {
 
     $this->array = substr_replace($this->array, $replace, $offset, $length);
@@ -890,7 +892,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function sum(int|float &$return = null): static|int|float
+  public function sum(int|float &$return = null): static|IsArr|int|float
   {
 
     $return = array_sum($this->array);
@@ -899,7 +901,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function uasort(callable $callback): static
+  public function uasort(callable $callback): static|IsArr
   {
 
     uasort($this->array, $callback);
@@ -911,7 +913,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function udiff(
     callable $value_compare_func,
     array ...$arrays
-  ): static
+  ): static|IsArr
   {
 
     $arrays[] = $value_compare_func;
@@ -925,7 +927,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function udiffassoc(
     callable $value_compare_func,
     array ...$arrays
-  ): static
+  ): static|IsArr
   {
 
     $arrays[] = $value_compare_func;
@@ -940,7 +942,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     callable $value_compare_func,
     callable $key_compare_func,
     array ...$arrays
-  ): static
+  ): static|IsArr
   {
 
     $arrays[] = $value_compare_func;
@@ -955,7 +957,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function uintersect(
     callable $value_compare_func,
     array ...$arrays
-  ): static
+  ): static|IsArr
   {
 
     $arrays[] = $value_compare_func;
@@ -966,7 +968,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function uksort(callable $callback): static
+  public function uksort(callable $callback): static|IsArr
   {
 
     uksort($this->array, $callback);
@@ -975,7 +977,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function usort(callable $callback): static
+  public function usort(callable $callback): static|IsArr
   {
 
     usort($this->array, $callback);
@@ -984,7 +986,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function unique(int $flags = SORT_STRING): static
+  public function unique(int $flags = SORT_STRING): static|IsArr
   {
 
     $this->array = array_unique($this->array, $flags);
@@ -993,7 +995,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function unserialize(string $data): static
+  public function unserialize(string $data): static|IsArr
   {
 
     $this->array = (array) unserialize($data);
@@ -1002,7 +1004,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function unshift(mixed ...$values): static
+  public function unshift(mixed ...$values): static|IsArr
   {
 
     array_unshift($this->array, ...$values);
@@ -1016,7 +1018,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     return null !== key($this->array);
   }
 
-  public function values(): static
+  public function values(): static|IsArr
   {
 
     $this->array = array_values($this->array);
@@ -1025,7 +1027,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
 
   }
 
-  public function vardump(): static
+  public function vardump(): static|IsArr
   {
 
     var_dump($this->array);
@@ -1037,7 +1039,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function uintersectassoc(
     callable $value_compare_func,
     array ...$arrays
-  ): static
+  ): static|IsArr
   {
 
     $arrays[] = $value_compare_func;
@@ -1052,7 +1054,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
     callable $value_compare_func,
     callable $key_compare_func,
     array ...$arrays
-  ): static
+  ): static|IsArr
   {
 
     $arrays[] = $value_compare_func;
@@ -1067,7 +1069,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function walk(
     callable $callback,
     mixed $arg = null
-  ): static
+  ): static|IsArr
   {
 
     array_walk($this->array, $callback, $arg);
@@ -1079,7 +1081,7 @@ class Arr implements ArrayAccess, Countable, Iterator, Serializable
   public function walkrecursive(
     callable $callback,
     mixed $arg = null
-  ): static
+  ): static|IsArr
   {
 
     array_walk_recursive($this->array, $callback, $arg);
