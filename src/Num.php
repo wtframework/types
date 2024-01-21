@@ -29,16 +29,17 @@ use WTFramework\Types\Traits\Num\Extract;
 use WTFramework\Types\Traits\Num\FDiv;
 use WTFramework\Types\Traits\Num\Floor;
 use WTFramework\Types\Traits\Num\FMod;
-use WTFramework\Types\Traits\Num\Get;
 use WTFramework\Types\Traits\Num\Hypot;
 use WTFramework\Types\Traits\Num\IntDiv;
-use WTFramework\Types\Traits\Num\Invoke;
 use WTFramework\Types\Traits\Num\IsFinite;
 use WTFramework\Types\Traits\Num\IsInfinite;
 use WTFramework\Types\Traits\Num\IsNaN;
 use WTFramework\Types\Traits\Num\Log;
 use WTFramework\Types\Traits\Num\Log10;
 use WTFramework\Types\Traits\Num\Log1P;
+use WTFramework\Types\Traits\Num\MagicGet;
+use WTFramework\Types\Traits\Num\MagicInvoke;
+use WTFramework\Types\Traits\Num\MagicToString;
 use WTFramework\Types\Traits\Num\Max;
 use WTFramework\Types\Traits\Num\Min;
 use WTFramework\Types\Traits\Num\NumEcho;
@@ -54,7 +55,6 @@ use WTFramework\Types\Traits\Num\Sinh;
 use WTFramework\Types\Traits\Num\Sqrt;
 use WTFramework\Types\Traits\Num\Tan;
 use WTFramework\Types\Traits\Num\Tanh;
-use WTFramework\Types\Traits\Num\ToString;
 
 class Num implements IsNum, Stringable
 {
@@ -81,16 +81,17 @@ class Num implements IsNum, Stringable
   use FDiv;
   use Floor;
   use FMod;
-  use Get;
   use Hypot;
   use IntDiv;
-  use Invoke;
   use IsFinite;
   use IsInfinite;
   use IsNaN;
   use Log;
   use Log10;
   use Log1P;
+  use MagicGet;
+  use MagicInvoke;
+  use MagicToString;
   use Max;
   use Min;
   use NumEcho;
@@ -106,5 +107,4 @@ class Num implements IsNum, Stringable
   use Sqrt;
   use Tan;
   use Tanh;
-  use ToString;
 }

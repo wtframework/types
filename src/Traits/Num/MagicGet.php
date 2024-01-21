@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace WTFramework\Types\Traits\Num;
 
-trait Get
+trait MagicGet
 {
 
   public function __get(string $name): mixed

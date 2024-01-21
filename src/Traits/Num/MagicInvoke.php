@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace WTFramework\Types\Traits\Num;
 
-trait ToString
+trait MagicInvoke
 {
 
-  public function __toString(): string
+  public function __invoke(): int|float
   {
-    return (string) $this->num;
+    return $this->num;
   }
 
 }
