@@ -7,1759 +7,295 @@ namespace WTFramework\Types;
 use Stringable;
 use WTFramework\Types\Interfaces\IsArr;
 use WTFramework\Types\Interfaces\IsStr;
+use WTFramework\Types\Traits\Str\AddCSlashes;
+use WTFramework\Types\Traits\Str\AddSlashes;
+use WTFramework\Types\Traits\Str\Arr;
+use WTFramework\Types\Traits\Str\Base64Decode;
+use WTFramework\Types\Traits\Str\Base64Encode;
+use WTFramework\Types\Traits\Str\BaseConvert;
+use WTFramework\Types\Traits\Str\Bin2Hex;
+use WTFramework\Types\Traits\Str\CaseCmp;
+use WTFramework\Types\Traits\Str\ChunkSplit;
+use WTFramework\Types\Traits\Str\Cmp;
+use WTFramework\Types\Traits\Str\Coll;
+use WTFramework\Types\Traits\Str\Construct;
+use WTFramework\Types\Traits\Str\Contains;
+use WTFramework\Types\Traits\Str\ConvertUUDecode;
+use WTFramework\Types\Traits\Str\ConvertUUEncode;
+use WTFramework\Types\Traits\Str\CountChars;
+use WTFramework\Types\Traits\Str\CRC32;
+use WTFramework\Types\Traits\Str\Crypt;
+use WTFramework\Types\Traits\Str\CSpn;
+use WTFramework\Types\Traits\Str\EndsWith;
+use WTFramework\Types\Traits\Str\Explode;
+use WTFramework\Types\Traits\Str\Extract;
+use WTFramework\Types\Traits\Str\GetCSV;
+use WTFramework\Types\Traits\Str\Hebrev;
+use WTFramework\Types\Traits\Str\Hex2Bin;
+use WTFramework\Types\Traits\Str\HexDec;
+use WTFramework\Types\Traits\Str\HTMLEntities;
+use WTFramework\Types\Traits\Str\HTMLEntityDecode;
+use WTFramework\Types\Traits\Str\HTMLSpecialChars;
+use WTFramework\Types\Traits\Str\HTMLSpecialCharsDecode;
+use WTFramework\Types\Traits\Str\HTTPBuildQuery;
+use WTFramework\Types\Traits\Str\IPos;
+use WTFramework\Types\Traits\Str\IReplace;
+use WTFramework\Types\Traits\Str\IStr;
+use WTFramework\Types\Traits\Str\JSONDecode;
+use WTFramework\Types\Traits\Str\LCFirst;
+use WTFramework\Types\Traits\Str\Len;
+use WTFramework\Types\Traits\Str\Levenshtein;
+use WTFramework\Types\Traits\Str\LTrim;
+use WTFramework\Types\Traits\Str\MagicGet;
+use WTFramework\Types\Traits\Str\MagicInvoke;
+use WTFramework\Types\Traits\Str\MagicToString;
+use WTFramework\Types\Traits\Str\MBCheckEncoding;
+use WTFramework\Types\Traits\Str\MBConvertCase;
+use WTFramework\Types\Traits\Str\MBConvertEncoding;
+use WTFramework\Types\Traits\Str\MBConvertKana;
+use WTFramework\Types\Traits\Str\MBCut;
+use WTFramework\Types\Traits\Str\MBDecodeMIMEHeader;
+use WTFramework\Types\Traits\Str\MBDecodeNumericEntity;
+use WTFramework\Types\Traits\Str\MBDetectEncoding;
+use WTFramework\Types\Traits\Str\MBEncodeMIMEHeader;
+use WTFramework\Types\Traits\Str\MBEncodeNumericEntity;
+use WTFramework\Types\Traits\Str\MBEReg;
+use WTFramework\Types\Traits\Str\MBERegI;
+use WTFramework\Types\Traits\Str\MBERegIReplace;
+use WTFramework\Types\Traits\Str\MBERegMatch;
+use WTFramework\Types\Traits\Str\MBERegReplace;
+use WTFramework\Types\Traits\Str\MBERegReplaceCallback;
+use WTFramework\Types\Traits\Str\MBIPos;
+use WTFramework\Types\Traits\Str\MBIStr;
+use WTFramework\Types\Traits\Str\MBLen;
+use WTFramework\Types\Traits\Str\MBParse;
+use WTFramework\Types\Traits\Str\MBPos;
+use WTFramework\Types\Traits\Str\MBRChr;
+use WTFramework\Types\Traits\Str\MBRIChr;
+use WTFramework\Types\Traits\Str\MBRIPos;
+use WTFramework\Types\Traits\Str\MBRPos;
+use WTFramework\Types\Traits\Str\MBScrub;
+use WTFramework\Types\Traits\Str\MBSplit;
+use WTFramework\Types\Traits\Str\MBStr;
+use WTFramework\Types\Traits\Str\MBStrimWidth;
+use WTFramework\Types\Traits\Str\MBStrSplit;
+use WTFramework\Types\Traits\Str\MBSubstr;
+use WTFramework\Types\Traits\Str\MBSubstrCount;
+use WTFramework\Types\Traits\Str\MBToLower;
+use WTFramework\Types\Traits\Str\MBToUpper;
+use WTFramework\Types\Traits\Str\MBWidth;
+use WTFramework\Types\Traits\Str\MD5;
+use WTFramework\Types\Traits\Str\Metaphone;
+use WTFramework\Types\Traits\Str\NatCaseCmp;
+use WTFramework\Types\Traits\Str\NatCmp;
+use WTFramework\Types\Traits\Str\NCaseCmp;
+use WTFramework\Types\Traits\Str\NCmp;
+use WTFramework\Types\Traits\Str\NL2BR;
+use WTFramework\Types\Traits\Str\Pad;
+use WTFramework\Types\Traits\Str\Parse;
+use WTFramework\Types\Traits\Str\ParseURL;
+use WTFramework\Types\Traits\Str\PBrk;
+use WTFramework\Types\Traits\Str\Pos;
+use WTFramework\Types\Traits\Str\PRegFilter;
+use WTFramework\Types\Traits\Str\PRegMatch;
+use WTFramework\Types\Traits\Str\PRegMatchAll;
+use WTFramework\Types\Traits\Str\PRegQuote;
+use WTFramework\Types\Traits\Str\PRegReplace;
+use WTFramework\Types\Traits\Str\PRegReplaceCallback;
+use WTFramework\Types\Traits\Str\PRegReplaceCallbackArray;
+use WTFramework\Types\Traits\Str\PRegSplit;
+use WTFramework\Types\Traits\Str\QuoteMeta;
+use WTFramework\Types\Traits\Str\QuotesPrintableDecode;
+use WTFramework\Types\Traits\Str\QuotesPrintableEncode;
+use WTFramework\Types\Traits\Str\RawURLDecode;
+use WTFramework\Types\Traits\Str\RawURLEncode;
+use WTFramework\Types\Traits\Str\RChr;
+use WTFramework\Types\Traits\Str\Repeat;
+use WTFramework\Types\Traits\Str\Replace;
+use WTFramework\Types\Traits\Str\Rev;
+use WTFramework\Types\Traits\Str\RIPos;
+use WTFramework\Types\Traits\Str\ROT13;
+use WTFramework\Types\Traits\Str\RPos;
+use WTFramework\Types\Traits\Str\RTrim;
+use WTFramework\Types\Traits\Str\Serialize;
+use WTFramework\Types\Traits\Str\SHA1;
+use WTFramework\Types\Traits\Str\Shuffle;
+use WTFramework\Types\Traits\Str\SimilarText;
+use WTFramework\Types\Traits\Str\Soundex;
+use WTFramework\Types\Traits\Str\Split;
+use WTFramework\Types\Traits\Str\Spn;
+use WTFramework\Types\Traits\Str\SPrintF;
+use WTFramework\Types\Traits\Str\SScanF;
+use WTFramework\Types\Traits\Str\StartsWith;
+use WTFramework\Types\Traits\Str\Str as StrStr;
+use WTFramework\Types\Traits\Str\StrEcho;
+use WTFramework\Types\Traits\Str\StripCSlashes;
+use WTFramework\Types\Traits\Str\StripSlashes;
+use WTFramework\Types\Traits\Str\StripTags;
+use WTFramework\Types\Traits\Str\StrNew;
+use WTFramework\Types\Traits\Str\StrReturn;
+use WTFramework\Types\Traits\Str\Substr;
+use WTFramework\Types\Traits\Str\SubstrCompare;
+use WTFramework\Types\Traits\Str\SubstrCount;
+use WTFramework\Types\Traits\Str\SubstrReplace;
+use WTFramework\Types\Traits\Str\Tok;
+use WTFramework\Types\Traits\Str\ToLower;
+use WTFramework\Types\Traits\Str\ToUpper;
+use WTFramework\Types\Traits\Str\Tr;
+use WTFramework\Types\Traits\Str\Trim;
+use WTFramework\Types\Traits\Str\UCFirst;
+use WTFramework\Types\Traits\Str\UCWords;
+use WTFramework\Types\Traits\Str\Unserialize;
+use WTFramework\Types\Traits\Str\URLDecode;
+use WTFramework\Types\Traits\Str\URLEncode;
+use WTFramework\Types\Traits\Str\VSPrintF;
+use WTFramework\Types\Traits\Str\WordCount;
+use WTFramework\Types\Traits\Str\WordWrap;
 
 class Str implements IsStr, Stringable
 {
-
-  protected static string $arr = Arr::class;
-
-  public function __construct(protected string $string = '') {}
-
-  public static function new(string $string = ''): static|IsStr
-  {
-    return new static(string: $string);
-  }
-
-  public static function arr(string $arr): void
-  {
-    static::$arr = $arr;
-  }
-
-  public function addcslashes(string $characters): static|IsStr
-  {
-
-    $this->string = addcslashes($this->string, $characters);
-
-    return $this;
-
-  }
-
-  public function addslashes(): static|IsStr
-  {
-
-    $this->string = addslashes($this->string);
-
-    return $this;
-
-  }
-
-  public function base64decode(bool $strict = false): static|IsStr
-  {
-
-    $this->string = (string) base64_decode($this->string, $strict);
-
-    return $this;
-
-  }
-
-  public function base64encode(): static|IsStr
-  {
-
-    $this->string = base64_encode($this->string);
-
-    return $this;
-
-  }
-
-  public function baseconvert(
-    int $from_base,
-    int $to_base
-  ): static|IsStr
-  {
-
-    $this->string = base_convert($this->string, $from_base, $to_base);
-
-    return $this;
-
-  }
-
-  public function bin2hex(): static|IsStr
-  {
-
-    $this->string = bin2hex($this->string);
-
-    return $this;
-
-  }
-
-  public function casecmp(
-    string $string,
-    int &$return = null
-  ): static|IsStr|int
-  {
-
-    $return = strcasecmp($this->string, $string);
-
-    return 2 === func_num_args() ? $this : $return;
-
-  }
-
-  public function chunksplit(
-    int $length = 76,
-    string $separator = "\r\n"
-  ): static|IsStr
-  {
-
-    $this->string = chunk_split($this->string, $length, $separator);
-
-    return $this;
-
-  }
-
-  public function cmp(
-    string $string,
-    int &$return = null
-  ): static|IsStr|int
-  {
-
-    $return = strcmp($this->string, $string);
-
-    return 2 === func_num_args() ? $this : $return;
-
-  }
-
-  public function coll(
-    string $string,
-    int &$return = null
-  ): static|IsStr|int
-  {
-
-    $return = strcoll($this->string, $string);
-
-    return 2 === func_num_args() ? $this : $return;
-
-  }
-
-  public function convertuudecode(): static|IsStr
-  {
-
-    $this->string = (string) convert_uudecode($this->string);
-
-    return $this;
-
-  }
-
-  public function convertuuencode(): static|IsStr
-  {
-
-    $this->string = convert_uuencode($this->string);
-
-    return $this;
-
-  }
-
-  public function contains(
-    string $needle,
-    bool &$return = null
-  ): static|IsStr|bool
-  {
-
-    $return = str_contains($this->string, $needle);
-
-    return 2 === func_num_args() ? $this : $return;
-
-  }
-
-  public function cspn(
-    string $characters,
-    int $offset = 0,
-    int $length = null,
-    int &$return = null
-  ): static|IsStr|int
-  {
-
-    $return = strcspn($this->string, $characters, $offset, $length);
-
-    return 4 === func_num_args() ? $this : $return;
-
-  }
-
-  public function countchars(
-    int $mode = 0,
-    Arr|IsArr &$return = null
-  ): static|IsStr|Arr|IsArr
-  {
-
-    if (is_array($result = count_chars($this->string, $mode)))
-    {
-
-      $return = new static::$arr(array: $result);
-
-      return 2 === func_num_args() ? $this : $return;
-
-    }
-
-    $this->string = $result;
-
-    return $this;
-
-  }
-
-  public function crc32(int &$return = null): static|IsStr|int
-  {
-
-    $return = crc32($this->string);
-
-    return func_num_args() ? $this : $return;
-
-  }
-
-  public function crypt(string $salt): static|IsStr
-  {
-
-    $this->string = crypt($this->string, $salt);
-
-    return $this;
-
-  }
-
-  public function echo(
-    string $prefix = '',
-    string $suffix = ''
-  ): static|IsStr
-  {
-
-    echo "$prefix$this->string$suffix";
-
-    return $this;
-
-  }
-
-  public function endswith(
-    string $needle,
-    bool &$return = null
-  ): static|IsStr|bool
-  {
-
-    $return = str_ends_with($this->string, $needle);
-
-    return 2 === func_num_args() ? $this : $return;
-
-  }
-
-  public function explode(
-    string $delimeter,
-    int $limit = PHP_INT_MAX,
-    Arr|IsArr &$return = null
-  ): static|IsStr|Arr|IsArr
-  {
-
-    $return = new static::$arr(array: explode($delimeter, $this->string, $limit));
-
-    return 3 === func_num_args() ? $this : $return;
-
-  }
-
-  public function extract(?self &$var): static|IsStr
-  {
-
-    $var = clone $this;
-
-    return $this;
-
-  }
-
-  public function getcsv(
-    string $separator = ',',
-    string $enclosure = '"',
-    string $escape = '\\',
-    Arr|IsArr &$return = null
-  ): static|IsStr|Arr|IsArr
-  {
-
-    $return = new static::$arr(array: str_getcsv(
-      $this->string,
-      $separator,
-      $enclosure,
-      $escape
-    ));
-
-    return 4 === func_num_args() ? $this : $return;
-
-  }
-
-  public function hebrev(int $max_chars_per_line = 0): static|IsStr
-  {
-
-    $this->string = hebrev($this->string, $max_chars_per_line);
-
-    return $this;
-
-  }
-
-  public function hex2bin(): static|IsStr
-  {
-
-    $this->string = (string) hex2bin($this->string);
-
-    return $this;
-
-  }
-
-  public function hexdec(Num &$return = null): static|IsStr|Num
-  {
-
-    $return = new Num(num: hexdec($this->string));
-
-    return func_num_args() ? $this : $return;
-
-  }
-
-  public static function httpbuildquery(
-    array|object $data,
-    string $numeric_prefix = '',
-    string $arg_separator = null,
-    int $encoding_type = PHP_QUERY_RFC1738
-  ): static|IsStr
-  {
-
-    return new static(string: http_build_query(
-      $data,
-      $numeric_prefix,
-      $arg_separator,
-      $encoding_type
-    ));
-
-  }
-
-  public function htmlentities(
-    int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401,
-    string $encoding = null,
-    bool $double_encode = true
-  ): static|IsStr
-  {
-
-    $this->string = htmlentities(
-      $this->string,
-      $flags,
-      $encoding,
-      $double_encode
-    );
-
-    return $this;
-
-  }
-
-  public function htmlentitydecode(
-    int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401,
-    string $encoding = null
-  ): static|IsStr
-  {
-
-    $this->string = html_entity_decode($this->string, $flags, $encoding);
-
-    return $this;
-
-  }
-
-  public function htmlspecialchars(
-    int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401,
-    string $encoding = null,
-    bool $double_encode = true
-  ): static|IsStr
-  {
-
-    $this->string = htmlspecialchars(
-      $this->string,
-      $flags,
-      $encoding,
-      $double_encode
-    );
-
-    return $this;
-
-  }
-
-  public function htmlspecialcharsdecode(
-    int $flags = ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401
-  ): static|IsStr
-  {
-
-    $this->string = htmlspecialchars_decode($this->string, $flags);
-
-    return $this;
-
-  }
-
-  public function ipos(
-    string $needle,
-    int $offset = 0,
-    int|false &$return = null
-  ): static|IsStr|int|false
-  {
-
-    $return = stripos($this->string, $needle, $offset);
-
-    return 3 === func_num_args() ? $this : $return;
-
-  }
-
-  public function ireplace(
-    array|string $search,
-    array|string $replace,
-    int &$count = null
-  ): static|IsStr
-  {
-
-    $this->string = str_ireplace($search, $replace, $this->string, $count);
-
-    return $this;
-
-  }
-
-  public function istr(
-    string $needle,
-    bool $before_needle = false
-  ): static|IsStr
-  {
-
-    $this->string = (string) stristr($this->string, $needle, $before_needle);
-
-    return $this;
-
-  }
-
-  public function jsondecode(
-    bool $associative = null,
-    int $depth = 512,
-    int $flags = 0,
-    mixed &$return = null
-  ): mixed
-  {
-
-    $result = json_decode($this->string, $associative, $depth, $flags);
-
-    $return = is_array($result) ? new static::$arr(array: $result) : $result;
-
-    return 4 === func_num_args() ? $this : $return;
-
-  }
-
-  public function lcfirst(): static|IsStr
-  {
-
-    $this->string = lcfirst($this->string);
-
-    return $this;
-
-  }
-
-  public function len(int &$return = null): static|IsStr|int
-  {
-
-    $return = strlen($this->string);
-
-    return func_num_args() ? $this : $return;
-
-  }
-
-  public function levenshtein(
-    string $string,
-    int $insertion_cost = 1,
-    int $replacement_cost = 1,
-    int $deletion_cost = 1,
-    int &$return = null
-  ): static|IsStr|int
-  {
-
-    $return = levenshtein(
-      $this->string,
-      $string,
-      $insertion_cost,
-      $replacement_cost,
-      $deletion_cost
-    );
-
-    return 5 === func_num_args() ? $this : $return;
-
-  }
-
-  public function ltrim(string $characters = " \n\r\t\v\x00"): static|IsStr
-  {
-
-    $this->string = ltrim($this->string, $characters);
-
-    return $this;
-
-  }
-
-  public function mbcheckencoding(
-    string $encoding = null,
-    bool &$return = null
-  ): static|IsStr|bool
-  {
-
-    $return = mb_check_encoding($this->string, $encoding);
-
-    return 2 === func_num_args() ? $this : $return;
-
-  }
-
-  public function mbconvertcase(
-    int $mode,
-    string $encoding = null
-  ): static|IsStr
-  {
-
-    $this->string = mb_convert_case($this->string, $mode, $encoding);
-
-    return $this;
-
-  }
-
-  public function mbconvertencoding(
-    string $to_encoding,
-    string|array $from_encoding = null
-  ): static|IsStr
-  {
-
-    $this->string = mb_convert_encoding(
-      $this->string,
-      $to_encoding,
-      $from_encoding
-    );
-
-    return $this;
-
-  }
-
-  public function mbconvertkana(
-    string $mode = 'KV',
-    string $encoding = null
-  ): static|IsStr
-  {
-
-    $this->string = mb_convert_kana($this->string, $mode, $encoding);
-
-    return $this;
-
-  }
-
-  public function mbcut(
-    int $start,
-    int $length = null,
-    string $encoding = null
-  ): static|IsStr
-  {
-
-    $this->string = mb_strcut($this->string, $start, $length, $encoding);
-
-    return $this;
-
-  }
-
-  public function mbdecodemimeheader(): static|IsStr
-  {
-
-    $this->string = mb_decode_mimeheader($this->string);
-
-    return $this;
-
-  }
-
-  public function mbdecodenumericentity(
-    array $map,
-    string $encoding = null
-  ): static|IsStr
-  {
-
-    $this->string = mb_decode_numericentity($this->string, $map, $encoding);
-
-    return $this;
-
-  }
-
-  public function mbdetectencoding(
-    array|string $encodings = null,
-    bool $strict = false,
-    string|false &$return = null
-  ): static|IsStr|string|false
-  {
-
-    $return = mb_detect_encoding($this->string, $encodings, $strict);
-
-    return 3 === func_num_args() ? $this : $return;
-
-  }
-
-  public function mbencodemimeheader(
-    string $charset = 'utf-8',
-    string $transfer_encoding = 'B',
-    string $newline = "\r\n",
-    int $indent = 0
-  ): static|IsStr
-  {
-
-    $this->string = mb_encode_mimeheader(
-      $this->string,
-      $charset,
-      $transfer_encoding,
-      $newline,
-      $indent
-    );
-
-    return $this;
-
-  }
-
-  public function mbencodenumericentity(
-    array $map,
-    string $encoding = null,
-    bool $hex = false
-  ): static|IsStr
-  {
-
-    $this->string = mb_encode_numericentity(
-      $this->string,
-      $map,
-      $encoding,
-      $hex
-    );
-
-    return $this;
-
-  }
-
-  public function mbereg(
-    string $pattern,
-    array &$matches = null,
-    bool &$return = null
-  ): static|IsStr|bool
-  {
-
-    $return = mb_ereg($pattern, $this->string, $matches);
-
-    return 3 === func_num_args() ? $this : $return;
-
-  }
-
-  public function mberegi(
-    string $pattern,
-    array &$matches = null,
-    bool &$return = null
-  ): static|IsStr|bool
-  {
-
-    $return = mb_eregi($pattern, $this->string, $matches);
-
-    return 3 === func_num_args() ? $this : $return;
-
-  }
-
-  public function mberegireplace(
-    string $pattern,
-    string $replacement,
-    string $options = null
-  ): static|IsStr
-  {
-
-    $this->string = (string) mb_eregi_replace(
-      $pattern,
-      $replacement,
-      $this->string,
-      $options
-    );
-
-    return $this;
-
-  }
-
-  public function mberegmatch(
-    string $pattern,
-    string $options = null,
-    bool &$return = null
-  ): static|IsStr|bool
-  {
-
-    $return = mb_ereg_match($pattern, $this->string, $options);
-
-    return 3 === func_num_args() ? $this : $return;
-
-  }
-
-  public function mberegreplace(
-    string $pattern,
-    string $replacement,
-    string $options = null
-  ): static|IsStr
-  {
-
-    $this->string = (string) mb_ereg_replace(
-      $pattern,
-      $replacement,
-      $this->string,
-      $options
-    );
-
-    return $this;
-
-  }
-
-  public function mberegreplacecallback(
-    string $pattern,
-    callable $callback,
-    string $options = null
-  ): static|IsStr
-  {
-
-    $this->string = (string) mb_ereg_replace_callback(
-      $pattern,
-      $callback,
-      $this->string,
-      $options
-    );
-
-    return $this;
-
-  }
-
-  public function mbparse(?array &$result): static|IsStr
-  {
-
-    mb_parse_str($this->string, $result);
-
-    return $this;
-
-  }
-
-  public function mbipos(
-    string $needle,
-    int $offset = 0,
-    string $encoding = null,
-    int|false &$return = null
-  ): static|IsStr|int|false
-  {
-
-    $return = mb_stripos($this->string, $needle, $offset, $encoding);
-
-    return 4 === func_num_args() ? $this : $return;
-
-  }
-
-  public function mbistr(
-    string $needle,
-    bool $before_needle = false,
-    string $encoding = null
-  ): static|IsStr
-  {
-
-    $this->string = (string) mb_stristr(
-      $this->string,
-      $needle,
-      $before_needle,
-      $encoding
-    );
-
-    return $this;
-
-  }
-
-  public function mblen(
-    string $encoding = null,
-    int &$return = null
-  ): static|IsStr|int
-  {
-
-    $return = mb_strlen($this->string, $encoding);
-
-    return 2 === func_num_args() ? $this : $return;
-
-  }
-
-  public function mbpos(
-    string $needle,
-    int $offset = 0,
-    string $encoding = null,
-    int|false &$return = null
-  ): static|IsStr|int|false
-  {
-
-    $return = mb_strpos($this->string, $needle, $offset, $encoding);
-
-    return 4 === func_num_args() ? $this : $return;
-
-  }
-
-  public function mbrchr(
-    string $needle,
-    bool $before_needle = false,
-    string $encoding = null
-  ): static|IsStr
-  {
-
-    $this->string = (string) mb_strrchr(
-      $this->string,
-      $needle,
-      $before_needle,
-      $encoding
-    );
-
-    return $this;
-
-  }
-
-  public function mbrichr(
-    string $needle,
-    bool $before_needle = false,
-    string $encoding = null
-  ): static|IsStr
-  {
-
-    $this->string = (string) mb_strrichr(
-      $this->string,
-      $needle,
-      $before_needle,
-      $encoding
-    );
-
-    return $this;
-
-  }
-
-  public function mbripos(
-    string $needle,
-    int $offset = 0,
-    string $encoding = null,
-    int|false &$return = null
-  ): static|IsStr|int|false
-  {
-
-    $return = mb_strripos($this->string, $needle, $offset, $encoding);
-
-    return 4 === func_num_args() ? $this : $return;
-
-  }
-
-  public function mbrpos(
-    string $needle,
-    int $offset = 0,
-    string $encoding = null,
-    int|false &$return = null
-  ): static|IsStr|int|false
-  {
-
-    $return = mb_strrpos($this->string, $needle, $offset, $encoding);
-
-    return 4 === func_num_args() ? $this : $return;
-
-  }
-
-  public function mbscrub(string $encoding = null): static|IsStr
-  {
-
-    $this->string = mb_scrub($this->string, $encoding);
-
-    return $this;
-
-  }
-
-  public function mbsplit(
-    string $pattern,
-    int $limit = -1,
-    Arr|IsArr &$return = null
-  ): static|IsStr|Arr|IsArr
-  {
-
-    $return = new static::$arr(array: (array) mb_split($pattern, $this->string, $limit));
-
-    return 3 === func_num_args() ? $this : $return;
-
-  }
-
-  public function mbstr(
-    string $needle,
-    bool $before_needle = false,
-    string $encoding = null
-  ): static|IsStr
-  {
-
-    $this->string = (string) mb_strstr(
-      $this->string,
-      $needle,
-      $before_needle,
-      $encoding
-    );
-
-    return $this;
-
-  }
-
-  public function mbstrimwidth(
-    int $start,
-    int $width,
-    string $trim_marker = '',
-    string $encoding = null
-  ): static|IsStr
-  {
-
-    $this->string = mb_strimwidth(
-      $this->string,
-      $start,
-      $width,
-      $trim_marker,
-      $encoding
-    );
-
-    return $this;
-
-  }
-
-  public function mbstrsplit(
-    int $limit = 1,
-    string $encoding = null,
-    Arr|IsArr &$return = null
-  ): static|IsStr|Arr|IsArr
-  {
-
-    $return = new static::$arr(array: mb_str_split($this->string, $limit, $encoding));
-
-    return 3 === func_num_args() ? $this : $return;
-
-  }
-
-  public function mbsubstr(
-    int $start,
-    int $length = null,
-    string $encoding = null
-  ): static|IsStr
-  {
-
-    $this->string = mb_substr($this->string, $start, $length, $encoding);
-
-    return $this;
-
-  }
-
-  public function mbsubstrcount(
-    string $needle,
-    string $encoding = null,
-    int &$return = null
-  ): static|IsStr|int
-  {
-
-    $return = mb_substr_count($this->string, $needle, $encoding);
-
-    return 3 === func_num_args() ? $this : $return;
-
-  }
-
-  public function mbtolower(string $encoding = null): static|IsStr
-  {
-
-    $this->string = mb_strtolower($this->string, $encoding);
-
-    return $this;
-
-  }
-
-  public function mbtoupper(string $encoding = null): static|IsStr
-  {
-
-    $this->string = mb_strtoupper($this->string, $encoding);
-
-    return $this;
-
-  }
-
-  public function mbwidth(
-    string $encoding = null,
-    int &$return = null
-  ): static|IsStr|int
-  {
-
-    $return = mb_strwidth($this->string, $encoding);
-
-    return 2 === func_num_args() ? $this : $return;
-
-  }
-
-  public function md5(bool $binary = false): static|IsStr
-  {
-
-    $this->string = md5($this->string, $binary);
-
-    return $this;
-
-  }
-
-  public function metaphone(int $max_phonemes = 0): static|IsStr
-  {
-
-    $this->string = metaphone($this->string, $max_phonemes);
-
-    return $this;
-
-  }
-
-  public function natcmp(
-    string $string,
-    int &$return = null
-  ): static|IsStr|int
-  {
-
-    $return = strnatcmp($this->string, $string);
-
-    return 2 === func_num_args() ? $this : $return;
-
-  }
-
-  public function natcasecmp(
-    string $string,
-    int &$return = null
-  ): static|IsStr|int
-  {
-
-    $return = strnatcasecmp($this->string, $string);
-
-    return 2 === func_num_args() ? $this : $return;
-
-  }
-
-  public function ncasecmp(
-    string $string,
-    int $length,
-    int &$return = null
-  ): static|IsStr|int
-  {
-
-    $return = strncasecmp($this->string, $string, $length);
-
-    return 3 === func_num_args() ? $this : $return;
-
-  }
-
-  public function ncmp(
-    string $string,
-    int $length,
-    int &$return = null
-  ): static|IsStr|int
-  {
-
-    $return = strncmp($this->string, $string, $length);
-
-    return 3 === func_num_args() ? $this : $return;
-
-  }
-
-  public function nl2br(bool $use_xhtml = true): static|IsStr
-  {
-
-    $this->string = nl2br($this->string, $use_xhtml);
-
-    return $this;
-
-  }
-
-  public function pad(
-    int $length,
-    string $pad_string = ' ',
-    int $pad_type = STR_PAD_RIGHT
-  ): static|IsStr
-  {
-
-    $this->string = str_pad($this->string, $length, $pad_string, $pad_type);
-
-    return $this;
-
-  }
-
-  public function parse(?array &$result): static|IsStr
-  {
-
-    parse_str($this->string, $result);
-
-    return $this;
-
-  }
-
-  public function parseurl(
-    int $component = -1,
-    Arr|IsArr|int|null|false &$return = null
-  ): static|IsStr|Arr|IsArr|int|null|false
-  {
-
-    if (!is_string($result = parse_url($this->string, $component)))
-    {
-
-      $return = is_array($result) ? new static::$arr(array: $result) : $result;
-
-      return 2 === func_num_args() ? $this : $return;
-
-    }
-
-    $this->string = $result;
-
-    return $this;
-
-  }
-
-  public function pbrk(string $characters): static|IsStr
-  {
-
-    $this->string = (string) strpbrk($this->string, $characters);
-
-    return $this;
-
-  }
-
-  public function pos(
-    string $needle,
-    int $offset = 0,
-    int|false &$return = null
-  ): static|IsStr|int|false
-  {
-
-    $return = strpos($this->string, $needle, $offset);
-
-    return 3 === func_num_args() ? $this : $return;
-
-  }
-
-  public function pregfilter(
-    string|array $pattern,
-    string|array $replacement,
-    int $limit = -1,
-    int &$count = null
-  ): static|IsStr
-  {
-
-    $this->string = (string) preg_filter(
-      $pattern,
-      $replacement,
-      $this->string,
-      $limit,
-      $count
-    );
-
-    return $this;
-
-  }
-
-  public function pregmatch(
-    string $pattern,
-    array &$matches = null,
-    int $flags = 0,
-    int $offset = 0,
-    int|false &$return = null
-  ): static|IsStr|int|false
-  {
-
-    $return = preg_match(
-      $pattern,
-      $this->string,
-      $matches,
-      $flags,
-      $offset
-    );
-
-    return 5 === func_num_args() ? $this : $return;
-
-  }
-
-  public function pregmatchall(
-    string $pattern,
-    array &$matches = null,
-    int $flags = 0,
-    int $offset = 0,
-    int|false &$return = null
-  ): static|IsStr|int|false
-  {
-
-    $return = preg_match_all(
-      $pattern,
-      $this->string,
-      $matches,
-      $flags,
-      $offset
-    );
-
-    return 5 === func_num_args() ? $this : $return;
-
-  }
-
-  public function pregquote(string $delimeter = null): static|IsStr
-  {
-
-    $this->string = preg_quote($this->string, $delimeter);
-
-    return $this;
-
-  }
-
-  public function pregreplace(
-    string|array $pattern,
-    string|array $replacement,
-    int $limit = -1,
-    int &$count = null
-  ): static|IsStr
-  {
-
-    $this->string = (string) preg_replace(
-      $pattern,
-      $replacement,
-      $this->string,
-      $limit,
-      $count
-    );
-
-    return $this;
-
-  }
-
-  public function pregreplacecallback(
-    string|array $pattern,
-    callable $callback,
-    int $limit = -1,
-    int &$count = null,
-    int $flags = 0
-  ): static|IsStr
-  {
-
-    $this->string = (string) preg_replace_callback(
-      $pattern,
-      $callback,
-      $this->string,
-      $limit,
-      $count,
-      $flags
-    );
-
-    return $this;
-
-  }
-
-  public function pregreplcatecallbackarray(
-    array $pattern,
-    int $limit = -1,
-    int &$count = null,
-    int $flags = 0
-  ): static|IsStr
-  {
-
-    $this->string = (string) preg_replace_callback_array(
-      $pattern,
-      $this->string,
-      $limit,
-      $count,
-      $flags
-    );
-
-    return $this;
-
-  }
-
-  public function pregsplit(
-    string $pattern,
-    int $limit = -1,
-    int $flags = 0,
-    Arr|IsArr &$return = null
-  ): static|IsStr|Arr|IsArr
-  {
-
-    $return = new static::$arr(array: preg_split(
-      $pattern,
-      $this->string,
-      $limit,
-      $flags
-    ) ?: []);
-
-    return 4 === func_num_args() ? $this : $return;
-
-  }
-
-  public function quotedprintabledecode(): static|IsStr
-  {
-
-    $this->string = quoted_printable_decode($this->string);
-
-    return $this;
-
-  }
-
-  public function quotedprintableencode(): static|IsStr
-  {
-
-    $this->string = quoted_printable_encode($this->string);
-
-    return $this;
-
-  }
-
-  public function quotemeta(): static|IsStr
-  {
-
-    $this->string = quotemeta($this->string);
-
-    return $this;
-
-  }
-
-  public function rawurldecode(): static|IsStr
-  {
-
-    $this->string = rawurldecode($this->string);
-
-    return $this;
-
-  }
-
-  public function rawurlencode(): static|IsStr
-  {
-
-    $this->string = rawurlencode($this->string);
-
-    return $this;
-
-  }
-
-  public function rchr(string $needle): static|IsStr
-  {
-
-    $this->string = (string) strrchr($this->string, $needle);
-
-    return $this;
-
-  }
-
-  public function repeat(int $times): static|IsStr
-  {
-
-    $this->string = str_repeat($this->string, $times);
-
-    return $this;
-
-  }
-
-  public function replace(
-    array|string $search,
-    array|string $replace,
-    int &$count = null
-  ): static|IsStr
-  {
-
-    $this->string = str_replace($search, $replace, $this->string, $count);
-
-    return $this;
-
-  }
-
-  public function return(): string
-  {
-    return $this->string;
-  }
-
-  public function rev(): static|IsStr
-  {
-
-    $this->string = strrev($this->string);
-
-    return $this;
-
-  }
-
-  public function ripos(
-    string $needle,
-    int $offset = 0,
-    int|false &$return = null
-  ): static|IsStr|int|false
-  {
-
-    $return = strripos($this->string, $needle, $offset);
-
-    return 3 === func_num_args() ? $this : $return;
-
-  }
-
-  public function rot13(): static|IsStr
-  {
-
-    $this->string = str_rot13($this->string);
-
-    return $this;
-
-  }
-
-  public function rpos(
-    string $needle,
-    int $offset = 0,
-    int|false &$return = null
-  ): static|IsStr|int|false
-  {
-
-    $return = strrpos($this->string, $needle, $offset);
-
-    return 3 === func_num_args() ? $this : $return;
-
-  }
-
-  public function rtrim(string $characters = " \n\r\t\v\x00"): static|IsStr
-  {
-
-    $this->string = rtrim($this->string, $characters);
-
-    return $this;
-
-  }
-
-  public function serialize(string &$return = null): static|IsStr|string
-  {
-
-    $return = serialize($this->string);
-
-    return func_num_args() ? $this : $return;
-
-  }
-
-  public function sha1(bool $binary = false): static|IsStr
-  {
-
-    $this->string = sha1($this->string, $binary);
-
-    return $this;
-
-  }
-
-  public function shuffle(): static|IsStr
-  {
-
-    $this->string = str_shuffle($this->string);
-
-    return $this;
-
-  }
-
-  public function similartext(
-    string $string,
-    float &$percent = null,
-    int &$return = null
-  ): static|IsStr|int
-  {
-
-    $return = similar_text($this->string, $string, $percent);
-
-    return 3 === func_num_args() ? $this : $return;
-
-  }
-
-  public function soundex(): static|IsStr
-  {
-
-    $this->string = soundex($this->string);
-
-    return $this;
-
-  }
-
-  public function split(
-    int $length = 1,
-    Arr|IsArr &$return = null
-  ): static|IsStr|Arr|IsArr
-  {
-
-    $return = new static::$arr(array: str_split($this->string, $length));
-
-    return 2 === func_num_args() ? $this : $return;
-
-  }
-
-  public function spn(
-    string $characters,
-    int $offset = 0,
-    int $length = null,
-    int &$return = null
-  ): static|IsStr|int
-  {
-
-    $return = strspn($this->string, $characters, $offset, $length);
-
-    return 4 === func_num_args() ? $this : $return;
-
-  }
-
-  public function sprintf(mixed ...$values): static|IsStr
-  {
-
-    $this->string = sprintf($this->string, ...$values);
-
-    return $this;
-
-  }
-
-  public function sscanf(
-    string $format,
-    mixed &...$vars
-  ): Arr|IsArr|int|null
-  {
-
-    if (is_array($result = sscanf($this->string, $format, ...$vars)))
-    {
-      return new static::$arr(array: $result);
-    }
-
-    return $result;
-
-  }
-
-  public function startswith(
-    string $needle,
-    bool &$return = null
-  ): static|IsStr|bool
-  {
-
-    $return = str_starts_with($this->string, $needle);
-
-    return 2 === func_num_args() ? $this : $return;
-
-  }
-
-  public function str(
-    string $needle,
-    bool $before_needle = false
-  ): static|IsStr
-  {
-
-    $this->string = (string) strstr($this->string, $needle, $before_needle);
-
-    return $this;
-
-  }
-
-  public function stripcslashes(): static|IsStr
-  {
-
-    $this->string = stripcslashes($this->string);
-
-    return $this;
-
-  }
-
-  public function stripslashes(): static|IsStr
-  {
-
-    $this->string = stripslashes($this->string);
-
-    return $this;
-
-  }
-
-  public function striptags(array|string $allowed_tags = null): static|IsStr
-  {
-
-    $this->string = strip_tags($this->string, $allowed_tags);
-
-    return $this;
-
-  }
-
-  public function substr(
-    array|int $offset,
-    array|int $length = null
-  ): static|IsStr
-  {
-
-    $this->string = substr($this->string, $offset, $length);
-
-    return $this;
-
-  }
-
-  public function substrcompare(
-    string $needle,
-    int $offset,
-    int $length = null,
-    bool $case_insensitive = false,
-    int &$return = null
-  ): static|IsStr|int
-  {
-
-    $return = substr_compare(
-      $this->string,
-      $needle,
-      $offset,
-      $length,
-      $case_insensitive
-    );
-
-    return 5 === func_num_args() ? $this : $return;
-
-  }
-
-  public function substrcount(
-    string $needle,
-    int $offset = 0,
-    int $length = null,
-    int &$return = null
-  ): static|IsStr|int
-  {
-
-    $return = substr_count($this->string, $needle, $offset, $length);
-
-    return 4 === func_num_args() ? $this : $return;
-
-  }
-
-  public function substrreplace(
-    string $replace,
-    int $offset,
-    int $length = null
-  ): static|IsStr
-  {
-
-    $this->string = substr_replace($this->string, $replace, $offset, $length);
-
-    return $this;
-
-  }
-
-  public function tok(string $token): static|IsStr
-  {
-
-    $this->string = strtok($this->string, $token);
-
-    return $this;
-
-  }
-
-  public function tolower(): static|IsStr
-  {
-
-    $this->string = strtolower($this->string);
-
-    return $this;
-
-  }
-
-  public function toupper(): static|IsStr
-  {
-
-    $this->string = strtoupper($this->string);
-
-    return $this;
-
-  }
-
-  public function tr(
-    string|array $from,
-    ?string $to
-  ): static|IsStr
-  {
-
-    $this->string = strtr($this->string, ...func_get_args());
-
-    return $this;
-
-  }
-
-  public function trim(string $characters = " \n\r\t\v\x00"): static|IsStr
-  {
-
-    $this->string = trim($this->string, $characters);
-
-    return $this;
-
-  }
-
-  public function ucfirst(): static|IsStr
-  {
-
-    $this->string = ucfirst($this->string);
-
-    return $this;
-
-  }
-
-  public function ucwords(): static|IsStr
-  {
-
-    $this->string = ucwords($this->string);
-
-    return $this;
-
-  }
-
-  public static function unserialize(
-    string $data,
-    array $options = []
-  ): mixed
-  {
-
-    if (!is_string($result = unserialize($data, $options)))
-    {
-      return is_array($result) ? new static::$arr(array: $result) : $result;
-    }
-
-    return new static(string: $result);
-
-  }
-
-  public function urldecode(): static|IsStr
-  {
-
-    $this->string = urldecode($this->string);
-
-    return $this;
-
-  }
-
-  public function urlencode(): static|IsStr
-  {
-
-    $this->string = urlencode($this->string);
-
-    return $this;
-
-  }
-
-  public function vsprintf(array $values): static|IsStr
-  {
-
-    $this->string = vsprintf($this->string, $values);
-
-    return $this;
-
-  }
-
-  public function wordcount(
-    int $format = 0,
-    string $characters = null,
-    Arr|IsArr|int &$return = null
-  ): static|IsStr|Arr|IsArr|int
-  {
-
-    $result = str_word_count($this->string, $format, $characters);
-
-    $return = is_array($result) ? new static::$arr(array: $result) : $result;
-
-    return 3 === func_num_args() ? $this : $return;
-
-  }
-
-  public function wordwrap(
-    int $width = 75,
-    string $break = "\n",
-    bool $cut_long_words = false
-  ): static|IsStr
-  {
-
-    $this->string = wordwrap($this->string, $width, $break, $cut_long_words);
-
-    return $this;
-
-  }
-
-  public function __get(string $name): mixed
-  {
-    return $this->$name();
-  }
-
-  public function __toString(): string
-  {
-    return $this->string;
-  }
-
-  public function __invoke(): string
-  {
-    return $this->string;
-  }
-
+  use AddCSlashes;
+  use AddSlashes;
+  use Arr;
+  use Base64Decode;
+  use Base64Encode;
+  use BaseConvert;
+  use Bin2Hex;
+  use CaseCmp;
+  use ChunkSplit;
+  use Cmp;
+  use Coll;
+  use Construct;
+  use Contains;
+  use ConvertUUDecode;
+  use ConvertUUEncode;
+  use CountChars;
+  use CRC32;
+  use Crypt;
+  use CSpn;
+  use EndsWith;
+  use Explode;
+  use Extract;
+  use GetCSV;
+  use Hebrev;
+  use Hex2Bin;
+  use HexDec;
+  use HTTPBuildQuery;
+  use HTMLEntities;
+  use HTMLEntityDecode;
+  use HTMLSpecialChars;
+  use HTMLSpecialCharsDecode;
+  use IPos;
+  use IReplace;
+  use IStr;
+  use JSONDecode;
+  use LCFirst;
+  use Len;
+  use Levenshtein;
+  use LTrim;
+  use MagicGet;
+  use MagicInvoke;
+  use MagicToString;
+  use MBCheckEncoding;
+  use MBConvertCase;
+  use MBConvertEncoding;
+  use MBConvertKana;
+  use MBCut;
+  use MBDecodeMIMEHeader;
+  use MBDecodeNumericEntity;
+  use MBDetectEncoding;
+  use MBEncodeMIMEHeader;
+  use MBEncodeNumericEntity;
+  use MBEReg;
+  use MBERegI;
+  use MBERegIReplace;
+  use MBERegMatch;
+  use MBERegReplace;
+  use MBERegReplaceCallback;
+  use MBIPos;
+  use MBIStr;
+  use MBLen;
+  use MBParse;
+  use MBPos;
+  use MBRChr;
+  use MBRIChr;
+  use MBRIPos;
+  use MBRPos;
+  use MBScrub;
+  use MBSplit;
+  use MBStr;
+  use MBStrimWidth;
+  use MBStrSplit;
+  use MBSubstr;
+  use MBSubstrCount;
+  use MBToLower;
+  use MBToUpper;
+  use MBWidth;
+  use MD5;
+  use Metaphone;
+  use NatCaseCmp;
+  use NatCmp;
+  use NCaseCmp;
+  use NCmp;
+  use NL2BR;
+  use Pad;
+  use Parse;
+  use ParseURL;
+  use PBrk;
+  use Pos;
+  use PRegFilter;
+  use PRegMatch;
+  use PRegMatchAll;
+  use PRegQuote;
+  use PRegReplace;
+  use PRegReplaceCallback;
+  use PRegReplaceCallbackArray;
+  use PRegSplit;
+  use QuoteMeta;
+  use QuotesPrintableDecode;
+  use QuotesPrintableEncode;
+  use RawURLDecode;
+  use RawURLEncode;
+  use RChr;
+  use Repeat;
+  use Replace;
+  use Rev;
+  use RIPos;
+  use ROT13;
+  use RPos;
+  use RTrim;
+  use Serialize;
+  use SHA1;
+  use Shuffle;
+  use SimilarText;
+  use Soundex;
+  use Split;
+  use Spn;
+  use SPrintF;
+  use SScanF;
+  use StartsWith;
+  use StrStr;
+  use StrEcho;
+  use StripCSlashes;
+  use StripSlashes;
+  use StripTags;
+  use StrNew;
+  use StrReturn;
+  use Substr;
+  use SubstrCompare;
+  use SubstrCount;
+  use SubstrReplace;
+  use Tok;
+  use ToLower;
+  use ToUpper;
+  use Tr;
+  use Trim;
+  use UCFirst;
+  use UCWords;
+  use Unserialize;
+  use URLDecode;
+  use URLEncode;
+  use VSPrintF;
+  use WordCount;
+  use WordWrap;
 }

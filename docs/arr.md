@@ -5,142 +5,142 @@
 ### Static methods
 
 ```php
-new(array $array = []): static
+new(array $array = []): static|IsArr
 
 fill(
   int $start_index,
   int $count,
   mixed $value
-): static
+): static|IsArr
 
 range(
   string|int|float $start,
   string|int|float $end,
   int|float $step = 1
-): static
+): static|IsArr
 ```
 
 ### Non-static methods
 
 ```php
-advance(): static
+advance(): static|IsArr
 
-arsort(int $flags = SORT_REGULAR): static
+arsort(int $flags = SORT_REGULAR): static|IsArr
 
-asort(int $flags = SORT_REGULAR): static
+asort(int $flags = SORT_REGULAR): static|IsArr
 
-changekeycase(int $case = CASE_LOWER): static
+changekeycase(int $case = CASE_LOWER): static|IsArr
 
 chunk(
   int $length,
   bool $preserve_keys = false
-): static
+): static|IsArr
 
 column(
   int|string|null $column_key,
   int|string|null $index_key = null
-): static
+): static|IsArr
 
-combine(array $values): static
+combine(array $values): static|IsArr
 
 contains(
   mixed $needle,
   bool $strict = false,
   bool &$return = null
-): static|bool
+): static|IsArr|bool
 
 count(int $mode = COUNT_NORMAL): int
 
-countvalues(): static
+countvalues(): static|IsArr
 
-diff(array ...$arrays): static
+diff(array ...$arrays): static|IsArr
 
-diffassoc(array ...$arrays): static
+diffassoc(array ...$arrays): static|IsArr
 
-diffkey(array ...$arrays): static
+diffkey(array ...$arrays): static|IsArr
 
 diffuassoc(
   callable $key_compare_func,
   array ...$arrays
-): static
+): static|IsArr
 
 diffukey(
   callable $key_compare_func,
   array ...$arrays
-): static
+): static|IsArr
 
 end(mixed &$return = null): mixed
 
-extract(?self &$var): static
+extract(?self &$var): static|IsArr
 
-fillkeys(mixed $value): static
+fillkeys(mixed $value): static|IsArr
 
 filter(
   callable $callback = null,
   int $mode = 0
-): static
+): static|IsArr
 
-flip(): static
+flip(): static|IsArr
 
 implode(
   string $delimeter = '',
-  Str &$return = null
-): static|Str
+  Str|IsStr &$return = null
+): static|IsArr|Str|IsStr
 
-intersect(array ...$arrays): static
+intersect(array ...$arrays): static|IsArr
 
-intersectassoc(array ...$arrays): static
+intersectassoc(array ...$arrays): static|IsArr
 
-intersectkey(array ...$arrays): static
+intersectkey(array ...$arrays): static|IsArr
 
 intersectuassoc(
   callable $key_compare_func,
   array ...$arrays
-): static
+): static|IsArr
 
 intersectukey(
   callable $key_compare_func,
   array ...$arrays
-): static
+): static|IsArr
 
-islist(bool &$return = null): static|bool
+islist(bool &$return = null): static|IsArr|bool
 
 jsonencode(
   int $flags = 0,
   int $depth = 512,
-  Str &$return = null
-): static|Str
+  Str|IsStr &$return = null
+): static|IsArr|Str|IsStr
 
-key(int|string|null &$return = null): static|int|string|null
+key(int|string|null &$return = null): static|IsArr|int|string|null
 
 keys(
   mixed $filter_value = null,
   bool $strict = false
-): static
+): static|IsArr
 
 keyexists(
   string|int $key,
   bool &$return = null
-): static|bool
+): static|IsArr|bool
 
-keyfirst(int|string|null &$return = null): static|int|string|null
+keyfirst(int|string|null &$return = null): static|IsArr|int|string|null
 
-keylast(int|string|null &$return = null): static|int|string|null
+keylast(int|string|null &$return = null): static|IsArr|int|string|null
 
-krsort(int $flags = SORT_REGULAR): static
+krsort(int $flags = SORT_REGULAR): static|IsArr
 
-ksort(int $flags = SORT_REGULAR): static
+ksort(int $flags = SORT_REGULAR): static|IsArr
 
 map(
   callable $callback = null,
   array ...$arrays
-): static
+): static|IsArr
 
 max(mixed &$return = null): mixed
 
-merge(array ...$arrays): static
+merge(array ...$arrays): static|IsArr
 
-mergerecursive(array ...$arrays): static
+mergerecursive(array ...$arrays): static|IsArr
 
 min(mixed &$return = null): mixed
 
@@ -148,39 +148,39 @@ multisort(
   mixed $array1_sort_order = SORT_ASC,
   mixed $array1_sort_flags = SORT_REGULAR,
   mixed ...$rest
-): static
+): static|IsArr
 
-natcasesort(): static
+natcasesort(): static|IsArr
 
-natsort(): static
+natsort(): static|IsArr
 
 pad(
   int $length,
   mixed $value
-): static
+): static|IsArr
 
 pop(mixed &$return = null): mixed
 
-prev(): static
+prev(): static|IsArr
 
 pregfilter(
   string|array $pattern,
   string|array $replacement,
   int $limit = -1,
   int &$count = null
-): static
+): static|IsArr
 
 preggrep(
   string $pattern,
   int $flags = 0
-): static
+): static|IsArr
 
 pregreplace(
   string|array $pattern,
   string|array $replacement,
   int $limit = -1,
   int &$count = null
-): static
+): static|IsArr
 
 pregreplacecallback(
   string|array $pattern,
@@ -188,25 +188,25 @@ pregreplacecallback(
   int $limit = -1,
   int &$count = null,
   int $flags = 0
-): static
+): static|IsArr
 
 pregreplacecallbackarray(
   array $pattern,
   int $limit = -1,
   int &$count = null,
   int $flags = 0
-): static
+): static|IsArr
 
-printr(): static
+printr(): static|IsArr
 
-product(int|float &$return = null): static|int|float
+product(int|float &$return = null): static|IsArr|int|float
 
-push(mixed ...$values): static
+push(mixed ...$values): static|IsArr
 
 rand(
   int $num = 1,
   int|string|array &$return = null
-): static|int|string|array
+): static|IsArr|int|string|array
 
 reduce(
   callable $callback,
@@ -214,119 +214,119 @@ reduce(
   mixed &$return = null
 ): mixed
 
-replace(array ...$replacements): static
+replace(array ...$replacements): static|IsArr
 
-replacerecursive(array ...$replacements): static
+replacerecursive(array ...$replacements): static|IsArr
 
-reset(): static
+reset(): static|IsArr
 
 return(): array
 
-reverse(bool $preserve_keys = false): static
+reverse(bool $preserve_keys = false): static|IsArr
 
-rsort(int $flags = SORT_REGULAR): static
+rsort(int $flags = SORT_REGULAR): static|IsArr
 
 search(
   mixed $needle,
   bool $strict = false,
   int|string|false &$return = null
-): static|int|string|false
+): static|IsArr|int|string|false
 
-serialize(string &$return = null): static|string
+serialize(string &$return = null): static|IsArr|string
 
 shift(mixed &$return = null): mixed
 
-shuffle(): static
+shuffle(): static|IsArr
 
 slice(
   int $offset,
   int $length = null,
   bool $preserve_keys = false
-): static
+): static|IsArr
 
-sort(): static
+sort(): static|IsArr
 
 splice(
   int $offset,
   int $length = null,
   mixed $replacement = []
-): static
+): static|IsArr
 
 strireplace(
   array|string $search,
   array|string $replace,
   int &$count = null
-): static
+): static|IsArr
 
 strreplace(
   array|string $search,
   array|string $replace,
   int &$count = null
-): static
+): static|IsArr
 
 substrreplace(
   array|string $replace,
   array|int $offset,
   array|int $length = null
-): static
+): static|IsArr
 
-sum(int|float &$return = null): static|int|float
+sum(int|float &$return = null): static|IsArr|int|float
 
-uasort(callable $callback): static
+uasort(callable $callback): static|IsArr
 
 udiff(
   callable $value_compare_func,
   array ...$arrays
-): static
+): static|IsArr
 
 udiffassoc(
   callable $value_compare_func,
   array ...$arrays
-): static
+): static|IsArr
 
 udiffuassoc(
   callable $value_compare_func,
   callable $key_compare_func,
   array ...$arrays
-): static
+): static|IsArr
 
 uintersect(
   callable $value_compare_func,
   array ...$arrays
-): static
+): static|IsArr
 
-uksort(callable $callback): static
+uksort(callable $callback): static|IsArr
 
-usort(callable $callback): static
+usort(callable $callback): static|IsArr
 
-unique(int $flags = SORT_STRING): static
+unique(int $flags = SORT_STRING): static|IsArr
 
-unserialize(string $data): static
+unserialize(string $data): static|IsArr
 
-unshift(mixed ...$values): static
+unshift(mixed ...$values): static|IsArr
 
-values(): static
+values(): static|IsArr
 
-vardump(): static
+vardump(): static|IsArr
 
 uintersectassoc(
   callable $value_compare_func,
   array ...$arrays
-): static
+): static|IsArr
 
 uintersectuassoc(
   callable $value_compare_func,
   callable $key_compare_func,
   array ...$arrays
-): static
+): static|IsArr
 
 walk(
   callable $callback,
   mixed $arg = null
-): static
+): static|IsArr
 
 walkrecursive(
   callable $callback,
   mixed $arg = null
-): static
+): static|IsArr
 ```

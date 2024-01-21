@@ -321,7 +321,7 @@ it('can hexdec', function ()
 
   $str = str('00FF')->hexdec();
 
-  expect($str())
+  expect($str)
   ->toBe(hexdec('00FF'));
 
 });
