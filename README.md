@@ -337,3 +337,18 @@ $arr = str(['test1-test2'])
 
 $arr->array(['test']);
 ```
+\
+When replacing one of the base classes you can reuse one or more of its methods by using the relevant trait(s).
+```php
+use WTFramework\Types\Interfaces\IsNum;
+use WTFramework\Types\Traits\Num\Construct;
+use WTFramework\Types\Traits\Num\Max;
+use WTFramework\Types\Traits\Num\Min;
+
+class NumReplace implements IsNum
+{
+  use Construct;
+  use Max;
+  use Min;
+}
+```
