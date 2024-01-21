@@ -293,7 +293,7 @@ $str = arr(['test1', 'test2'])
 $str->string('test');
 ```
 \
-You can also replace the base `Str`, `Arr`, and `Num` classes by implementing the `IsStr`, `isArr`, and `isNum` interfaces.
+You can also replace the base `Str`, `Arr`, and `Num` classes by implementing the `IsStr`, `IsArr`, and `IsNum` interfaces.
 ```php
 use WTFramework\Types\Interfaces\IsArr;
 use WTFramework\Types\Str as StrType;
