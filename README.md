@@ -9,338 +9,156 @@ composer require wtframework/types
 
 ## Documentation
 
-### WTFramework\Types\Str
-
-The `WTFramework\Types\Str` object is a wrapper around many of PHP's string functions allowing for a fluent interface and a consistent naming system. The rules for method names are:
-
-1. Underscores are removed
-2. "str" is removed as a prefix
-3. The primary string argument is removed
-
-[Str method list](docs/str.md)
-
-```php
-use function WTFramework\Types\str;
-
-echo str('camel case')
-->ucwords()
-->replace(' ', '')
-->lcfirst();
-
-// camelCase
-```
-\
-Methods that do not require arguments can be called as properties rather than as methods.
-
-```php
-echo str('camel case')
-->ucwords
-->replace(' ', '')
-->lcfirst;
-```
-\
-Methods that would return an array will return an instance of `WTFramework\Types\Arr` allowing for further chaining.
-
-```php
-str('reverse me')
-->explode(' ')  // returns arr(['reverse', 'me'])
-->reverse
-->implode(' '); // returns str('me reverse')
-```
-\
-Methods that would return something other than the current object allow for a final `$return` argument passed by reference. If provided then the normal return value will be assigned to this variable and the method will return back the current object.
-
-```php
-str('this is a sentence')
-->wordcount(return: $word_count1)
-->replace(' ', '')
-->wordcount(return: $word_count2);
-
-// $word_count1 = 4
-// $word_count2 = 1
-```
-\
-The `echo` method will `echo` the string. This method has optional `$prefix` and `$suffix` arguments.
-
-```php
-str('Michael')
-->echo(
-  prefix: 'Welcome ',
-  suffix: '!'
-);
-
-// Welcome Michael!
-```
-\
-The `extract` method allows you to extract a clone of the current object.
-
-```php
-str('This is a sentence')
-->toupper
-->extract($uppercase)
-->tolower
-->extract($lowercase);
-
-// $uppercase = str('THIS IS A SENTENCE')
-// $lowercase = str('this is a sentence')
-```
-\
-Use the `return` method, invoke the object as a function, or cast the object to a string to return the string.
-
-```php
-$string = $str->return();
-$string = $str();
-$string = (string) $str;
-```
-
-### WTFramework\Types\Arr
-
-The `WTFramework\Types\Arr` object is a wrapper around many of PHP's array functions allowing for a fluent interface and a consistent naming system. The rules for method names are:
-
-1. Underscores are removed
-2. "array" is removed as a prefix
-3. The primary array argument is removed
-
-[Arr method list](docs/arr.md)
-
-`WTFramework\Types\Arr` implements `ArrayAccess`, `Countable`, `Iterator`, and `Serializable`.
+Each of the classes provided in this library is a wrapper for the relevant native functions. Method names mostly use the native function names but with underscores and certain prefixes like `str*` and `array*` removed. Most methods are chainable, even when switching from strings to arrays and vice versa.
 
 ```php
 use function WTFramework\Types\arr;
-
-arr(['foo', 'bar'])
-->push('baz')
-->sort();
-
-// ['bar', 'baz', 'foo']
-```
-\
-Methods that do not require arguments can be called as properties rather than as methods.
-
-```php
-arr(['foo', 'bar'])
-->push('baz')
-->sort;
-```
-\
-Methods that would return a string will return an instance of `WTFramework\Types\Str` allowing for further chaining.
-
-```php
-arr(['this', 'is', 'a', 'list'])
-->implode(' ')  // returns str('this is a list')
-->ucwords
-->explode(' '); // returns arr(['This', 'Is', 'A', 'List'])
-```
-\
-Most methods that would return something other than the current object allow for a final `$return` argument passed by reference. If provided then the normal return value will be assigned to this variable and the method will return back the current object.
-
-```php
-arr(['correct', 'horse', 'battery', 'staple'])
-->implode(' ', return: $str1)
-->implode('-', return: $str2);
-
-// $str1 = 'correct horse battery staple'
-// $str2 = 'correct-horse-battery-staple'
-```
-\
-The `advance` method replaces the `next` function and advances the internal pointer of the array.
-
-```php
-arr([1, 2, 3])->advance();
-```
-\
-The `contains` method replaces the `in_array` function and checks if the value exists in an array.
-
-```php
-arr([1, 2, 3])->contains(1);
-```
-\
-The `printr` and `vardump` methods allow you to call `print_r` and `var_dump` respectively on the array.
-
-```php
-arr([1, 2, 3])
-->printr
-->vardump;
-```
-\
-The `extract` method allows you to extract a clone of the current object.
-
-```php
-arr([2, 1, 3])
-->sort
-->extract($sort1)
-->rsort
-->extract($sort2);
-
-// $sort1 = arr([1, 2, 3])
-// $sort2 = arr([3, 2, 1])
-```
-\
-Either use the `return` method or invoke the object as a function to return the array.
-
-```php
-$array = $arr->return();
-$array = $arr();
-```
-
-### WTFramework\Types\Num
-
-The `WTFramework\Types\Num` object is a wrapper around many of PHP's number functions allowing for a fluent interface and a consistent naming system. The rules for method names are:
-
-1. Underscores are removed
-2. The primary number argument is removed
-
-[Num method list](docs/num.md)
-
-```php
 use function WTFramework\Types\num;
+use function WTFramework\Types\str;
 
-num(-9.5)
-->abs()
-->round();
-
-// 10.0
+str('reverse me')
+->explode(' ')  // returns arr(['reverse', 'me'])
+->reverse()
+->implode(' '); // returns str('me reverse')
 ```
 \
-Methods that do not require arguments can be called as properties rather than as methods.
-
+Some methods, where appropriate, are not chainable by default.
 ```php
-num(-9.5)
-->abs
-->round;
+str('example')
+->len(); // returns 7
 ```
 \
-Methods that would return something other than the current object allow for a final `$return` argument passed by reference. If provided then the normal return value will be assigned to this variable and the method will return back the current object.
-
+In these cases a final `$return` argument can be passed by reference. The default return value will be assigned to this variable and the method will return the current object.
 ```php
-num(10)
-->baseconvert(10, 8, return: $base8)
-->baseconvert(10, 6, return: $base6);
+str('example')
+->len(return: $length); // returns $this
 
-// $base8 = '12'
-// $base6 = '14'
+// $length = 7
 ```
 \
-The `echo` method will `echo` the number. This method has optional `$prefix` and `$suffix` arguments.
-
+Each class provides an `extract` method to extract a clone of the current object.
 ```php
-num(10)
+str('eXaMpLe')
+->toupper()
+->extract($uppercase)
+->tolower()
+->extract($lowercase);
+
+// $uppercase = str('EXAMPLE');
+// $lowercase = str('example');
+```
+\
+The `Str` and `Num` classes provide an `echo` method to echo the current value. This method has optional `$prefix` and `$suffix` arguments.
+```php
+str('example')
 ->echo(
-  prefix: 'You have ',
-  suffix: ' messages.'
+  prefix: 'this is an ',
+  suffix: '.'
 );
 
-// You have 10 messages.
+// this is an example.
 ```
 \
-The `extract` method allows you to extract a clone of the current object.
-
+Whereas most method names are based on the native function names, there are two notable exceptions in the `Arr` class: `advance` is used to call `next` and `contains` is used to call `in_array`.
 ```php
-num(-9.5)
-->abs
-->extract($num1)
-->round
-->extract($num2);
-
-// $num1 = num(9.5)
-// $num2 = num(10)
+arr([1, 2, 3])->contains(1); // returns true
+arr([1, 2, 3])->advance(); // advances the internal pointer
 ```
 \
-Either use the `return` method or invoke the object as a function to return the number or cast it to a string to return the number as a string.
-
-```php
-$number = $num->return();
-$number = $num();
-$number = (string) $num;
-```
-
-### Extending the library
-To extend the library you can extend the base `Str`, `Arr`, and `Num` classes.
+Where appropriate the functions are called using static methods. These are:
 ```php
 use WTFramework\Types\Arr;
+use WTFramework\Types\Num;
 use WTFramework\Types\Str;
 
-class StrExtend extends Str
+Str::httpbuildquery($data);
+Str::unserialize($data);
+
+Arr::fill($start_index, $count, $value);
+Arr::range($start, $end);
+
+Num::max(...$values);
+Num::min(...$values);
+Num::pi();
+```
+\
+To return the current value you can either call the `return` method or invoke the object as a function.
+```php
+str('example')->return(); // returns 'example'
+arr([1, 2, 3])(); // returns [1, 2, 3]
+```
+
+\
+The `Str` and `Num` classes implement `Stringable` and the `Arr` class implements `ArrayAccess`, `Countable`, `Iterator`, and `Serializable`.
+
+## Extending the library
+
+The simplest way to extend the library is to extend the base classes.
+```php
+use WTFramework\Types\Str;
+
+class StrExtended extends Str
 {
 
-  /**
-   * Optional
-   * The custom class to return when returning arrays
-   */
-  protected static string $arr = ArrExtend::class;
-
-  public function string(string $string): static
+  public function camelCase(): static
   {
 
-    $this->string = $string;
+    return $this->ucwords()
+    ->replace(' ', '')
+    ->lcfirst();
 
-    return $this;
+  }
+
+}
+```
+```php
+(new StrExtended('camel case'))
+->camelCase()(); // returns 'camelCase'
+```
+\
+You can also replace the base classes by implementing the `IsStr`, `IsArr`, or `IsNum` interface. You can reuse one or more of the base class methods by using the relevant trait(s).
+```php
+use Stringable;
+use WTFramework\Types\Interfaces\IsStr;
+use WTFramework\Types\Traits\Str\Arr;
+use WTFramework\Types\Traits\Str\Construct;
+use WTFramework\Types\Traits\Str\MagicInvoke;
+use WTFramework\Types\Traits\Str\LCFirst;
+use WTFramework\Types\Traits\Str\Replace;
+use WTFramework\Types\Traits\Str\UCWords;
+
+class NewStr implements IsStr, Stringable
+{
+
+  use Arr;
+  use Construct;
+  use MagicInvoke;
+  use LCFirst;
+  use Replace;
+  use UCWords;
+
+  public function camelCase(): static
+  {
+
+    return $this->ucwords()
+    ->replace(' ', '')
+    ->lcfirst();
 
   }
 
 }
 ```
 \
-Pass the class name to the static `str` method to tell the `Arr` class to use the `StrExtend` class when returning strings.
+To have the base `Str` class return your extended/reimplemented array class when returning arrays then pass its name to the `arr` static method.
 ```php
-Arr::str(StrExtend::class);
+use WTFramework\Types\Str;
 
-$str = arr(['test1', 'test2'])
-->implode('-');
-
-// $str = new StrExtend('test1-test2');
-
-$str->string('test');
+Str::arr(CustomArr::class);
 ```
 \
-You can also replace the base `Str`, `Arr`, and `Num` classes by implementing the `IsStr`, `IsArr`, and `IsNum` interfaces.
+To have the base `Arr` class return your extended/reimplemented string class when returning strings then pass its name to the `str` static method.
 ```php
-use WTFramework\Types\Interfaces\IsArr;
-use WTFramework\Types\Str as StrType;
-use WTFramework\Types\Traits\Construct;
-use WTFramework\Types\Traits\MagicInvoke;
-use WTFramework\Types\Traits\Str;
+use WTFramework\Types\Arr;
 
-class ArrReplace implements IsArr
-{
-
-  use Construct;
-  use MagicInvoke;
-  use Str;
-
-  public function toString(): StrType|IsStr
-  {
-    return new static::$str(string: implode('-', $this->array));
-  }
-
-}
-```
-\
-Pass the class name to the static `arr` method to tell the `Str` class to use the `ArrReplace` class when returning arrays.
-```php
-Str::arr(ArrayReplace::class);
-
-$arr = str(['test1-test2'])
-->explode('-');
-
-// $arr = new ArrayReplace(['test1', 'test2']);
-
-$arr->array(['test']);
-```
-\
-When replacing one of the base classes you can reuse one or more of its methods by using the relevant trait(s).
-```php
-use WTFramework\Types\Interfaces\IsNum;
-use WTFramework\Types\Traits\Num\Construct;
-use WTFramework\Types\Traits\Num\MagicInvoke;
-use WTFramework\Types\Traits\Num\Max;
-use WTFramework\Types\Traits\Num\Min;
-
-class NumReplace implements IsNum
-{
-  use Construct;
-  use MagicInvoke;
-  use Max;
-  use Min;
-}
+Arr::str(CustomStr::class);
 ```

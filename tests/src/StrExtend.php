@@ -11,12 +11,12 @@ class StrExtend extends Str
 
   protected static string $arr = ArrExtend::class;
 
-  public function string(string $string): static
+  public function camelCase(): static
   {
 
-    $this->string = $string;
-
-    return $this;
+    return $this->ucwords()
+    ->replace(' ', '')
+    ->lcfirst();
 
   }
 

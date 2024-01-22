@@ -34,21 +34,21 @@ it('can extend str', function ()
 it('can extend arr', function ()
 {
 
-  $arr = new ArrExtend(['test1', 'test2']);
+  $arr = new ArrExtend(['camel', 'case']);
 
   expect($arr->count)
   ->toBe(2);
 
-  $str = $arr->implode('-');
+  $str = $arr->implode(' ');
 
   expect($str)
   ->toBeInstanceOf(StrExtend::class);
 
   expect($str())
-  ->toBe('test1-test2');
+  ->toBe('camel case');
 
-  expect($str->string('test')())
-  ->toBe('test');
+  expect($str->camelCase()())
+  ->toBe('camelCase');
 
 });
 
