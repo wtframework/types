@@ -13,8 +13,8 @@ Each of the classes provided in this library is a wrapper for the relevant nativ
 
 ```php
 use function WTFramework\Types\arr;
-use function WTFramework\Types\str;
 use function WTFramework\Types\num;
+use function WTFramework\Types\str;
 
 str('reverse me')
 ->explode(' ')  // returns arr(['reverse', 'me'])
@@ -38,11 +38,14 @@ str('example')
 \
 Each class provides an `extract` method to extract a clone of the current object.
 ```php
-str('example')
+str('eXaMpLe')
 ->toupper()
 ->extract($uppercase)
 ->tolower()
 ->extract($lowercase);
+
+// $uppercase = str('EXAMPLE');
+// $lowercase = str('example');
 ```
 \
 The `Str` and `Num` classes provide an `echo` method to echo the current value. This method has optional `$prefix` and `$suffix` arguments.
@@ -56,17 +59,27 @@ str('example')
 // this is an example.
 ```
 \
-The `Arr` class provides a `printr` and a `vardump` method to call `print_r` and `var_dump` respectively on the current value.
-```php
-arr([1, 2, 3])
-->printr()
-->vardump();
-```
-\
 Whereas most method names are based on the native function names, there are two notable exceptions in the `Arr` class: `advance` is used to call `next` and `contains` is used to call `in_array`.
 ```php
 arr([1, 2, 3])->contains(1); // returns true
 arr([1, 2, 3])->advance(); // advances the internal pointer
+```
+\
+Where appropriate the functions are called using static methods. These are:
+```php
+use WTFramework\Types\Arr;
+use WTFramework\Types\Num;
+use WTFramework\Types\Str;
+
+Str::httpbuildquery($data);
+Str::unserialize($data);
+
+Arr::fill($start_index, $count, $value);
+Arr::range($start, $end);
+
+Num::max(...$values);
+Num::min(...$values);
+Num::pi();
 ```
 \
 To return the current value you can either call the `return` method or invoke the object as a function.
@@ -74,6 +87,7 @@ To return the current value you can either call the `return` method or invoke th
 str('example')->return(); // returns 'example'
 arr([1, 2, 3])(); // returns [1, 2, 3]
 ```
+
 \
 The `Str` and `Num` classes implement `Stringable` and the `Arr` class implements `ArrayAccess`, `Countable`, `Iterator`, and `Serializable`.
 
@@ -89,11 +103,9 @@ class StrExtended extends Str
   public function camelCase(): static
   {
 
-    $this->ucwords()
+    return $this->ucwords()
     ->replace(' ', '')
     ->lcfirst();
-
-    return $this;
 
   }
 
@@ -108,6 +120,7 @@ You can also replace the base classes by implementing the `IsStr`, `IsArr`, or `
 ```php
 use Stringable;
 use WTFramework\Types\Interfaces\IsStr;
+use WTFramework\Types\Traits\Str\Arr;
 use WTFramework\Types\Traits\Str\Construct;
 use WTFramework\Types\Traits\Str\MagicInvoke;
 use WTFramework\Types\Traits\Str\LCFirst;
@@ -117,6 +130,7 @@ use WTFramework\Types\Traits\Str\UCWords;
 class NewStr implements IsStr, Stringable
 {
 
+  use Arr;
   use Construct;
   use MagicInvoke;
   use LCFirst;
@@ -126,25 +140,23 @@ class NewStr implements IsStr, Stringable
   public function camelCase(): static
   {
 
-    $this->ucwords()
+    return $this->ucwords()
     ->replace(' ', '')
     ->lcfirst();
-
-    return $this;
 
   }
 
 }
 ```
 \
-If you wish the base `Str` class to return your extended/reimplemented array class when returning arrays then pass its name to the `arr` static method.
+To have the base `Str` class return your extended/reimplemented array class when returning arrays then pass its name to the `arr` static method.
 ```php
 use WTFramework\Types\Str;
 
 Str::arr(CustomArr::class);
 ```
 \
-If you wish the base `Arr` class to return your extended/reimplemented string class when returning strings then pass its name to the `str` static method.
+To have the base `Arr` class return your extended/reimplemented string class when returning strings then pass its name to the `str` static method.
 ```php
 use WTFramework\Types\Arr;
 

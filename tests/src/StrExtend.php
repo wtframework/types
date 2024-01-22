@@ -14,11 +14,9 @@ class StrExtend extends Str
   public function camelCase(): static
   {
 
-    $this->ucwords()
+    return $this->ucwords()
     ->replace(' ', '')
     ->lcfirst();
-
-    return $this;
 
   }
 
