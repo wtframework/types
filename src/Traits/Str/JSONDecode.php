@@ -19,7 +19,7 @@ trait JSONDecode
 
     $result = json_decode($this->string, $associative, $depth, $flags);
 
-    $return = is_array($result) ? new static::$arr(array: $result) : $result;
+    $return = is_array($result) ? $this->arr(array: $result) : $result;
 
     return 4 === func_num_args() ? $this : $return;
 

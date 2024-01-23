@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace WTFramework\Types;
 
-use Stringable;
-use WTFramework\Types\Interfaces\IsStr;
+use WTFramework\Types\Contracts\IsStr;
 use WTFramework\Types\Traits\Str\AddCSlashes;
 use WTFramework\Types\Traits\Str\AddSlashes;
 use WTFramework\Types\Traits\Str\Arr;
@@ -17,7 +16,6 @@ use WTFramework\Types\Traits\Str\CaseCmp;
 use WTFramework\Types\Traits\Str\ChunkSplit;
 use WTFramework\Types\Traits\Str\Cmp;
 use WTFramework\Types\Traits\Str\Coll;
-use WTFramework\Types\Traits\Str\Construct;
 use WTFramework\Types\Traits\Str\Contains;
 use WTFramework\Types\Traits\Str\ConvertUUDecode;
 use WTFramework\Types\Traits\Str\ConvertUUEncode;
@@ -47,7 +45,6 @@ use WTFramework\Types\Traits\Str\Levenshtein;
 use WTFramework\Types\Traits\Str\LTrim;
 use WTFramework\Types\Traits\Str\MagicGet;
 use WTFramework\Types\Traits\Str\MagicInvoke;
-use WTFramework\Types\Traits\Str\MagicToString;
 use WTFramework\Types\Traits\Str\MBCheckEncoding;
 use WTFramework\Types\Traits\Str\MBConvertCase;
 use WTFramework\Types\Traits\Str\MBConvertEncoding;
@@ -151,7 +148,7 @@ use WTFramework\Types\Traits\Str\VSPrintF;
 use WTFramework\Types\Traits\Str\WordCount;
 use WTFramework\Types\Traits\Str\WordWrap;
 
-class Str implements IsStr, Stringable
+class Str extends IsStr
 {
   use AddCSlashes;
   use AddSlashes;
@@ -164,7 +161,6 @@ class Str implements IsStr, Stringable
   use ChunkSplit;
   use Cmp;
   use Coll;
-  use Construct;
   use Contains;
   use ConvertUUDecode;
   use ConvertUUEncode;
@@ -194,7 +190,6 @@ class Str implements IsStr, Stringable
   use LTrim;
   use MagicGet;
   use MagicInvoke;
-  use MagicToString;
   use MBCheckEncoding;
   use MBConvertCase;
   use MBConvertEncoding;

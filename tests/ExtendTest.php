@@ -7,7 +7,6 @@ use Test\StrExtend;
 use WTFramework\Types\Arr;
 use WTFramework\Types\Str;
 
-use function WTFramework\Types\arr;
 use function WTFramework\Types\str;
 
 it('can extend str', function ()
@@ -49,31 +48,5 @@ it('can extend arr', function ()
 
   expect($str->camelCase()())
   ->toBe('camelCase');
-
-});
-
-it('can override str', function ()
-{
-
-  expect(str('test-test')->explode('-')::class)
-  ->toBe(Arr::class);
-
-  Str::arr(ArrExtend::class);
-
-  expect(str('test-test')->explode('-')::class)
-  ->toBe(ArrExtend::class);
-
-});
-
-it('can override arr', function ()
-{
-
-  expect(arr(['test-test'])->implode('-')::class)
-  ->toBe(Str::class);
-
-  Arr::str(StrExtend::class);
-
-  expect(arr(['test-test'])->implode('-')::class)
-  ->toBe(StrExtend::class);
 
 });

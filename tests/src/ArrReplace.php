@@ -4,21 +4,20 @@ declare(strict_types=1);
 
 namespace Test;
 
-use WTFramework\Types\Interfaces\IsArr;
+use WTFramework\Types\Contracts\IsArr;
+use WTFramework\Types\Contracts\IsStr;
+use WTFramework\Types\Traits\Arr\MagicInvoke;
 
-class ArrReplace implements IsArr
+class ArrReplace extends IsArr
 {
 
-  public function __construct(protected array $array = []) {}
+  use MagicInvoke;
 
-  public function toString(): StrReplace
-  {
-    return new StrReplace(string: implode('-', $this->array));
-  }
+  protected string $str = StrReplace::class;
 
-  public function __invoke(): array
+  public function toString(): StrReplace|IsStr
   {
-    return $this->array;
+    return $this->str(string: implode('-', $this->array));
   }
 
 }

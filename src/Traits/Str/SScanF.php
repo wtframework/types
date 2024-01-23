@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace WTFramework\Types\Traits\Str;
 
 use WTFramework\Types\Arr as TypesArr;
-use WTFramework\Types\Interfaces\IsArr;
+use WTFramework\Types\Contracts\IsArr;
 
 trait SScanF
 {
@@ -20,7 +20,7 @@ trait SScanF
 
     if (is_array($result = sscanf($this->string, $format, ...$vars)))
     {
-      return new static::$arr(array: $result);
+      return $this->arr(array: $result);
     }
 
     return $result;

@@ -19,7 +19,7 @@ trait Convert
         return new static(array: $value);
 
       case is_string($value):
-        return new static::$str(string: $value);
+        return $this->str(string: $value);
 
       default:
         return $value;

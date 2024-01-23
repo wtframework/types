@@ -9,7 +9,7 @@ use WTFramework\Types\Arr;
 class ArrExtend extends Arr
 {
 
-  protected static string $str = StrExtend::class;
+  protected string $str = StrExtend::class;
 
   public function array(array $array): static
   {
