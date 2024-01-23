@@ -95,12 +95,15 @@ The `Str` and `Num` classes implement `Stringable` and the `Arr` class implement
 
 The simplest way to extend the library is to extend the base classes.
 ```php
+use WTFramework\Types\Contracts\IsStr;
 use WTFramework\Types\Str;
 
 class StrExtended extends Str
 {
 
-  public function camelCase(): static
+  protected string $arr = ArrExtended::class;
+
+  public function camelCase(): static|IsStr
   {
 
     return $this->ucwords()
@@ -109,6 +112,14 @@ class StrExtended extends Str
 
   }
 
+}
+```
+```php
+use WTFramework\Types\Arr;
+
+class ArrExtended extends Arr
+{
+  protected string $str = StrExtended::class;
 }
 ```
 ```php
@@ -116,28 +127,25 @@ class StrExtended extends Str
 ->camelCase()(); // returns 'camelCase'
 ```
 \
-You can also replace the base classes by implementing the `IsStr`, `IsArr`, or `IsNum` interface. You can reuse one or more of the base class methods by using the relevant trait(s).
+You can also replace the base classes by extending the `IsStr`, `IsArr`, or `IsNum` abstract classes. You can reuse one or more of the base class methods by using the relevant trait(s).
 ```php
-use Stringable;
-use WTFramework\Types\Interfaces\IsStr;
-use WTFramework\Types\Traits\Str\Arr;
-use WTFramework\Types\Traits\Str\Construct;
+use WTFramework\Types\Contracts\IsStr;
 use WTFramework\Types\Traits\Str\MagicInvoke;
 use WTFramework\Types\Traits\Str\LCFirst;
 use WTFramework\Types\Traits\Str\Replace;
 use WTFramework\Types\Traits\Str\UCWords;
 
-class NewStr implements IsStr, Stringable
+class NewStr extends IsStr
 {
 
-  use Arr;
-  use Construct;
   use MagicInvoke;
   use LCFirst;
   use Replace;
   use UCWords;
 
-  public function camelCase(): static
+  protected string $arr = ArrExtended::class;
+
+  public function camelCase(): static|IsStr
   {
 
     return $this->ucwords()
@@ -148,17 +156,11 @@ class NewStr implements IsStr, Stringable
 
 }
 ```
-\
-To have the base `Str` class return your extended/reimplemented array class when returning arrays then pass its name to the `arr` static method.
-```php
-use WTFramework\Types\Str;
-
-Str::arr(CustomArr::class);
-```
-\
-To have the base `Arr` class return your extended/reimplemented string class when returning strings then pass its name to the `str` static method.
 ```php
 use WTFramework\Types\Arr;
 
-Arr::str(CustomStr::class);
+class ArrExtended extends Arr
+{
+  protected string $str = NewStr::class;
+}
 ```

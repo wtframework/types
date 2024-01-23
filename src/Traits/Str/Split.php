@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace WTFramework\Types\Traits\Str;
 
 use WTFramework\Types\Arr as TypesArr;
-use WTFramework\Types\Interfaces\IsArr;
-use WTFramework\Types\Interfaces\IsStr;
+use WTFramework\Types\Contracts\IsArr;
+use WTFramework\Types\Contracts\IsStr;
 
 trait Split
 {
@@ -19,7 +19,7 @@ trait Split
   ): static|IsStr|TypesArr|IsArr
   {
 
-    $return = new static::$arr(array: str_split($this->string, $length));
+    $return = $this->arr(array: str_split($this->string, $length));
 
     return 2 === func_num_args() ? $this : $return;
 

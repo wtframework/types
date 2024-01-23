@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace WTFramework\Types\Traits\Str;
 
 use WTFramework\Types\Arr as TypesArr;
-use WTFramework\Types\Interfaces\IsArr;
-use WTFramework\Types\Interfaces\IsStr;
+use WTFramework\Types\Contracts\IsArr;
+use WTFramework\Types\Contracts\IsStr;
 
 trait WordCount
 {
@@ -22,7 +22,7 @@ trait WordCount
 
     $result = str_word_count($this->string, $format, $characters);
 
-    $return = is_array($result) ? new static::$arr(array: $result) : $result;
+    $return = is_array($result) ? $this->arr(array: $result) : $result;
 
     return 3 === func_num_args() ? $this : $return;
 

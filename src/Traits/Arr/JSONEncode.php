@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace WTFramework\Types\Traits\Arr;
 
-use WTFramework\Types\Interfaces\IsArr;
-use WTFramework\Types\Interfaces\IsStr;
+use WTFramework\Types\Contracts\IsArr;
+use WTFramework\Types\Contracts\IsStr;
 use WTFramework\Types\Str as TypesStr;
 
 trait JSONEncode
@@ -20,7 +20,7 @@ trait JSONEncode
   ): static|IsArr|TypesStr|IsStr
   {
 
-    $return = new static::$str(string: (string) json_encode($this->array, $flags, $depth));
+    $return = $this->str(string: (string) json_encode($this->array, $flags, $depth));
 
     return 3 === func_num_args() ? $this : $return;
 

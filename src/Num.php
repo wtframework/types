@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace WTFramework\Types;
 
-use Stringable;
-use WTFramework\Types\Interfaces\IsNum;
+use WTFramework\Types\Contracts\IsNum;
 use WTFramework\Types\Traits\Num\Abs;
 use WTFramework\Types\Traits\Num\Acos;
 use WTFramework\Types\Traits\Num\Acosh;
@@ -16,7 +15,6 @@ use WTFramework\Types\Traits\Num\Atan2;
 use WTFramework\Types\Traits\Num\BaseConvert;
 use WTFramework\Types\Traits\Num\BinDec;
 use WTFramework\Types\Traits\Num\Ceil;
-use WTFramework\Types\Traits\Num\Construct;
 use WTFramework\Types\Traits\Num\Cos;
 use WTFramework\Types\Traits\Num\Cosh;
 use WTFramework\Types\Traits\Num\DecBin;
@@ -39,7 +37,6 @@ use WTFramework\Types\Traits\Num\Log10;
 use WTFramework\Types\Traits\Num\Log1P;
 use WTFramework\Types\Traits\Num\MagicGet;
 use WTFramework\Types\Traits\Num\MagicInvoke;
-use WTFramework\Types\Traits\Num\MagicToString;
 use WTFramework\Types\Traits\Num\Max;
 use WTFramework\Types\Traits\Num\Min;
 use WTFramework\Types\Traits\Num\NumEcho;
@@ -56,7 +53,7 @@ use WTFramework\Types\Traits\Num\Sqrt;
 use WTFramework\Types\Traits\Num\Tan;
 use WTFramework\Types\Traits\Num\Tanh;
 
-class Num implements IsNum, Stringable
+class Num extends IsNum
 {
   use Abs;
   use Acos;
@@ -67,7 +64,6 @@ class Num implements IsNum, Stringable
   use Atan2;
   use BaseConvert;
   use BinDec;
-  use Construct;
   use Ceil;
   use Cos;
   use Cosh;
@@ -91,7 +87,6 @@ class Num implements IsNum, Stringable
   use Log1P;
   use MagicGet;
   use MagicInvoke;
-  use MagicToString;
   use Max;
   use Min;
   use NumEcho;

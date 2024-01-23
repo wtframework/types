@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace WTFramework\Types\Traits\Str;
 
 use WTFramework\Types\Arr as TypesArr;
+use WTFramework\Types\Contracts\IsArr;
 
 trait Arr
 {
 
-  protected static string $arr = TypesArr::class;
+  protected string $arr = TypesArr::class;
 
-  public static function arr(string $arr): void
+  protected function arr(array $array): TypesArr|IsArr
   {
-    static::$arr = $arr;
+    return new ($this->arr)(array: $array);
   }
 
 }

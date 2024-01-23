@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace WTFramework\Types\Traits\Num;
 
-use WTFramework\Types\Interfaces\IsNum;
+use WTFramework\Types\Contracts\IsNum;
 
 trait Cosh
 {

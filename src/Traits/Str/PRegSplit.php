@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace WTFramework\Types\Traits\Str;
 
 use WTFramework\Types\Arr as TypesArr;
-use WTFramework\Types\Interfaces\IsArr;
-use WTFramework\Types\Interfaces\IsStr;
+use WTFramework\Types\Contracts\IsArr;
+use WTFramework\Types\Contracts\IsStr;
 
 trait PRegSplit
 {
@@ -21,7 +21,7 @@ trait PRegSplit
   ): static|IsStr|TypesArr|IsArr
   {
 
-    $return = new static::$arr(array: preg_split(
+    $return = $this->arr(array: preg_split(
       $pattern,
       $this->string,
       $limit,
