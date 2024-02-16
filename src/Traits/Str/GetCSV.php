@@ -4,24 +4,22 @@ declare(strict_types=1);
 
 namespace WTFramework\Types\Traits\Str;
 
-use WTFramework\Types\Arr as TypesArr;
+use WTFramework\Types\Arr;
 use WTFramework\Types\Contracts\IsArr;
 use WTFramework\Types\Contracts\IsStr;
 
 trait GetCSV
 {
 
-  use Arr;
-
   public function getcsv(
     string $separator = ',',
     string $enclosure = '"',
     string $escape = '\\',
-    TypesArr|IsArr &$return = null
-  ): static|IsStr|TypesArr|IsArr
+    Arr|IsArr &$return = null
+  ): static|IsStr|Arr|IsArr
   {
 
-    $return = $this->arr(array: str_getcsv(
+    $return = new Arr(array: str_getcsv(
       $this->string,
       $separator,
       $enclosure,

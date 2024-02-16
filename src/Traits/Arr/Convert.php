@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace WTFramework\Types\Traits\Arr;
 
+use WTFramework\Types\Str;
+
 trait Convert
 {
-
-  use Str;
 
   protected function convert(mixed $value): mixed
   {
@@ -19,7 +19,7 @@ trait Convert
         return new static(array: $value);
 
       case is_string($value):
-        return $this->str(string: $value);
+        return new Str(string: $value);
 
       default:
         return $value;

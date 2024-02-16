@@ -7,8 +7,6 @@ namespace WTFramework\Types\Traits\Str;
 trait Unserialize
 {
 
-  use Arr;
-
   public static function unserialize(
     string $data,
     array $options = []
@@ -17,7 +15,7 @@ trait Unserialize
 
     if (!is_string($result = unserialize($data, $options)))
     {
-      return is_array($result) ? $this->arr(array: $result) : $result;
+      return is_array($result) ? new Arr(array: $result) : $result;
     }
 
     return new static(string: $result);

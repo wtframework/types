@@ -93,74 +93,20 @@ The `Str` and `Num` classes implement `Stringable` and the `Arr` class implement
 
 ## Extending the library
 
-The simplest way to extend the library is to extend the base classes.
+To extend the library you can use the static `macro` method, passing the new method name and a closure to call. This works for both static and non-static methods.
 ```php
-use WTFramework\Types\Contracts\IsStr;
 use WTFramework\Types\Str;
 
-class StrExtended extends Str
+Str::macro('camelCase', function ()
 {
 
-  protected string $arr = ArrExtended::class;
+  return $this->ucwords()
+  ->replace(' ', '')
+  ->lcfirst();
 
-  public function camelCase(): static|IsStr
-  {
-
-    return $this->ucwords()
-    ->replace(' ', '')
-    ->lcfirst();
-
-  }
-
-}
+});
 ```
 ```php
-use WTFramework\Types\Arr;
-
-class ArrExtended extends Arr
-{
-  protected string $str = StrExtended::class;
-}
-```
-```php
-(new StrExtended('camel case'))
-->camelCase()(); // returns 'camelCase'
-```
-\
-You can also replace the base classes by extending the `IsStr`, `IsArr`, or `IsNum` abstract classes. You can reuse one or more of the base class methods by using the relevant trait(s).
-```php
-use WTFramework\Types\Contracts\IsStr;
-use WTFramework\Types\Traits\Str\MagicInvoke;
-use WTFramework\Types\Traits\Str\LCFirst;
-use WTFramework\Types\Traits\Str\Replace;
-use WTFramework\Types\Traits\Str\UCWords;
-
-class NewStr extends IsStr
-{
-
-  use MagicInvoke;
-  use LCFirst;
-  use Replace;
-  use UCWords;
-
-  protected string $arr = ArrExtended::class;
-
-  public function camelCase(): static|IsStr
-  {
-
-    return $this->ucwords()
-    ->replace(' ', '')
-    ->lcfirst();
-
-  }
-
-}
-```
-```php
-use WTFramework\Types\Arr;
-
-class ArrExtended extends Arr
-{
-  protected string $str = NewStr::class;
-}
+// Returns 'camelCase'
+str('camel case')->camelCase()();
 ```

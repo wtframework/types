@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace WTFramework\Types;
 
 use WTFramework\Types\Contracts\IsNum;
+use WTFramework\Types\Traits\Macroable;
 use WTFramework\Types\Traits\Num\Abs;
 use WTFramework\Types\Traits\Num\Acos;
 use WTFramework\Types\Traits\Num\Acosh;
@@ -85,6 +86,7 @@ class Num extends IsNum
   use Log;
   use Log10;
   use Log1P;
+  use Macroable;
   use MagicGet;
   use MagicInvoke;
   use Max;

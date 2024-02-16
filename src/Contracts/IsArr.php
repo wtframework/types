@@ -21,7 +21,6 @@ use WTFramework\Types\Traits\Arr\OffsetSet;
 use WTFramework\Types\Traits\Arr\OffsetUnset;
 use WTFramework\Types\Traits\Arr\Rewind;
 use WTFramework\Types\Traits\Arr\Serialize;
-use WTFramework\Types\Traits\Arr\Str;
 use WTFramework\Types\Traits\Arr\Unserialize;
 use WTFramework\Types\Traits\Arr\Valid;
 
@@ -40,7 +39,6 @@ abstract class IsArr implements ArrayAccess, Countable, Iterator, Serializable
   use OffsetUnset;
   use Rewind;
   use Serialize;
-  use Str;
   use Unserialize;
   use Valid;
 }

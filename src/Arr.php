@@ -95,6 +95,7 @@ use WTFramework\Types\Traits\Arr\Values;
 use WTFramework\Types\Traits\Arr\VarDump;
 use WTFramework\Types\Traits\Arr\Walk;
 use WTFramework\Types\Traits\Arr\WalkRecursive;
+use WTFramework\Types\Traits\Macroable;
 
 class Arr extends IsArr
 {
@@ -136,6 +137,7 @@ class Arr extends IsArr
   use KSort;
   use MagicGet;
   use MagicInvoke;
+  use Macroable;
   use Map;
   use Max;
   use Merge;

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace WTFramework\Types;
 
 use WTFramework\Types\Contracts\IsStr;
+use WTFramework\Types\Traits\Macroable;
 use WTFramework\Types\Traits\Str\AddCSlashes;
 use WTFramework\Types\Traits\Str\AddSlashes;
-use WTFramework\Types\Traits\Str\Arr;
 use WTFramework\Types\Traits\Str\Base64Decode;
 use WTFramework\Types\Traits\Str\Base64Encode;
 use WTFramework\Types\Traits\Str\BaseConvert;
@@ -152,7 +152,6 @@ class Str extends IsStr
 {
   use AddCSlashes;
   use AddSlashes;
-  use Arr;
   use Base64Decode;
   use Base64Encode;
   use BaseConvert;
@@ -188,6 +187,7 @@ class Str extends IsStr
   use Len;
   use Levenshtein;
   use LTrim;
+  use Macroable;
   use MagicGet;
   use MagicInvoke;
   use MBCheckEncoding;
