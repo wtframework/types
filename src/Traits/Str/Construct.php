@@ -6,5 +6,5 @@ namespace WTFramework\Types\Traits\Str;
 
 trait Construct
 {
-  public function __construct(protected string $string = '') {}
+  public function __construct(protected string $string = "") {}
 }

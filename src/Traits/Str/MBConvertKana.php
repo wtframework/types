@@ -10,7 +10,7 @@ trait MBConvertKana
 {
 
   public function mbconvertkana(
-    string $mode = 'KV',
+    string $mode = "KV",
     string $encoding = null
   ): static|IsStr
   {

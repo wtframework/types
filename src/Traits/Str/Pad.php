@@ -11,7 +11,7 @@ trait Pad
 
   public function pad(
     int $length,
-    string $pad_string = ' ',
+    string $pad_string = " ",
     int $pad_type = STR_PAD_RIGHT
   ): static|IsStr
   {

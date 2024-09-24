@@ -11,7 +11,7 @@ trait HTTPBuildQuery
 
   public static function httpbuildquery(
     array|object $data,
-    string $numeric_prefix = '',
+    string $numeric_prefix = "",
     string $arg_separator = null,
     int $encoding_type = PHP_QUERY_RFC1738
   ): static|IsStr

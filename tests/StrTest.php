@@ -2,77 +2,78 @@
 
 declare(strict_types=1);
 
+use WTFramework\Types\Arr;
 use WTFramework\Types\Str;
 
 use function WTFramework\Types\str;
 
-it('can invoke', function ()
+it("can invoke", function ()
 {
 
-  $str = new Str('test');
+  $str = new Str("test");
 
   expect($str())
-  ->toBe('test');
+  ->toBe("test");
 
 });
 
-it('can return', function ()
+it("can return", function ()
 {
 
-  $str = new Str('test');
+  $str = new Str("test");
 
   expect($str->return())
-  ->toBe('test');
+  ->toBe("test");
 
 });
 
-it('can use static new', function ()
+it("can use static new", function ()
 {
 
-  $str = Str::new('test');
+  $str = Str::new("test");
 
   expect($str)
   ->toBeInstanceOf(Str::class);
 
   expect($str())
-  ->toBe('test');
+  ->toBe("test");
 
 });
 
-it('can use function', function ()
+it("can use function", function ()
 {
 
-  $str = str('test');
+  $str = str("test");
 
   expect($str)
   ->toBeInstanceOf(Str::class);
 
   expect($str())
-  ->toBe('test');
+  ->toBe("test");
 
 });
 
-it('can cast to string', function ()
+it("can cast to string", function ()
 {
 
-  $str = str('test');
+  $str = str("test");
 
   expect((string) $str)
-  ->toBe('test');
+  ->toBe("test");
 
 });
 
-it('can addcslashes', function ()
+test("addcslashes", function ()
 {
 
-  $str = str('test')->addcslashes('a..z');
+  $str = str("test")->addcslashes("a..z");
 
   expect($str())
-  ->toBe(addcslashes('test', 'a..z'));
+  ->toBe(addcslashes("test", "a..z"));
 
 });
 
-it('can addslashes', function ()
+test("addslashes", function ()
 {
 
   $str = str("test'")->addslashes();
@@ -82,53 +83,53 @@ it('can addslashes', function ()
 
 });
 
-it('can base64decode', function ()
+test("base64decode", function ()
 {
 
-  $str = str('test')->base64decode();
+  $str = str("test")->base64decode();
 
   expect($str())
-  ->toBe(base64_decode('test'));
+  ->toBe(base64_decode("test"));
 
 });
 
-it('can base64encode', function ()
+test("base64encode", function ()
 {
 
-  $str = str('test')->base64encode();
+  $str = str("test")->base64encode();
 
   expect($str())
-  ->toBe(base64_encode('test'));
+  ->toBe(base64_encode("test"));
 
 });
 
-it('can baseconvert', function ()
+test("baseconvert", function ()
 {
 
-  $str = str('00FF')->baseconvert(16, 10);
+  $str = str("00FF")->baseconvert(16, 10);
 
   expect($str())
-  ->toBe(base_convert('00FF', 16, 10));
+  ->toBe(base_convert("00FF", 16, 10));
 
 });
 
-it('can bin2hex', function ()
+test("bin2hex", function ()
 {
 
-  $str = str('test')->bin2hex();
+  $str = str("test")->bin2hex();
 
   expect($str())
-  ->toBe(bin2hex('test'));
+  ->toBe(bin2hex("test"));
 
 });
 
-it('can casecmp', function ()
+test("casecmp", function ()
 {
 
-  expect(str('test')->casecmp('testing'))
-  ->toBe($result = strcasecmp('test', 'testing'));
+  expect(str("test")->casecmp("testing"))
+  ->toBe($result = strcasecmp("test", "testing"));
 
-  $str = str('test')->casecmp('testing', return: $return);
+  $str = str("test")->casecmp("testing", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -138,23 +139,23 @@ it('can casecmp', function ()
 
 });
 
-it('can chunksplit', function ()
+test("chunksplit", function ()
 {
 
-  $str = str('test')->chunksplit();
+  $str = str("test")->chunksplit();
 
   expect($str())
-  ->toBe(chunk_split('test'));
+  ->toBe(chunk_split("test"));
 
 });
 
-it('can cmp', function ()
+test("cmp", function ()
 {
 
-  expect(str('test')->cmp('testing'))
-  ->toBe($result = strcmp('test', 'testing'));
+  expect(str("test")->cmp("testing"))
+  ->toBe($result = strcmp("test", "testing"));
 
-  $str = str('test')->cmp('testing', return: $return);
+  $str = str("test")->cmp("testing", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -164,13 +165,13 @@ it('can cmp', function ()
 
 });
 
-it('can coll', function ()
+test("coll", function ()
 {
 
-  expect(str('test')->coll('testing'))
-  ->toBe($result = strcoll('test', 'testing'));
+  expect(str("test")->coll("testing"))
+  ->toBe($result = strcoll("test", "testing"));
 
-  $str = str('test')->coll('testing', return: $return);
+  $str = str("test")->coll("testing", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -180,10 +181,10 @@ it('can coll', function ()
 
 });
 
-it('can convertuudecode', function ()
+test("convertuudecode", function ()
 {
 
-  $test = convert_uuencode('test');
+  $test = convert_uuencode("test");
 
   $str = str($test)->convertuudecode();
 
@@ -192,23 +193,23 @@ it('can convertuudecode', function ()
 
 });
 
-it('can convertuuencode', function ()
+test("convertuuencode", function ()
 {
 
-  $str = str('test')->convertuuencode();
+  $str = str("test")->convertuuencode();
 
   expect($str())
-  ->toBe(convert_uuencode('test'));
+  ->toBe(convert_uuencode("test"));
 
 });
 
-it('can contains', function ()
+test("contains", function ()
 {
 
-  expect(str('test')->contains('e'))
-  ->toBe($result = str_contains('test', 'e'));
+  expect(str("test")->contains("e"))
+  ->toBe($result = str_contains("test", "e"));
 
-  $str = str('test')->contains('e', return: $return);
+  $str = str("test")->contains("e", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -218,13 +219,13 @@ it('can contains', function ()
 
 });
 
-it('can cspn', function ()
+test("cspn", function ()
 {
 
-  expect(str('test')->cspn('testing'))
-  ->toBe($result = strcspn('test', 'testing'));
+  expect(str("test")->cspn("testing"))
+  ->toBe($result = strcspn("test", "testing"));
 
-  $str = str('test')->cspn('testing', return: $return);
+  $str = str("test")->cspn("testing", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -234,23 +235,31 @@ it('can cspn', function ()
 
 });
 
-it('can countchars', function ()
+test("countchars", function ()
 {
 
-  $str = str('test')->countchars();
+  $arr = str("test")->countchars();
+
+  expect($arr)
+  ->toBeInstanceOf(Arr::class);
+
+  expect($arr())
+  ->toBe(count_chars("test"));
+
+  $str = str("test")->countchars(3);
 
   expect($str())
-  ->toBe(count_chars('test'));
+  ->toBe(count_chars("test", 3));
 
 });
 
-it('can crc32', function ()
+test("crc32", function ()
 {
 
-  expect(str('test')->crc32())
-  ->toBe($result = crc32('test'));
+  expect(str("test")->crc32())
+  ->toBe($result = crc32("test"));
 
-  $str = str('test')->crc32(return: $return);
+  $str = str("test")->crc32(return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -260,23 +269,23 @@ it('can crc32', function ()
 
 });
 
-it('can crypt', function ()
+test("crypt", function ()
 {
 
-  $str = str('test')->crypt('testing');
+  $str = str("test")->crypt("testing");
 
   expect($str())
-  ->toBe(crypt('test', 'testing'));
+  ->toBe(crypt("test", "testing"));
 
 });
 
-it('can endswith', function ()
+test("endswith", function ()
 {
 
-  expect(str('test')->endswith('t'))
-  ->toBe($result = str_ends_with('test', 't'));
+  expect(str("test")->endswith("t"))
+  ->toBe($result = str_ends_with("test", "t"));
 
-  $str = str('test')->endswith('t', return: $return);
+  $str = str("test")->endswith("t", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -286,103 +295,103 @@ it('can endswith', function ()
 
 });
 
-it('can getcsv', function ()
+test("getcsv", function ()
 {
 
-  $str = str('test')->getcsv();
+  $str = str("test")->getcsv();
 
   expect($str())
-  ->toBe(str_getcsv('test'));
+  ->toBe(str_getcsv("test"));
 
 });
 
-it('can hebrev', function ()
+test("hebrev", function ()
 {
 
-  $str = str('test')->hebrev();
+  $str = str("test")->hebrev();
 
   expect($str())
-  ->toBe(hebrev('test'));
+  ->toBe(hebrev("test"));
 
 });
 
-it('can hex2bin', function ()
+test("hex2bin", function ()
 {
 
-  $str = str('00FF')->hex2bin();
+  $str = str("00FF")->hex2bin();
 
   expect($str())
-  ->toBe(hex2bin('00FF'));
+  ->toBe(hex2bin("00FF"));
 
 });
 
-it('can hexdec', function ()
+test("hexdec", function ()
 {
 
-  $str = str('00FF')->hexdec();
+  $str = str("00FF")->hexdec();
 
   expect($str)
-  ->toBe(hexdec('00FF'));
+  ->toBe(hexdec("00FF"));
 
 });
 
-it('can httpbuildquery', function ()
+test("httpbuildquery", function ()
 {
 
-  $str = Str::httpbuildquery(['test']);
+  $str = Str::httpbuildquery(["test"]);
 
   expect($str())
-  ->toBe(http_build_query(['test']));
+  ->toBe(http_build_query(["test"]));
 
 });
 
-it('can htmlentities', function ()
+test("htmlentities", function ()
 {
 
-  $str = str('test')->htmlentities();
+  $str = str("test")->htmlentities();
 
   expect($str())
-  ->toBe(htmlentities('test'));
+  ->toBe(htmlentities("test"));
 
 });
 
-it('can htmlentitydecode', function ()
+test("htmlentitydecode", function ()
 {
 
-  $str = str('test')->htmlentitydecode();
+  $str = str("test")->htmlentitydecode();
 
   expect($str())
-  ->toBe(html_entity_decode('test'));
+  ->toBe(html_entity_decode("test"));
 
 });
 
-it('can htmlspecialchars', function ()
+test("htmlspecialchars", function ()
 {
 
-  $str = str('test')->htmlspecialchars();
+  $str = str("test")->htmlspecialchars();
 
   expect($str())
-  ->toBe(htmlspecialchars('test'));
+  ->toBe(htmlspecialchars("test"));
 
 });
 
-it('can htmlspecialcharsdecode', function ()
+test("htmlspecialcharsdecode", function ()
 {
 
-  $str = str('test')->htmlspecialcharsdecode();
+  $str = str("test")->htmlspecialcharsdecode();
 
   expect($str())
-  ->toBe(htmlspecialchars_decode('test'));
+  ->toBe(htmlspecialchars_decode("test"));
 
 });
 
-it('can ipos', function ()
+test("ipos", function ()
 {
 
-  expect(str('test')->ipos('t'))
-  ->toBe($result = stripos('test', 't'));
+  expect(str("test")->ipos("t"))
+  ->toBe($result = stripos("test", "t"));
 
-  $str = str('test')->ipos('t', return: $return);
+  $str = str("test")->ipos("t", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -392,33 +401,33 @@ it('can ipos', function ()
 
 });
 
-it('can ireplace', function ()
+test("ireplace", function ()
 {
 
-  $str = str('test')->ireplace('e', 's');
+  $str = str("test")->ireplace("e", "s");
 
   expect($str())
-  ->toBe(str_ireplace('e', 's', 'test'));
+  ->toBe(str_ireplace("e", "s", "test"));
 
 });
 
-it('can istr', function ()
+test("istr", function ()
 {
 
-  $str = str('test')->istr('e');
+  $str = str("test")->istr("e");
 
   expect($str())
-  ->toBe(stristr('test', 'e'));
+  ->toBe(stristr("test", "e"));
 
 });
 
-it('can jsondecode', function ()
+test("jsondecode", function ()
 {
 
-  expect(str('{}')->jsondecode())
-  ->toEqual($result = json_decode('{}'));
+  expect(str("{}")->jsondecode())
+  ->toEqual($result = json_decode("{}"));
 
-  $str = str('{}')->jsondecode(return: $return);
+  $str = str("{}")->jsondecode(return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -428,23 +437,23 @@ it('can jsondecode', function ()
 
 });
 
-it('can lcfirst', function ()
+test("lcfirst", function ()
 {
 
-  $str = str('test')->lcfirst();
+  $str = str("test")->lcfirst();
 
   expect($str())
-  ->toBe(lcfirst('test'));
+  ->toBe(lcfirst("test"));
 
 });
 
-it('can len', function ()
+test("len", function ()
 {
 
-  expect(str('test')->len())
-  ->toBe($result = strlen('test'));
+  expect(str("test")->len())
+  ->toBe($result = strlen("test"));
 
-  $str = str('test')->len(return: $return);
+  $str = str("test")->len(return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -454,13 +463,13 @@ it('can len', function ()
 
 });
 
-it('can levenshtein', function ()
+test("levenshtein", function ()
 {
 
-  expect(str('test')->levenshtein('testing'))
-  ->toBe($result = levenshtein('test', 'testing'));
+  expect(str("test")->levenshtein("testing"))
+  ->toBe($result = levenshtein("test", "testing"));
 
-  $str = str('test')->levenshtein('testing', return: $return);
+  $str = str("test")->levenshtein("testing", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -470,23 +479,23 @@ it('can levenshtein', function ()
 
 });
 
-it('can ltrim', function ()
+test("ltrim", function ()
 {
 
-  $str = str('test')->ltrim();
+  $str = str("test")->ltrim();
 
   expect($str())
-  ->toBe(ltrim('test'));
+  ->toBe(ltrim("test"));
 
 });
 
-it('can mbcheckencoding', function ()
+test("mbcheckencoding", function ()
 {
 
-  expect(str('test')->mbcheckencoding())
-  ->toBe($result = mb_check_encoding('test'));
+  expect(str("test")->mbcheckencoding())
+  ->toBe($result = mb_check_encoding("test"));
 
-  $str = str('test')->mbcheckencoding(return: $return);
+  $str = str("test")->mbcheckencoding(return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -496,73 +505,73 @@ it('can mbcheckencoding', function ()
 
 });
 
-it('can mbconvertcase', function ()
+test("mbconvertcase", function ()
 {
 
-  $str = str('test')->mbconvertcase(MB_CASE_UPPER);
+  $str = str("test")->mbconvertcase(MB_CASE_UPPER);
 
   expect($str())
-  ->toBe(mb_convert_case('test', MB_CASE_UPPER));
+  ->toBe(mb_convert_case("test", MB_CASE_UPPER));
 
 });
 
-it('can mbconvertencoding', function ()
+test("mbconvertencoding", function ()
 {
 
-  $str = str('test')->mbconvertencoding('utf-8', 'utf-7');
+  $str = str("test")->mbconvertencoding("utf-8", "utf-7");
 
   expect($str())
-  ->toBe(mb_convert_encoding('test', 'utf-8', 'utf-7'));
+  ->toBe(mb_convert_encoding("test", "utf-8", "utf-7"));
 
 });
 
-it('can mbconvertkana', function ()
+test("mbconvertkana", function ()
 {
 
-  $str = str('test')->mbconvertkana();
+  $str = str("test")->mbconvertkana();
 
   expect($str())
-  ->toBe(mb_convert_kana('test'));
+  ->toBe(mb_convert_kana("test"));
 
 });
 
-it('can mbcut', function ()
+test("mbcut", function ()
 {
 
-  $str = str('test')->mbcut(1);
+  $str = str("test")->mbcut(1);
 
   expect($str())
-  ->toBe(mb_strcut('test', 1));
+  ->toBe(mb_strcut("test", 1));
 
 });
 
-it('can mbdecodemimeheader', function ()
+test("mbdecodemimeheader", function ()
 {
 
-  $str = str('test')->mbdecodemimeheader();
+  $str = str("test")->mbdecodemimeheader();
 
   expect($str())
-  ->toBe(mb_decode_mimeheader('test'));
+  ->toBe(mb_decode_mimeheader("test"));
 
 });
 
-it('can mbdecodenumericentity', function ()
+test("mbdecodenumericentity", function ()
 {
 
-  $str = str('test')->mbdecodenumericentity([1, 1, 1, 1]);
+  $str = str("test")->mbdecodenumericentity([1, 1, 1, 1]);
 
   expect($str())
-  ->toBe(mb_decode_numericentity('test', [1, 1, 1, 1]));
+  ->toBe(mb_decode_numericentity("test", [1, 1, 1, 1]));
 
 });
 
-it('can mbdetectencoding', function ()
+test("mbdetectencoding", function ()
 {
 
-  expect(str('test')->mbdetectencoding())
-  ->toBe($result = mb_detect_encoding('test'));
+  expect(str("test")->mbdetectencoding())
+  ->toBe($result = mb_detect_encoding("test"));
 
-  $str = str('test')->mbdetectencoding(return: $return);
+  $str = str("test")->mbdetectencoding(return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -572,33 +581,33 @@ it('can mbdetectencoding', function ()
 
 });
 
-it('can mbencodemimeheader', function ()
+test("mbencodemimeheader", function ()
 {
 
-  $str = str('test')->mbencodemimeheader();
+  $str = str("test")->mbencodemimeheader();
 
   expect($str())
-  ->toBe(mb_encode_mimeheader('test'));
+  ->toBe(mb_encode_mimeheader("test"));
 
 });
 
-it('can mbencodenumericentity', function ()
+test("mbencodenumericentity", function ()
 {
 
-  $str = str('test')->mbencodenumericentity([1, 1, 1, 1]);
+  $str = str("test")->mbencodenumericentity([1, 1, 1, 1]);
 
   expect($str())
-  ->toBe(mb_encode_numericentity('test', [1, 1, 1, 1]));
+  ->toBe(mb_encode_numericentity("test", [1, 1, 1, 1]));
 
 });
 
-it('can mbereg', function ()
+test("mbereg", function ()
 {
 
-  expect(str('test')->mbereg('/test/'))
-  ->toBe($result = mb_ereg('/test/', 'test'));
+  expect(str("test")->mbereg("/test/"))
+  ->toBe($result = mb_ereg("/test/", "test"));
 
-  $str = str('test')->mbereg('/test/', return: $return);
+  $str = str("test")->mbereg("/test/", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -609,13 +618,13 @@ it('can mbereg', function ()
 
 });
 
-it('can mberegi', function ()
+test("mberegi", function ()
 {
 
-  expect(str('test')->mberegi('/test/'))
-  ->toBe($result = mb_eregi('/test/', 'test'));
+  expect(str("test")->mberegi("/test/"))
+  ->toBe($result = mb_eregi("/test/", "test"));
 
-  $str = str('test')->mberegi('/test/', return: $return);
+  $str = str("test")->mberegi("/test/", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -625,23 +634,23 @@ it('can mberegi', function ()
 
 });
 
-it('can mberegireplace', function ()
+test("mberegireplace", function ()
 {
 
-  $str = str('test')->mberegireplace('/e/', 's');
+  $str = str("test")->mberegireplace("/e/", "s");
 
   expect($str())
-  ->toBe(mb_eregi_replace('/test/', 's', 'test'));
+  ->toBe(mb_eregi_replace("/test/", "s", "test"));
 
 });
 
-it('can mberegmatch', function ()
+test("mberegmatch", function ()
 {
 
-  expect(str('test')->mberegmatch('/test/'))
-  ->toBe($result = mb_ereg_match('/test/', 'test'));
+  expect(str("test")->mberegmatch("/test/"))
+  ->toBe($result = mb_ereg_match("/test/", "test"));
 
-  $str = str('test')->mberegmatch('/test/', return: $return);
+  $str = str("test")->mberegmatch("/test/", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -651,45 +660,45 @@ it('can mberegmatch', function ()
 
 });
 
-it('can mberegreplace', function ()
+test("mberegreplace", function ()
 {
 
-  $str = str('test')->mberegreplace('/e/', 's');
+  $str = str("test")->mberegreplace("/e/", "s");
 
   expect($str())
-  ->toBe(mb_ereg_replace('/e/', 's', 'test'));
+  ->toBe(mb_ereg_replace("/e/", "s", "test"));
 
 });
 
-it('can mberegreplacecallback', function ()
+test("mberegreplacecallback", function ()
 {
 
-  $str = str('test')->mberegreplacecallback('/e/', fn () => 's');
+  $str = str("test")->mberegreplacecallback("/e/", fn () => "s");
 
   expect($str())
-  ->toBe(mb_ereg_replace_callback('/e/', fn () => 's', 'test'));
+  ->toBe(mb_ereg_replace_callback("/e/", fn () => "s", "test"));
 
 });
 
-it('can mbparse', function ()
+test("mbparse", function ()
 {
 
-  $str = str('test')->mbparse($test1);
+  str("test")->mbparse($test1);
 
-  mb_parse_str('test', $test2);
+  mb_parse_str("test", $test2);
 
   expect($test1)
   ->toBe($test2);
 
 });
 
-it('can mbipos', function ()
+test("mbipos", function ()
 {
 
-  expect(str('test')->mbipos('e'))
-  ->toBe($result = mb_stripos('test', 'e'));
+  expect(str("test")->mbipos("e"))
+  ->toBe($result = mb_stripos("test", "e"));
 
-  $str = str('test')->mbipos('e', return: $return);
+  $str = str("test")->mbipos("e", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -699,23 +708,23 @@ it('can mbipos', function ()
 
 });
 
-it('can mbistr', function ()
+test("mbistr", function ()
 {
 
-  $str = str('test')->mbistr('e');
+  $str = str("test")->mbistr("e");
 
   expect($str())
-  ->toBe(mb_stristr('test', 'e'));
+  ->toBe(mb_stristr("test", "e"));
 
 });
 
-it('can mblen', function ()
+test("mblen", function ()
 {
 
-  expect(str('test')->mblen())
-  ->toBe($result = mb_strlen('test'));
+  expect(str("test")->mblen())
+  ->toBe($result = mb_strlen("test"));
 
-  $str = str('test')->mblen(return: $return);
+  $str = str("test")->mblen(return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -725,13 +734,13 @@ it('can mblen', function ()
 
 });
 
-it('can mbpos', function ()
+test("mbpos", function ()
 {
 
-  expect(str('test')->mbpos('e'))
-  ->toBe($result = mb_strpos('test', 'e'));
+  expect(str("test")->mbpos("e"))
+  ->toBe($result = mb_strpos("test", "e"));
 
-  $str = str('test')->mbpos('e', return: $return);
+  $str = str("test")->mbpos("e", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -741,33 +750,33 @@ it('can mbpos', function ()
 
 });
 
-it('can mbrchr', function ()
+test("mbrchr", function ()
 {
 
-  $str = str('test')->mbrchr('e');
+  $str = str("test")->mbrchr("e");
 
   expect($str())
-  ->toBe(mb_strrchr('test', 'e'));
+  ->toBe(mb_strrchr("test", "e"));
 
 });
 
-it('can mbrichr', function ()
+test("mbrichr", function ()
 {
 
-  $str = str('test')->mbrichr('e');
+  $str = str("test")->mbrichr("e");
 
   expect($str())
-  ->toBe(mb_strrichr('test', 'e'));
+  ->toBe(mb_strrichr("test", "e"));
 
 });
 
-it('can mbripos', function ()
+test("mbripos", function ()
 {
 
-  expect(str('test')->mbripos('e'))
-  ->toBe($result = mb_strripos('test', 'e'));
+  expect(str("test")->mbripos("e"))
+  ->toBe($result = mb_strripos("test", "e"));
 
-  $str = str('test')->mbripos('e', return: $return);
+  $str = str("test")->mbripos("e", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -777,13 +786,13 @@ it('can mbripos', function ()
 
 });
 
-it('can mbrpos', function ()
+test("mbrpos", function ()
 {
 
-  expect(str('test')->mbrpos('e'))
-  ->toBe($result = mb_strrpos('test', 'e'));
+  expect(str("test")->mbrpos("e"))
+  ->toBe($result = mb_strrpos("test", "e"));
 
-  $str = str('test')->mbrpos('e', return: $return);
+  $str = str("test")->mbrpos("e", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -793,73 +802,73 @@ it('can mbrpos', function ()
 
 });
 
-it('can mbscrub', function ()
+test("mbscrub", function ()
 {
 
-  $str = str('test')->mbscrub();
+  $str = str("test")->mbscrub();
 
   expect($str())
-  ->toBe(mb_scrub('test'));
+  ->toBe(mb_scrub("test"));
 
 });
 
-it('can mbsplit', function ()
+test("mbsplit", function ()
 {
 
-  $str = str('test')->mbsplit('/e/');
+  $str = str("test")->mbsplit("/e/");
 
   expect($str())
-  ->toBe(mb_split('/e/', 'test'));
+  ->toBe(mb_split("/e/", "test"));
 
 });
 
-it('can mbstr', function ()
+test("mbstr", function ()
 {
 
-  $str = str('test')->mbstr('e');
+  $str = str("test")->mbstr("e");
 
   expect($str())
-  ->toBe(mb_strstr('test', 'e'));
+  ->toBe(mb_strstr("test", "e"));
 
 });
 
-it('can mbstrimwidth', function ()
+test("mbstrimwidth", function ()
 {
 
-  $str = str('test')->mbstrimwidth(1, 1);
+  $str = str("test")->mbstrimwidth(1, 1);
 
   expect($str())
-  ->toBe(mb_strimwidth('test', 1, 1));
+  ->toBe(mb_strimwidth("test", 1, 1));
 
 });
 
-it('can mbstrsplit', function ()
+test("mbstrsplit", function ()
 {
 
-  $str = str('test')->mbstrsplit();
+  $str = str("test")->mbstrsplit();
 
   expect($str())
-  ->toBe(mb_str_split('test'));
+  ->toBe(mb_str_split("test"));
 
 });
 
-it('can mbsubstr', function ()
+test("mbsubstr", function ()
 {
 
-  $str = str('test')->mbsubstr(1);
+  $str = str("test")->mbsubstr(1);
 
   expect($str())
-  ->toBe(mb_substr('test', 1));
+  ->toBe(mb_substr("test", 1));
 
 });
 
-it('can mbsubstrcount', function ()
+test("mbsubstrcount", function ()
 {
 
-  expect(str('test')->mbsubstrcount('e'))
-  ->toBe($result = mb_substr_count('test', 'e'));
+  expect(str("test")->mbsubstrcount("e"))
+  ->toBe($result = mb_substr_count("test", "e"));
 
-  $str = str('test')->mbsubstrcount('e', return: $return);
+  $str = str("test")->mbsubstrcount("e", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -869,33 +878,33 @@ it('can mbsubstrcount', function ()
 
 });
 
-it('can mbtolower', function ()
+test("mbtolower", function ()
 {
 
-  $str = str('test')->mbtolower();
+  $str = str("test")->mbtolower();
 
   expect($str())
-  ->toBe(mb_strtolower('test'));
+  ->toBe(mb_strtolower("test"));
 
 });
 
-it('can mbtoupper', function ()
+test("mbtoupper", function ()
 {
 
-  $str = str('test')->mbtoupper();
+  $str = str("test")->mbtoupper();
 
   expect($str())
-  ->toBe(mb_strtoupper('test'));
+  ->toBe(mb_strtoupper("test"));
 
 });
 
-it('can mbwidth', function ()
+test("mbwidth", function ()
 {
 
-  expect(str('test')->mbwidth())
-  ->toBe($result = mb_strwidth('test'));
+  expect(str("test")->mbwidth())
+  ->toBe($result = mb_strwidth("test"));
 
-  $str = str('test')->mbwidth(return: $return);
+  $str = str("test")->mbwidth(return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -905,33 +914,33 @@ it('can mbwidth', function ()
 
 });
 
-it('can md5', function ()
+test("md5", function ()
 {
 
-  $str = str('test')->md5();
+  $str = str("test")->md5();
 
   expect($str())
-  ->toBe(md5('test'));
+  ->toBe(md5("test"));
 
 });
 
-it('can metaphone', function ()
+test("metaphone", function ()
 {
 
-  $str = str('test')->metaphone();
+  $str = str("test")->metaphone();
 
   expect($str())
-  ->toBe(metaphone('test'));
+  ->toBe(metaphone("test"));
 
 });
 
-it('can natcmp', function ()
+test("natcmp", function ()
 {
 
-  expect(str('test')->natcmp('e'))
-  ->toBe($result = strnatcmp('test', 'e'));
+  expect(str("test")->natcmp("e"))
+  ->toBe($result = strnatcmp("test", "e"));
 
-  $str = str('test')->natcmp('e', return: $return);
+  $str = str("test")->natcmp("e", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -941,13 +950,13 @@ it('can natcmp', function ()
 
 });
 
-it('can natcasecmp', function ()
+test("natcasecmp", function ()
 {
 
-  expect(str('test')->natcasecmp('e'))
-  ->toBe($result = strnatcasecmp('test', 'e'));
+  expect(str("test")->natcasecmp("e"))
+  ->toBe($result = strnatcasecmp("test", "e"));
 
-  $str = str('test')->natcasecmp('e', return: $return);
+  $str = str("test")->natcasecmp("e", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -957,13 +966,13 @@ it('can natcasecmp', function ()
 
 });
 
-it('can ncasecmp', function ()
+test("ncasecmp", function ()
 {
 
-  expect(str('test')->ncasecmp('e', 2))
-  ->toBe($result = strncasecmp('test', 'e', 2));
+  expect(str("test")->ncasecmp("e", 2))
+  ->toBe($result = strncasecmp("test", "e", 2));
 
-  $str = str('test')->ncasecmp('e', 2, return: $return);
+  $str = str("test")->ncasecmp("e", 2, return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -973,13 +982,13 @@ it('can ncasecmp', function ()
 
 });
 
-it('can ncmp', function ()
+test("ncmp", function ()
 {
 
-  expect(str('test')->ncmp('e', 2))
-  ->toBe($result = strncmp('test', 'e', 2));
+  expect(str("test")->ncmp("e", 2))
+  ->toBe($result = strncmp("test", "e", 2));
 
-  $str = str('test')->ncmp('e', 2, return: $return);
+  $str = str("test")->ncmp("e", 2, return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -989,65 +998,70 @@ it('can ncmp', function ()
 
 });
 
-it('can nl2br', function ()
+test("nl2br", function ()
 {
 
-  $str = str('test')->nl2br();
+  $str = str("test")->nl2br();
 
   expect($str())
-  ->toBe(nl2br('test'));
+  ->toBe(nl2br("test"));
 
 });
 
-it('can pad', function ()
+test("pad", function ()
 {
 
-  $str = str('test')->pad(5);
+  $str = str("test")->pad(5);
 
   expect($str())
-  ->toBe(str_pad('test', 5));
+  ->toBe(str_pad("test", 5));
 
 });
 
-it('can parse', function ()
+test("parse", function ()
 {
 
-  $str = str('test')->parse($test1);
+  $str = str("test")->parse($test1);
 
-  parse_str('test', $test2);
+  parse_str("test", $test2);
 
   expect($test1)
   ->toBe($test2);
 
 });
 
-it('can parseurl', function ()
+test("parseurl", function ()
 {
 
-  $str = str('test')->parseurl();
+  $str = str("test")->parseurl();
 
   expect($str())
-  ->toBe(parse_url('test'));
+  ->toBe(parse_url("test"));
+
+  $str = str("https://example.org")->parseurl(PHP_URL_HOST);
+
+  expect($str())
+  ->toBe("example.org");
 
 });
 
-it('can pbrk', function ()
+test("pbrk", function ()
 {
 
-  $str = str('test')->pbrk('e');
+  $str = str("test")->pbrk("e");
 
   expect($str())
-  ->toBe(strpbrk('test', 'e'));
+  ->toBe(strpbrk("test", "e"));
 
 });
 
-it('can pos', function ()
+test("pos", function ()
 {
 
-  expect(str('test')->pos('e'))
-  ->toBe($result = strpos('test', 'e'));
+  expect(str("test")->pos("e"))
+  ->toBe($result = strpos("test", "e"));
 
-  $str = str('test')->pos('e', return: $return);
+  $str = str("test")->pos("e", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -1057,23 +1071,23 @@ it('can pos', function ()
 
 });
 
-it('can pregfilter', function ()
+test("pregfilter", function ()
 {
 
-  $str = str('test')->pregfilter('/e/', 's');
+  $str = str("test")->pregfilter("/e/", "s");
 
   expect($str())
-  ->toBe(preg_filter('/e/', 's', 'test'));
+  ->toBe(preg_filter("/e/", "s", "test"));
 
 });
 
-it('can pregmatch', function ()
+test("pregmatch", function ()
 {
 
-  expect(str('test')->pregmatch('/e/'))
-  ->toBe($result = preg_match('/e/', 'test'));
+  expect(str("test")->pregmatch("/e/"))
+  ->toBe($result = preg_match("/e/", "test"));
 
-  $str = str('test')->pregmatch('/e/', return: $return);
+  $str = str("test")->pregmatch("/e/", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -1083,13 +1097,13 @@ it('can pregmatch', function ()
 
 });
 
-it('can pregmatchall', function ()
+test("pregmatchall", function ()
 {
 
-  expect(str('test')->pregmatchall('/e/'))
-  ->toBe($result = preg_match_all('/e/', 'test'));
+  expect(str("test")->pregmatchall("/e/"))
+  ->toBe($result = preg_match_all("/e/", "test"));
 
-  $str = str('test')->pregmatchall('/e/', return: $return);
+  $str = str("test")->pregmatchall("/e/", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -1099,153 +1113,153 @@ it('can pregmatchall', function ()
 
 });
 
-it('can pregquote', function ()
+test("pregquote", function ()
 {
 
-  $str = str('test')->pregquote();
+  $str = str("test")->pregquote();
 
   expect($str())
-  ->toBe(preg_quote('test'));
+  ->toBe(preg_quote("test"));
 
 });
 
-it('can pregreplace', function ()
+test("pregreplace", function ()
 {
 
-  $str = str('test')->pregreplace('/e/', 's');
+  $str = str("test")->pregreplace("/e/", "s");
 
   expect($str())
-  ->toBe(preg_replace('/e/', 's', 'test'));
+  ->toBe(preg_replace("/e/", "s", "test"));
 
 });
 
-it('can pregreplacecallback', function ()
+test("pregreplacecallback", function ()
 {
 
-  $str = str('test')->pregreplacecallback('/e/', fn () => 's');
+  $str = str("test")->pregreplacecallback("/e/", fn () => "s");
 
   expect($str())
-  ->toBe(preg_replace_callback('/e/', fn () => 's', 'test'));
+  ->toBe(preg_replace_callback("/e/", fn () => "s", "test"));
 
 });
 
-it('can pregreplcatecallbackarray', function ()
+test("pregreplcatecallbackarray", function ()
 {
 
-  $str = str('test')->pregreplcatecallbackarray(['/e/' => fn () => 's']);
+  $str = str("test")->pregreplcatecallbackarray(["/e/" => fn () => "s"]);
 
   expect($str())
-  ->toBe(preg_replace_callback_array(['/e/' => fn () => 's'], 'test'));
+  ->toBe(preg_replace_callback_array(["/e/" => fn () => "s"], "test"));
 
 });
 
-it('can pregsplit', function ()
+test("pregsplit", function ()
 {
 
-  $str = str('test')->pregsplit('/e/');
+  $str = str("test")->pregsplit("/e/");
 
   expect($str())
-  ->toBe(preg_split('/e/', 'test'));
+  ->toBe(preg_split("/e/", "test"));
 
 });
 
-it('can quotedprintabledecode', function ()
+test("quotedprintabledecode", function ()
 {
 
-  $str = str('test')->quotedprintabledecode();
+  $str = str("test")->quotedprintabledecode();
 
   expect($str())
-  ->toBe(quoted_printable_decode('test'));
+  ->toBe(quoted_printable_decode("test"));
 
 });
 
-it('can quotedprintableencode', function ()
+test("quotedprintableencode", function ()
 {
 
-  $str = str('test')->quotedprintableencode();
+  $str = str("test")->quotedprintableencode();
 
   expect($str())
-  ->toBe(quoted_printable_encode('test'));
+  ->toBe(quoted_printable_encode("test"));
 
 });
 
-it('can quotemeta', function ()
+test("quotemeta", function ()
 {
 
-  $str = str('test')->quotemeta();
+  $str = str("test")->quotemeta();
 
   expect($str())
-  ->toBe(quotemeta('test'));
+  ->toBe(quotemeta("test"));
 
 });
 
-it('can rawurldecode', function ()
+test("rawurldecode", function ()
 {
 
-  $str = str('test')->rawurldecode();
+  $str = str("test")->rawurldecode();
 
   expect($str())
-  ->toBe(rawurldecode('test'));
+  ->toBe(rawurldecode("test"));
 
 });
 
-it('can rawurlencode', function ()
+test("rawurlencode", function ()
 {
 
-  $str = str('test')->rawurlencode();
+  $str = str("test")->rawurlencode();
 
   expect($str())
-  ->toBe(rawurlencode('test'));
+  ->toBe(rawurlencode("test"));
 
 });
 
-it('can rchr', function ()
+test("rchr", function ()
 {
 
-  $str = str('test')->rchr('e');
+  $str = str("test")->rchr("e");
 
   expect($str())
-  ->toBe(strrchr('test', 'e'));
+  ->toBe(strrchr("test", "e"));
 
 });
 
-it('can repeat', function ()
+test("repeat", function ()
 {
 
-  $str = str('test')->repeat(2);
+  $str = str("test")->repeat(2);
 
   expect($str())
-  ->toBe(str_repeat('test', 2));
+  ->toBe(str_repeat("test", 2));
 
 });
 
-it('can replace', function ()
+test("replace", function ()
 {
 
-  $str = str('test')->replace('/e/', 's');
+  $str = str("test")->replace("/e/", "s");
 
   expect($str())
-  ->toBe(str_replace('/e/', 's', 'test'));
+  ->toBe(str_replace("/e/", "s", "test"));
 
 });
 
-it('can rev', function ()
+test("rev", function ()
 {
 
-  $str = str('test')->rev();
+  $str = str("test")->rev();
 
   expect($str())
-  ->toBe(strrev('test'));
+  ->toBe(strrev("test"));
 
 });
 
-it('can ripos', function ()
+test("ripos", function ()
 {
 
-  expect(str('test')->ripos('e'))
-  ->toBe($result = strripos('test', 'e'));
+  expect(str("test")->ripos("e"))
+  ->toBe($result = strripos("test", "e"));
 
-  $str = str('test')->ripos('e', return: $return);
+  $str = str("test")->ripos("e", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -1255,23 +1269,23 @@ it('can ripos', function ()
 
 });
 
-it('can rot13', function ()
+test("rot13", function ()
 {
 
-  $str = str('test')->rot13();
+  $str = str("test")->rot13();
 
   expect($str())
-  ->toBe(str_rot13('test'));
+  ->toBe(str_rot13("test"));
 
 });
 
-it('can rpos', function ()
+test("rpos", function ()
 {
 
-  expect(str('test')->rpos('e'))
-  ->toBe($result = strrpos('test', 'e'));
+  expect(str("test")->rpos("e"))
+  ->toBe($result = strrpos("test", "e"));
 
-  $str = str('test')->rpos('e', return: $return);
+  $str = str("test")->rpos("e", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -1281,23 +1295,23 @@ it('can rpos', function ()
 
 });
 
-it('can rtrim', function ()
+test("rtrim", function ()
 {
 
-  $str = str('test')->rtrim();
+  $str = str("test")->rtrim();
 
   expect($str())
-  ->toBe(rtrim('test'));
+  ->toBe(rtrim("test"));
 
 });
 
-it('can serialize', function ()
+test("serialize", function ()
 {
 
-  expect(str('test')->serialize())
-  ->toBe($result = serialize('test'));
+  expect(str("test")->serialize())
+  ->toBe($result = serialize("test"));
 
-  $str = str('test')->serialize(return: $return);
+  $str = str("test")->serialize(return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -1307,26 +1321,26 @@ it('can serialize', function ()
 
 });
 
-it('can sha1', function ()
+test("sha1", function ()
 {
 
-  $str = str('test')->sha1();
+  $str = str("test")->sha1();
 
   expect($str())
-  ->toBe(sha1('test'));
+  ->toBe(sha1("test"));
 
 });
 
-it('can shuffle', function ()
+test("shuffle", function ()
 {
 
-  $str = str('test')->shuffle();
+  $str = str("test")->shuffle();
 
   $arr1 = str_split($str());
 
   sort($arr1);
 
-  $arr2 = str_split(str_shuffle('test'));
+  $arr2 = str_split(str_shuffle("test"));
 
   sort($arr2);
 
@@ -1335,13 +1349,13 @@ it('can shuffle', function ()
 
 });
 
-it('can similartext', function ()
+test("similartext", function ()
 {
 
-  expect(str('test')->similartext('testing'))
-  ->toBe($result = similar_text('test', 'testing'));
+  expect(str("test")->similartext("testing"))
+  ->toBe($result = similar_text("test", "testing"));
 
-  $str = str('test')->similartext('testing', return: $return);
+  $str = str("test")->similartext("testing", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -1351,33 +1365,33 @@ it('can similartext', function ()
 
 });
 
-it('can soundex', function ()
+test("soundex", function ()
 {
 
-  $str = str('test')->soundex();
+  $str = str("test")->soundex();
 
   expect($str())
-  ->toBe(soundex('test'));
+  ->toBe(soundex("test"));
 
 });
 
-it('can split', function ()
+test("split", function ()
 {
 
-  $str = str('test')->split();
+  $str = str("test")->split();
 
   expect($str())
-  ->toBe(str_split('test'));
+  ->toBe(str_split("test"));
 
 });
 
-it('can spn', function ()
+test("spn", function ()
 {
 
-  expect(str('test')->spn('e'))
-  ->toBe($result = strspn('test', 'e'));
+  expect(str("test")->spn("e"))
+  ->toBe($result = strspn("test", "e"));
 
-  $str = str('test')->spn('e', return: $return);
+  $str = str("test")->spn("e", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -1387,33 +1401,41 @@ it('can spn', function ()
 
 });
 
-it('can sprintf', function ()
+test("sprintf", function ()
 {
 
-  $str = str('test')->sprintf();
+  $str = str("test")->sprintf();
 
   expect($str())
-  ->toBe(sprintf('test'));
+  ->toBe(sprintf("test"));
 
 });
 
-it('can sscanf', function ()
+test("sscanf", function ()
 {
 
-  $str = str('test')->sscanf('%s');
+  $arr = str("test")->sscanf("%s");
 
-  expect($str())
-  ->toBe(sscanf('test', '%s'));
+  expect($arr)
+  ->toBeInstanceOf(Arr::class);
+
+  expect($arr())
+  ->toBe(sscanf("test", "%s"));
+
+  $str = str("test")->sscanf("%s", $var);
+
+  expect($str)
+  ->toBe(1);
 
 });
 
-it('can startswith', function ()
+test("startswith", function ()
 {
 
-  expect(str('test')->startswith('e'))
-  ->toBe($result = str_starts_with('test', 's'));
+  expect(str("test")->startswith("e"))
+  ->toBe($result = str_starts_with("test", "s"));
 
-  $str = str('test')->startswith('e', return: $return);
+  $str = str("test")->startswith("e", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -1423,63 +1445,63 @@ it('can startswith', function ()
 
 });
 
-it('can str', function ()
+test("str", function ()
 {
 
-  $str = str('test')->str('e');
+  $str = str("test")->str("e");
 
   expect($str())
-  ->toBe(strstr('test', 'e'));
+  ->toBe(strstr("test", "e"));
 
 });
 
-it('can stripcslashes', function ()
+test("stripcslashes", function ()
 {
 
-  $str = str('test')->stripcslashes();
+  $str = str("test")->stripcslashes();
 
   expect($str())
-  ->toBe(stripcslashes('test'));
+  ->toBe(stripcslashes("test"));
 
 });
 
-it('can stripslashes', function ()
+test("stripslashes", function ()
 {
 
-  $str = str('test')->stripslashes();
+  $str = str("test")->stripslashes();
 
   expect($str())
-  ->toBe(stripslashes('test'));
+  ->toBe(stripslashes("test"));
 
 });
 
-it('can striptags', function ()
+test("striptags", function ()
 {
 
-  $str = str('test')->striptags();
+  $str = str("test")->striptags();
 
   expect($str())
-  ->toBe(strip_tags('test'));
+  ->toBe(strip_tags("test"));
 
 });
 
-it('can substr', function ()
+test("substr", function ()
 {
 
-  $str = str('test')->substr(1);
+  $str = str("test")->substr(1);
 
   expect($str())
-  ->toBe(substr('test', 1));
+  ->toBe(substr("test", 1));
 
 });
 
-it('can substrcompare', function ()
+test("substrcompare", function ()
 {
 
-  expect(str('test')->substrcompare('e', 1))
-  ->toBe($result = substr_compare('test', 'e', 1));
+  expect(str("test")->substrcompare("e", 1))
+  ->toBe($result = substr_compare("test", "e", 1));
 
-  $str = str('test')->substrcompare('e', 1, return: $return);
+  $str = str("test")->substrcompare("e", 1, return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -1489,13 +1511,13 @@ it('can substrcompare', function ()
 
 });
 
-it('can substrcount', function ()
+test("substrcount", function ()
 {
 
-  expect(str('test')->substrcount('e'))
-  ->toBe($count = substr_count('test', 'e'));
+  expect(str("test")->substrcount("e"))
+  ->toBe($count = substr_count("test", "e"));
 
-  $str = str('test')->substrcount('e', return: $return);
+  $str = str("test")->substrcount("e", return: $return);
 
   expect($str)
   ->toBeInstanceOf(Str::class);
@@ -1505,135 +1527,145 @@ it('can substrcount', function ()
 
 });
 
-it('can substrreplace', function ()
+test("substrreplace", function ()
 {
 
-  $str = str('test')->substrreplace('e', 1);
+  $str = str("test")->substrreplace("e", 1);
 
   expect($str())
-  ->toBe(substr_replace('test', 'e', 1));
+  ->toBe(substr_replace("test", "e", 1));
 
 });
 
-it('can tok', function ()
+test("tok", function ()
 {
 
-  $str = str('test')->tok('e');
+  $str = str("test")->tok("e");
 
   expect($str())
-  ->toBe(strtok('test', 'e'));
+  ->toBe(strtok("test", "e"));
 
 });
 
-it('can tolower', function ()
+test("tolower", function ()
 {
 
-  $str = str('test')->tolower();
+  $str = str("test")->tolower();
 
   expect($str())
-  ->toBe(strtolower('test'));
+  ->toBe(strtolower("test"));
 
 });
 
-it('can toupper', function ()
+test("toupper", function ()
 {
 
-  $str = str('test')->toupper();
+  $str = str("test")->toupper();
 
   expect($str())
-  ->toBe(strtoupper('test'));
+  ->toBe(strtoupper("test"));
 
 });
 
-it('can tr', function ()
+test("tr", function ()
 {
 
-  $str = str('test')->tr('e', 's');
+  $str = str("test")->tr("e", "s");
 
   expect($str())
-  ->toBe(strtr('test', 'e', 's'));
+  ->toBe(strtr("test", "e", "s"));
 
 });
 
-it('can trim', function ()
+test("trim", function ()
 {
 
-  $str = str('test')->trim();
+  $str = str("test")->trim();
 
   expect($str())
-  ->toBe(trim('test'));
+  ->toBe(trim("test"));
 
 });
 
-it('can ucfirst', function ()
+test("ucfirst", function ()
 {
 
-  $str = str('test')->ucfirst();
+  $str = str("test")->ucfirst();
 
   expect($str())
-  ->toBe(ucfirst('test'));
+  ->toBe(ucfirst("test"));
 
 });
 
-it('can ucwords', function ()
+test("ucwords", function ()
 {
 
-  $str = str('test')->ucwords();
+  $str = str("test")->ucwords();
 
   expect($str())
-  ->toBe(ucwords('test'));
+  ->toBe(ucwords("test"));
 
 });
 
-it('can unserialize', function ()
+test("unserialize", function ()
 {
 
-  $test = serialize('test');
+  $test = serialize("test");
 
   $str = Str::unserialize($test);
 
   expect($str())
   ->toBe(unserialize($test));
 
+  $test = serialize(["test"]);
+
+  $arr = Str::unserialize($test);
+
+  expect($arr)
+  ->toBeInstanceOf(Arr::class);
+
+  expect($arr())
+  ->toBe(["test"]);
+
 });
 
-it('can urldecode', function ()
+test("urldecode", function ()
 {
 
-  $str = str('test')->urldecode();
+  $str = str("test")->urldecode();
 
   expect($str())
-  ->toBe(urldecode('test'));
+  ->toBe(urldecode("test"));
 
 });
 
-it('can urlencode', function ()
+test("urlencode", function ()
 {
 
-  $str = str('test')->urlencode();
+  $str = str("test")->urlencode();
 
   expect($str())
-  ->toBe(urlencode('test'));
+  ->toBe(urlencode("test"));
 
 });
 
-it('can vsprintf', function ()
+test("vsprintf", function ()
 {
 
-  $str = str('%s')->vsprintf(['test']);
+  $str = str("%s")->vsprintf(["test"]);
 
   expect($str())
-  ->toBe(vsprintf('%s', ['test']));
+  ->toBe(vsprintf("%s", ["test"]));
 
 });
 
-it('can wordcount', function ()
+test("wordcount", function ()
 {
 
-  expect(str('test')->wordcount())
-  ->toBe($count = str_word_count('test'));
+  expect(str("test")->wordcount())
+  ->toBe($count = str_word_count("test"));
 
-  $str = str('test')->wordcount(return: $return);
+  $str = str("test")->wordcount(return: $return);
 
   expect($str)
   ->toBeInstanceof(Str::class);
@@ -1643,80 +1675,93 @@ it('can wordcount', function ()
 
 });
 
-it('can wordwrap', function ()
+test("wordwrap", function ()
 {
 
-  $str = str('test')->wordwrap();
+  $str = str("test")->wordwrap();
 
   expect($str())
-  ->toBe(wordwrap('test'));
+  ->toBe(wordwrap("test"));
 
 });
 
-it('can echo', function ()
+test("echo", function ()
 {
 
-  $this->expectOutputString('test');
+  $this->expectOutputString("test");
 
-  $num = str('test')->echo();
+  $num = str("test")->echo();
 
   expect($num)
   ->toBeInstanceOf(Str::class);
 
 });
 
-it('can echo with prefix', function ()
+test("echo with prefix", function ()
 {
 
-  $this->expectOutputString('test1test');
+  $this->expectOutputString("test1test");
 
-  str('test')->echo(prefix: 'test1');
+  str("test")->echo(prefix: "test1");
 
 });
 
-it('can echo with suffix', function ()
+test("echo with suffix", function ()
 {
 
-  $this->expectOutputString('testtest2');
+  $this->expectOutputString("testtest2");
 
-  str('test')->echo(suffix: 'test2');
+  str("test")->echo(suffix: "test2");
 
 });
 
-it('can echo with prefix and suffix', function ()
+test("echo with prefix and suffix", function ()
 {
 
-  $this->expectOutputString('test1testtest2');
+  $this->expectOutputString("test1testtest2");
 
-  str('test')->echo(
-    prefix: 'test1',
-    suffix: 'test2'
+  str("test")->echo(
+    prefix: "test1",
+    suffix: "test2"
   );
 
 });
 
-it('can extract', function ()
+test("explode", function ()
 {
 
-  $str1 = str('test')
+  $arr = str("test,test")->explode(",");
+
+  expect($arr)
+  ->toBeInstanceOf(Arr::class);
+
+  expect($arr())
+  ->toBe(["test", "test"]);
+
+});
+
+test("extract", function ()
+{
+
+  $str1 = str("test")
   ->extract($str2)
   ->rev();
 
   expect($str1())
-  ->toBe('tset');
+  ->toBe("tset");
 
   expect($str2)
   ->toBeInstanceOf(Str::class);
 
   expect($str2())
-  ->toBe('test');
+  ->toBe("test");
 
 });
 
-it('can use properties as methods', function ()
+it("can use properties as methods", function ()
 {
 
-  $str = str('test')->rev;
+  $str = str("test")->rev;
 
   expect($str)
   ->toBeInstanceOf(Str::class);

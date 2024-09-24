@@ -6,7 +6,7 @@ use WTFramework\Types\Num;
 
 use function WTFramework\Types\num;
 
-it('can invoke', function ()
+it("can invoke", function ()
 {
 
   $num = new Num(1.5);
@@ -16,7 +16,7 @@ it('can invoke', function ()
 
 });
 
-it('can return', function ()
+it("can return", function ()
 {
 
   $num = new Num(1.5);
@@ -26,7 +26,7 @@ it('can return', function ()
 
 });
 
-it('can use static new', function ()
+it("can use static new", function ()
 {
 
   $num = Num::new(1.5);
@@ -39,7 +39,7 @@ it('can use static new', function ()
 
 });
 
-it('can use function', function ()
+it("can use function", function ()
 {
 
   $num = num(1.5);
@@ -52,17 +52,17 @@ it('can use function', function ()
 
 });
 
-it('can cast to string', function ()
+it("can cast to string", function ()
 {
 
   $num = num(-1.5);
 
   expect((string) $num)
-  ->toBe('-1.5');
+  ->toBe("-1.5");
 
 });
 
-it('can abs', function ()
+test("abs", function ()
 {
 
   $num = num(-1.5)->abs();
@@ -72,7 +72,7 @@ it('can abs', function ()
 
 });
 
-it('can acos', function ()
+test("acos", function ()
 {
 
   $num = num(0.5)->acos();
@@ -82,7 +82,7 @@ it('can acos', function ()
 
 });
 
-it('can acosh', function ()
+test("acosh", function ()
 {
 
   $num = num(1.5)->acosh();
@@ -92,7 +92,7 @@ it('can acosh', function ()
 
 });
 
-it('can asin', function ()
+test("asin", function ()
 {
 
   $num = num(0.5)->asin();
@@ -102,7 +102,7 @@ it('can asin', function ()
 
 });
 
-it('can asinh', function ()
+test("asinh", function ()
 {
 
   $num = num(1.5)->asinh();
@@ -112,7 +112,7 @@ it('can asinh', function ()
 
 });
 
-it('can atan', function ()
+test("atan", function ()
 {
 
   $num = num(1.5)->atan();
@@ -122,7 +122,7 @@ it('can atan', function ()
 
 });
 
-it('can atan2', function ()
+test("atan2", function ()
 {
 
   $num = num(1.5)->atan2(1.5);
@@ -132,13 +132,13 @@ it('can atan2', function ()
 
 });
 
-it('can base_convert', function ()
+test("base_convert", function ()
 {
 
   $str = num(10)->baseconvert(8, 6);
 
   expect($str)
-  ->toBe(base_convert('10', 8, 6));
+  ->toBe(base_convert("10", 8, 6));
 
   $num = num(10)->baseconvert(8, 6, return: $return);
 
@@ -146,21 +146,21 @@ it('can base_convert', function ()
   ->toBeInstanceOf(Num::class);
 
   expect($return)
-  ->toBe(base_convert('10', 8, 6));
+  ->toBe(base_convert("10", 8, 6));
 
 });
 
-it('can bindec', function ()
+test("bindec", function ()
 {
 
   $num = num(10)->bindec();
 
   expect($num())
-  ->toBe(bindec('10'));
+  ->toBe(bindec("10"));
 
 });
 
-it('can ceil', function ()
+test("ceil", function ()
 {
 
   $num = num(1.5)->ceil();
@@ -170,7 +170,7 @@ it('can ceil', function ()
 
 });
 
-it('can cos', function ()
+test("cos", function ()
 {
 
   $num = num(1.5)->cos();
@@ -180,7 +180,7 @@ it('can cos', function ()
 
 });
 
-it('can cosh', function ()
+test("cosh", function ()
 {
 
   $num = num(1.5)->cosh();
@@ -190,7 +190,7 @@ it('can cosh', function ()
 
 });
 
-it('can decbin', function ()
+test("decbin", function ()
 {
 
   $num = num(10)->decbin();
@@ -200,7 +200,7 @@ it('can decbin', function ()
 
 });
 
-it('can dechex', function ()
+test("dechex", function ()
 {
 
   $str = num(10)->dechex();
@@ -218,7 +218,7 @@ it('can dechex', function ()
 
 });
 
-it('can decoct', function ()
+test("decoct", function ()
 {
 
   $num = num(10)->decoct();
@@ -228,7 +228,7 @@ it('can decoct', function ()
 
 });
 
-it('can deg2rad', function ()
+test("deg2rad", function ()
 {
 
   $num = num(1.5)->deg2rad();
@@ -238,10 +238,10 @@ it('can deg2rad', function ()
 
 });
 
-it('can echo', function ()
+test("echo", function ()
 {
 
-  $this->expectOutputString('1.5');
+  $this->expectOutputString("1.5");
 
   $num = num(1.5)->echo();
 
@@ -250,37 +250,37 @@ it('can echo', function ()
 
 });
 
-it('can echo with prefix', function ()
+test("echo with prefix", function ()
 {
 
-  $this->expectOutputString('test1.5');
+  $this->expectOutputString("test1.5");
 
-  num(1.5)->echo(prefix: 'test');
+  num(1.5)->echo(prefix: "test");
 
 });
 
-it('can echo with suffix', function ()
+test("echo with suffix", function ()
 {
 
-  $this->expectOutputString('1.5test');
+  $this->expectOutputString("1.5test");
 
-  num(1.5)->echo(suffix: 'test');
+  num(1.5)->echo(suffix: "test");
 
 });
 
-it('can echo with prefix and suffix', function ()
+test("echo with prefix and suffix", function ()
 {
 
-  $this->expectOutputString('test11.5test2');
+  $this->expectOutputString("test11.5test2");
 
   num(1.5)->echo(
-    prefix: 'test1',
-    suffix: 'test2'
+    prefix: "test1",
+    suffix: "test2"
   );
 
 });
 
-it('can exp', function ()
+test("exp", function ()
 {
 
   $num = num(1.5)->exp();
@@ -290,7 +290,7 @@ it('can exp', function ()
 
 });
 
-it('can expm1', function ()
+test("expm1", function ()
 {
 
   $num = num(1.5)->expm1();
@@ -300,7 +300,7 @@ it('can expm1', function ()
 
 });
 
-it('can extract', function ()
+test("extract", function ()
 {
 
   $num1 = num(-1.5)
@@ -318,7 +318,7 @@ it('can extract', function ()
 
 });
 
-it('can fdiv', function ()
+test("fdiv", function ()
 {
 
   $num = num(1.5)->fdiv(1.5);
@@ -328,7 +328,7 @@ it('can fdiv', function ()
 
 });
 
-it('can floor', function ()
+test("floor", function ()
 {
 
   $num = num(1.5)->floor();
@@ -338,7 +338,7 @@ it('can floor', function ()
 
 });
 
-it('can fmod', function ()
+test("fmod", function ()
 {
 
   $num = num(1.5)->fmod(1.5);
@@ -348,7 +348,7 @@ it('can fmod', function ()
 
 });
 
-it('can hypot', function ()
+test("hypot", function ()
 {
 
   $num = num(1.5)->hypot(1.5);
@@ -358,7 +358,7 @@ it('can hypot', function ()
 
 });
 
-it('can intdiv', function ()
+test("intdiv", function ()
 {
 
   $num = num(1)->intdiv(1);
@@ -368,7 +368,7 @@ it('can intdiv', function ()
 
 });
 
-it('can is_finite', function ()
+test("is_finite", function ()
 {
 
   $result1 = num(1.5)->isfinite();
@@ -391,7 +391,7 @@ it('can is_finite', function ()
 
 });
 
-it('can is_infinite', function ()
+test("is_infinite", function ()
 {
 
   $result1 = num(log(0))->isinfinite();
@@ -414,7 +414,7 @@ it('can is_infinite', function ()
 
 });
 
-it('can is_nan', function ()
+test("is_nan", function ()
 {
 
   $result1 = num(acos(1.01))->isnan();
@@ -437,7 +437,7 @@ it('can is_nan', function ()
 
 });
 
-it('can log', function ()
+test("log", function ()
 {
 
   $num = num(1.5)->log();
@@ -452,7 +452,7 @@ it('can log', function ()
 
 });
 
-it('can log10', function ()
+test("log10", function ()
 {
 
   $num = num(1.5)->log10();
@@ -462,7 +462,7 @@ it('can log10', function ()
 
 });
 
-it('can log1p', function ()
+test("log1p", function ()
 {
 
   $num = num(1.5)->log1p();
@@ -472,7 +472,7 @@ it('can log1p', function ()
 
 });
 
-it('can max', function ()
+test("max", function ()
 {
 
   $num = Num::max(0.5, -1.5);
@@ -485,7 +485,7 @@ it('can max', function ()
 
 });
 
-it('can min', function ()
+test("min", function ()
 {
 
   $num = Num::min(0.5, -1.5);
@@ -498,17 +498,17 @@ it('can min', function ()
 
 });
 
-it('can octdec', function ()
+test("octdec", function ()
 {
 
   $num = num(10)->octdec();
 
   expect($num())
-  ->toBe((int) octdec('10'));
+  ->toBe((int) octdec("10"));
 
 });
 
-it('can use static pi', function ()
+test("use static pi", function ()
 {
 
   $num = Num::pi();
@@ -521,7 +521,7 @@ it('can use static pi', function ()
 
 });
 
-it('can pow', function ()
+test("pow", function ()
 {
 
   $num = num(1.5)->pow(1.5);
@@ -531,7 +531,7 @@ it('can pow', function ()
 
 });
 
-it('can rad2deg', function ()
+test("rad2deg", function ()
 {
 
   $num = num(1.5)->rad2deg();
@@ -541,7 +541,7 @@ it('can rad2deg', function ()
 
 });
 
-it('can round', function ()
+test("round", function ()
 {
 
   $num = num(1.5)->round();
@@ -561,7 +561,7 @@ it('can round', function ()
 
 });
 
-it('can sin', function ()
+test("sin", function ()
 {
 
   $num = num(1.5)->sin();
@@ -571,7 +571,7 @@ it('can sin', function ()
 
 });
 
-it('can sinh', function ()
+test("sinh", function ()
 {
 
   $num = num(1.5)->sinh();
@@ -581,7 +581,7 @@ it('can sinh', function ()
 
 });
 
-it('can sqrt', function ()
+test("sqrt", function ()
 {
 
   $num = num(1.5)->sqrt();
@@ -591,7 +591,7 @@ it('can sqrt', function ()
 
 });
 
-it('can tan', function ()
+test("tan", function ()
 {
 
   $num = num(1.5)->tan();
@@ -601,7 +601,7 @@ it('can tan', function ()
 
 });
 
-it('can tanh', function ()
+test("tanh", function ()
 {
 
   $num = num(1.5)->tanh();
@@ -611,7 +611,7 @@ it('can tanh', function ()
 
 });
 
-it('can use properties as methods', function ()
+it("can use properties as methods", function ()
 {
 
   $num = num(-1.5)->abs;

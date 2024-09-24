@@ -10,10 +10,10 @@ use function WTFramework\Types\arr;
 use function WTFramework\Types\num;
 use function WTFramework\Types\str;
 
-it('can add macro to arr', function ()
+it("can add macro to arr", function ()
 {
 
-  Arr::macro('append', function (mixed $value)
+  Arr::macro("append", function (mixed $value)
   {
 
     $this->array[] = $value;
@@ -27,10 +27,10 @@ it('can add macro to arr', function ()
 
 });
 
-it('can add static macro to arr', function ()
+it("can add static macro to arr", function ()
 {
 
-  Arr::macro('toArray', function (mixed $value)
+  Arr::macro("toArray", function (mixed $value)
   {
     return arr((array) $value);
   });
@@ -40,10 +40,10 @@ it('can add static macro to arr', function ()
 
 });
 
-it('can add macro to str', function ()
+it("can add macro to str", function ()
 {
 
-  Str::macro('prefix', function (string $prefix)
+  Str::macro("prefix", function (string $prefix)
   {
 
     $this->string = "$prefix$this->string";
@@ -52,33 +52,33 @@ it('can add macro to str', function ()
 
   });
 
-  expect(str('test')->prefix('123')())
-  ->toBe('123test');
+  expect(str("test")->prefix("123")())
+  ->toBe("123test");
 
 });
 
-it('can add static macro to str', function ()
+it("can add static macro to str", function ()
 {
 
-  Str::macro('camelCase', function (string $string)
+  Str::macro("camelCase", function (string $string)
   {
 
     return str($string)
     ->ucwords()
-    ->replace(' ', '')
+    ->replace(" ", "")
     ->lcfirst();
 
   });
 
-  expect(Str::camelCase('test test')())
-  ->toBe('testTest');
+  expect(Str::camelCase("test test")())
+  ->toBe("testTest");
 
 });
 
-it('can add macro to num', function ()
+it("can add macro to num", function ()
 {
 
-  Num::macro('add', function (int|float $num)
+  Num::macro("add", function (int|float $num)
   {
 
     $this->num += $num;
@@ -92,10 +92,10 @@ it('can add macro to num', function ()
 
 });
 
-it('can add static macro to num', function ()
+it("can add static macro to num", function ()
 {
 
-  Num::macro('subtract', function (int|float $num1, int|float $num2)
+  Num::macro("subtract", function (int|float $num1, int|float $num2)
   {
     return num($num1 - $num2);
   });
@@ -104,3 +104,9 @@ it('can add static macro to num', function ()
   ->toBe(1);
 
 });
+
+it("can throw bad method call call exception", function ()
+{
+  Str::test();
+})
+->throws(BadMethodCallException::class);

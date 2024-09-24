@@ -12,9 +12,9 @@ trait GetCSV
 {
 
   public function getcsv(
-    string $separator = ',',
-    string $enclosure = '"',
-    string $escape = '\\',
+    string $separator = ",",
+    string $enclosure = "'",
+    string $escape = "\\",
     Arr|IsArr &$return = null
   ): static|IsStr|Arr|IsArr
   {

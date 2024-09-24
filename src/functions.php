@@ -14,7 +14,7 @@ function num(int|float $number = 0.00): Num
   return new Num(num: $number);
 }
 
-function str(string $string = ''): Str
+function str(string $string = ""): Str
 {
   return new Str(string: $string);
 }

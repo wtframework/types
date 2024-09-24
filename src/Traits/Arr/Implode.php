@@ -12,7 +12,7 @@ trait Implode
 {
 
   public function implode(
-    string $delimeter = '',
+    string $delimeter = "",
     Str|IsStr &$return = null
   ): static|IsArr|Str|IsStr
   {

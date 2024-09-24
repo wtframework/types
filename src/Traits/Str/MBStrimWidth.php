@@ -12,7 +12,7 @@ trait MBStrimWidth
   public function mbstrimwidth(
     int $start,
     int $width,
-    string $trim_marker = '',
+    string $trim_marker = "",
     string $encoding = null
   ): static|IsStr
   {

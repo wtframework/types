@@ -10,8 +10,8 @@ trait StrEcho
 {
 
   public function echo(
-    string $prefix = '',
-    string $suffix = ''
+    string $prefix = "",
+    string $suffix = ""
   ): static|IsStr
   {
 

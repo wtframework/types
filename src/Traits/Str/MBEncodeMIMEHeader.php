@@ -10,8 +10,8 @@ trait MBEncodeMIMEHeader
 {
 
   public function mbencodemimeheader(
-    string $charset = 'utf-8',
-    string $transfer_encoding = 'B',
+    string $charset = "utf-8",
+    string $transfer_encoding = "B",
     string $newline = "\r\n",
     int $indent = 0
   ): static|IsStr

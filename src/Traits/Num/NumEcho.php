@@ -10,8 +10,8 @@ trait NumEcho
 {
 
   public function echo(
-    string $prefix = '',
-    string $suffix = ''
+    string $prefix = "",
+    string $suffix = ""
   ): static|IsNum
   {
 

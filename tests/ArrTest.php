@@ -3,56 +3,57 @@
 declare(strict_types=1);
 
 use WTFramework\Types\Arr;
+use WTFramework\Types\Str;
 
 use function WTFramework\Types\arr;
 
-it('can invoke', function ()
+it("can invoke", function ()
 {
 
-  $arr = new Arr(['test']);
+  $arr = new Arr(["test"]);
 
   expect($arr())
-  ->toBe(['test']);
+  ->toBe(["test"]);
 
 });
 
-it('can return', function ()
+it("can return", function ()
 {
 
-  $arr = new Arr(['test']);
+  $arr = new Arr(["test"]);
 
   expect($arr->return())
-  ->toBe(['test']);
+  ->toBe(["test"]);
 
 });
 
-it('can use static new', function ()
+it("can use static new", function ()
 {
 
-  $arr = Arr::new(['test']);
+  $arr = Arr::new(["test"]);
 
   expect($arr)
   ->toBeInstanceOf(Arr::class);
 
   expect($arr())
-  ->toBe(['test']);
+  ->toBe(["test"]);
 
 });
 
-it('can use function', function ()
+it("can use function", function ()
 {
 
-  $arr = arr(['test']);
+  $arr = arr(["test"]);
 
   expect($arr)
   ->toBeInstanceOf(Arr::class);
 
   expect($arr())
-  ->toBe(['test']);
+  ->toBe(["test"]);
 
 });
 
-it('can advance', function ()
+test("advance", function ()
 {
 
   $arr = arr([1, 2, 3])->advance();
@@ -66,7 +67,7 @@ it('can advance', function ()
 
 });
 
-it('can arsort', function ()
+test("arsort", function ()
 {
 
   $arr = arr([1, 2, 3])->arsort();
@@ -80,7 +81,7 @@ it('can arsort', function ()
 
 });
 
-it('can asort', function ()
+test("asort", function ()
 {
 
   $arr = arr([1, 2, 3])->asort();
@@ -94,17 +95,17 @@ it('can asort', function ()
 
 });
 
-it('can changekeycase', function ()
+test("changekeycase", function ()
 {
 
-  $arr = arr(['A' => 1, 'B' => 2, 'C' => 3])->changekeycase();
+  $arr = arr(["A" => 1, "B" => 2, "C" => 3])->changekeycase();
 
   expect($arr())
-  ->toBe(array_change_key_case(['A' => 1, 'B' => 2, 'C' => 3]));
+  ->toBe(array_change_key_case(["A" => 1, "B" => 2, "C" => 3]));
 
 });
 
-it('can chunk', function ()
+test("chunk", function ()
 {
 
   $arr = arr([1, 2, 3])->chunk(2);
@@ -114,29 +115,29 @@ it('can chunk', function ()
 
 });
 
-it('can column', function ()
+test("column", function ()
 {
 
   $arr = arr([[
-    'test' => 1,
+    "test" => 1,
   ], [
-    'test' => 2,
+    "test" => 2,
   ], [
-    'test' => 3,
-  ]])->column('test');
+    "test" => 3,
+  ]])->column("test");
 
   expect($arr())
   ->toBe(array_column([[
-    'test' => 1,
+    "test" => 1,
   ], [
-    'test' => 2,
+    "test" => 2,
   ], [
-    'test' => 3,
-  ]], 'test'));
+    "test" => 3,
+  ]], "test"));
 
 });
 
-it('can combine', function ()
+test("combine", function ()
 {
 
   $arr = arr([1, 2, 3])->combine([4, 5, 6]);
@@ -146,7 +147,7 @@ it('can combine', function ()
 
 });
 
-it('can contains', function ()
+test("contains", function ()
 {
 
   expect(arr([1, 2, 3])->contains(2))
@@ -162,7 +163,28 @@ it('can contains', function ()
 
 });
 
-it('can count', function ()
+test("convert", function ()
+{
+
+  $str = arr(["test"])->current();
+
+  expect($str)
+  ->toBeInstanceOf(Str::class);
+
+  expect($str())
+  ->toBe("test");
+
+  $arr = arr([[1]])->current();
+
+  expect($arr)
+  ->toBeInstanceOf(Arr::class);
+
+  expect($arr())
+  ->toBe([1]);
+
+});
+
+test("count", function ()
 {
 
   expect(arr([1, 2, 3])->count())
@@ -173,7 +195,7 @@ it('can count', function ()
 
 });
 
-it('can countvalues', function ()
+test("countvalues", function ()
 {
 
   $arr = arr([1, 2, 3])->countvalues();
@@ -183,7 +205,7 @@ it('can countvalues', function ()
 
 });
 
-it('can current', function ()
+test("current", function ()
 {
 
   expect(arr([1, 2, 3])->current())
@@ -200,7 +222,7 @@ it('can current', function ()
 
 });
 
-it('can diff', function ()
+test("diff", function ()
 {
 
   $arr = arr([1, 2, 3])->diff([2]);
@@ -210,7 +232,7 @@ it('can diff', function ()
 
 });
 
-it('can diffassoc', function ()
+test("diffassoc", function ()
 {
 
   $arr = arr([1, 2, 3])->diffassoc([2]);
@@ -220,7 +242,7 @@ it('can diffassoc', function ()
 
 });
 
-it('can diffkey', function ()
+test("diffkey", function ()
 {
 
   $arr = arr([1, 2, 3])->diffkey([2]);
@@ -230,7 +252,7 @@ it('can diffkey', function ()
 
 });
 
-it('can diffuassoc', function ()
+test("diffuassoc", function ()
 {
 
   $arr = arr([1, 2, 3])->diffuassoc(fn () => 1);
@@ -240,7 +262,7 @@ it('can diffuassoc', function ()
 
 });
 
-it('can diffukey', function ()
+test("diffukey", function ()
 {
 
   $arr = arr([1, 2, 3])->diffukey(fn () => 1);
@@ -250,7 +272,7 @@ it('can diffukey', function ()
 
 });
 
-it('can end', function ()
+test("end", function ()
 {
 
   expect(arr([1, 2, 3])->end())
@@ -267,7 +289,7 @@ it('can end', function ()
 
 });
 
-it('can fill', function ()
+test("fill", function ()
 {
 
   $arr = Arr::fill(0, 6, 0);
@@ -277,17 +299,17 @@ it('can fill', function ()
 
 });
 
-it('can fillkeys', function ()
+test("fillkeys", function ()
 {
 
-  $arr = arr([1, 2, 3])->fillkeys('test');
+  $arr = arr([1, 2, 3])->fillkeys("test");
 
   expect($arr())
-  ->toBe(array_fill_keys([1, 2, 3], 'test'));
+  ->toBe(array_fill_keys([1, 2, 3], "test"));
 
 });
 
-it('can filter', function ()
+test("filter", function ()
 {
 
   $arr = arr([1, 2, 3])->filter();
@@ -297,7 +319,7 @@ it('can filter', function ()
 
 });
 
-it('can flip', function ()
+test("flip", function ()
 {
 
   $arr = arr([1, 2, 3])->flip();
@@ -307,7 +329,7 @@ it('can flip', function ()
 
 });
 
-it('can implode', function ()
+test("implode", function ()
 {
 
   $arr = arr([1, 2, 3])->implode();
@@ -317,7 +339,7 @@ it('can implode', function ()
 
 });
 
-it('can intersect', function ()
+test("intersect", function ()
 {
 
   $arr = arr([1, 2, 3])->intersect([2]);
@@ -327,7 +349,7 @@ it('can intersect', function ()
 
 });
 
-it('can intersectassoc', function ()
+test("intersectassoc", function ()
 {
 
   $arr = arr([1, 2, 3])->intersectassoc([2]);
@@ -337,7 +359,7 @@ it('can intersectassoc', function ()
 
 });
 
-it('can intersectkey', function ()
+test("intersectkey", function ()
 {
 
   $arr = arr([1, 2, 3])->intersectkey([2]);
@@ -347,7 +369,7 @@ it('can intersectkey', function ()
 
 });
 
-it('can intersectuassoc', function ()
+test("intersectuassoc", function ()
 {
 
   $arr = arr([1, 2, 3])->intersectuassoc(fn () => 1);
@@ -357,7 +379,7 @@ it('can intersectuassoc', function ()
 
 });
 
-it('can intersectukey', function ()
+test("intersectukey", function ()
 {
 
   $arr = arr([1, 2, 3])->intersectukey(fn () => 1);
@@ -367,7 +389,7 @@ it('can intersectukey', function ()
 
 });
 
-it('can islist', function ()
+test("islist", function ()
 {
 
   expect(arr([1, 2, 3])->islist())
@@ -383,7 +405,7 @@ it('can islist', function ()
 
 });
 
-it('can jsonencode', function ()
+test("jsonencode", function ()
 {
 
   $arr = arr([1, 2, 3])->jsonencode();
@@ -393,7 +415,7 @@ it('can jsonencode', function ()
 
 });
 
-it('can keys', function ()
+test("keys", function ()
 {
 
   $arr = arr([1, 2, 3])->keys();
@@ -403,7 +425,7 @@ it('can keys', function ()
 
 });
 
-it('can keyexists', function ()
+test("keyexists", function ()
 {
 
   expect(arr([1, 2, 3])->keyexists(2))
@@ -419,7 +441,7 @@ it('can keyexists', function ()
 
 });
 
-it('can keyfirst', function ()
+test("keyfirst", function ()
 {
 
   expect(arr([1, 2, 3])->keyfirst())
@@ -435,7 +457,7 @@ it('can keyfirst', function ()
 
 });
 
-it('can keylast', function ()
+test("keylast", function ()
 {
 
   expect(arr([1, 2, 3])->keylast())
@@ -451,7 +473,7 @@ it('can keylast', function ()
 
 });
 
-it('can krsort', function ()
+test("krsort", function ()
 {
 
   $arr = arr([1, 2, 3])->krsort();
@@ -465,7 +487,7 @@ it('can krsort', function ()
 
 });
 
-it('can ksort', function ()
+test("ksort", function ()
 {
 
   $arr = arr([1, 2, 3])->ksort();
@@ -479,7 +501,7 @@ it('can ksort', function ()
 
 });
 
-it('can map', function ()
+test("map", function ()
 {
 
   $arr = arr([1, 2, 3])->map(fn ($n) => $n * 2);
@@ -489,7 +511,7 @@ it('can map', function ()
 
 });
 
-it('can merge', function ()
+test("merge", function ()
 {
 
   $arr = arr([1, 2, 3])->merge([2]);
@@ -499,7 +521,7 @@ it('can merge', function ()
 
 });
 
-it('can mergerecursive', function ()
+test("mergerecursive", function ()
 {
 
   $arr = arr([1, 2, 3])->mergerecursive([2]);
@@ -509,7 +531,7 @@ it('can mergerecursive', function ()
 
 });
 
-it('can multisort', function ()
+test("multisort", function ()
 {
 
   $arr = arr([1, 2, 3])->multisort();
@@ -523,7 +545,7 @@ it('can multisort', function ()
 
 });
 
-it('can natcasesort', function ()
+test("natcasesort", function ()
 {
 
   $arr = arr([1, 2, 3])->natcasesort();
@@ -537,7 +559,7 @@ it('can natcasesort', function ()
 
 });
 
-it('can natsort', function ()
+test("natsort", function ()
 {
 
   $arr = arr([1, 2, 3])->natsort();
@@ -551,17 +573,17 @@ it('can natsort', function ()
 
 });
 
-it('can pad', function ()
+test("pad", function ()
 {
 
-  $arr = arr([1, 2, 3])->pad(6, ' ');
+  $arr = arr([1, 2, 3])->pad(6, " ");
 
   expect($arr())
-  ->toBe(array_pad([1, 2, 3], 6, ' '));
+  ->toBe(array_pad([1, 2, 3], 6, " "));
 
 });
 
-it('can pop', function ()
+test("pop", function ()
 {
 
   $num = arr([1, 2, 3])->pop();
@@ -583,7 +605,7 @@ it('can pop', function ()
 
 });
 
-it('can prev', function ()
+test("prev", function ()
 {
 
   $arr = arr([1, 2, 3])->prev();
@@ -597,57 +619,57 @@ it('can prev', function ()
 
 });
 
-it('can pregfilter', function ()
+test("pregfilter", function ()
 {
 
-  $arr = arr([1, 2, 3])->pregfilter('/2/', '3');
+  $arr = arr([1, 2, 3])->pregfilter("/2/", "3");
 
   expect($arr())
-  ->toBe(preg_filter('/2/', '3', [1, 2, 3]));
+  ->toBe(preg_filter("/2/", "3", [1, 2, 3]));
 
 });
 
-it('can preggrep', function ()
+test("preggrep", function ()
 {
 
-  $arr = arr([1, 2, 3])->preggrep('/2/');
+  $arr = arr([1, 2, 3])->preggrep("/2/");
 
   expect($arr())
-  ->toBe(preg_grep('/2/', [1, 2, 3]));
+  ->toBe(preg_grep("/2/", [1, 2, 3]));
 
 });
 
-it('can pregreplace', function ()
+test("pregreplace", function ()
 {
 
-  $arr = arr([1, 2, 3])->pregreplace('/2/', '3');
+  $arr = arr([1, 2, 3])->pregreplace("/2/", "3");
 
   expect($arr())
-  ->toBe(preg_replace('/2/', '3', [1, 2, 3]));
+  ->toBe(preg_replace("/2/", "3", [1, 2, 3]));
 
 });
 
-it('can pregreplacecallback', function ()
+test("pregreplacecallback", function ()
 {
 
-  $arr = arr([1, 2, 3])->pregreplacecallback('/2/', fn () => 3);
+  $arr = arr([1, 2, 3])->pregreplacecallback("/2/", fn () => 3);
 
   expect($arr())
-  ->toBe(preg_replace_callback('/2/', fn () => 3, [1, 2, 3]));
+  ->toBe(preg_replace_callback("/2/", fn () => 3, [1, 2, 3]));
 
 });
 
-it('can pregreplcatecallbackarray', function ()
+test("pregreplcatecallbackarray", function ()
 {
 
-  $arr = arr([1, 2, 3])->pregreplacecallbackarray(['/2/' => fn () => 3]);
+  $arr = arr([1, 2, 3])->pregreplacecallbackarray(["/2/" => fn () => 3]);
 
   expect($arr())
-  ->toBe(preg_replace_callback_array(['/2/' => fn () => 3], [1, 2, 3]));
+  ->toBe(preg_replace_callback_array(["/2/" => fn () => 3], [1, 2, 3]));
 
 });
 
-it('can printr', function ()
+test("printr", function ()
 {
 
   $this->expectOutputString(print_r([1, 2, 3], true));
@@ -656,7 +678,7 @@ it('can printr', function ()
 
 });
 
-it('can product', function ()
+test("product", function ()
 {
 
   expect(arr([1, 2, 3])->product())
@@ -672,7 +694,7 @@ it('can product', function ()
 
 });
 
-it('can push', function ()
+test("push", function ()
 {
 
   $arr = arr([1, 2, 3])->push(2);
@@ -686,7 +708,7 @@ it('can push', function ()
 
 });
 
-it('can rand', function ()
+test("rand", function ()
 {
 
   expect(arr([1, 2, 3])->rand())
@@ -702,7 +724,7 @@ it('can rand', function ()
 
 });
 
-it('can range', function ()
+test("range", function ()
 {
 
   $arr = Arr::range(0, 2, 1);
@@ -712,7 +734,7 @@ it('can range', function ()
 
 });
 
-it('can reduce', function ()
+test("reduce", function ()
 {
 
   expect(arr([1, 2, 3])->reduce(fn () => 1))
@@ -728,7 +750,7 @@ it('can reduce', function ()
 
 });
 
-it('can replace', function ()
+test("replace", function ()
 {
 
   $arr = arr([1, 2, 3])->replace([2]);
@@ -738,7 +760,7 @@ it('can replace', function ()
 
 });
 
-it('can replacerecursive', function ()
+test("replacerecursive", function ()
 {
 
   $arr = arr([1, 2, 3])->replacerecursive([2]);
@@ -748,7 +770,7 @@ it('can replacerecursive', function ()
 
 });
 
-it('can reset', function ()
+test("reset", function ()
 {
 
   $arr = arr([1, 2, 3])->reset();
@@ -762,7 +784,7 @@ it('can reset', function ()
 
 });
 
-it('can reverse', function ()
+test("reverse", function ()
 {
 
   $arr = arr([1, 2, 3])->reverse();
@@ -772,7 +794,7 @@ it('can reverse', function ()
 
 });
 
-it('can rsort', function ()
+test("rsort", function ()
 {
 
   $arr = arr([1, 2, 3])->rsort();
@@ -786,7 +808,7 @@ it('can rsort', function ()
 
 });
 
-it('can search', function ()
+test("search", function ()
 {
 
   expect(arr([1, 2, 3])->search(2))
@@ -802,7 +824,7 @@ it('can search', function ()
 
 });
 
-it('can serialize', function ()
+test("serialize", function ()
 {
 
   expect(arr([1, 2, 3])->serialize())
@@ -818,7 +840,7 @@ it('can serialize', function ()
 
 });
 
-it('can shift', function ()
+test("shift", function ()
 {
 
   $test = [1, 2, 3];
@@ -836,7 +858,7 @@ it('can shift', function ()
 
 });
 
-it('can shuffle', function ()
+test("shuffle", function ()
 {
 
   $arr = arr([1, 2, 3])->shuffle();
@@ -852,7 +874,7 @@ it('can shuffle', function ()
 
 });
 
-it('can slice', function ()
+test("slice", function ()
 {
 
   $arr = arr([1, 2, 3])->slice(2);
@@ -862,7 +884,7 @@ it('can slice', function ()
 
 });
 
-it('can sort', function ()
+test("sort", function ()
 {
 
   $arr = arr([1, 2, 3])->sort();
@@ -876,7 +898,7 @@ it('can sort', function ()
 
 });
 
-it('can splice', function ()
+test("splice", function ()
 {
 
   $arr = arr([1, 2, 3])->splice(2);
@@ -890,7 +912,7 @@ it('can splice', function ()
 
 });
 
-it('can strireplace', function ()
+test("strireplace", function ()
 {
 
   $arr = arr([1, 2, 3])->strireplace([2], [3]);
@@ -900,7 +922,7 @@ it('can strireplace', function ()
 
 });
 
-it('can strreplace', function ()
+test("strreplace", function ()
 {
 
   $arr = arr([1, 2, 3])->strreplace([2], [3]);
@@ -910,7 +932,7 @@ it('can strreplace', function ()
 
 });
 
-it('can substrreplace', function ()
+test("substrreplace", function ()
 {
 
   $arr = arr([1, 2, 3])->substrreplace([2], [3]);
@@ -920,7 +942,7 @@ it('can substrreplace', function ()
 
 });
 
-it('can sum', function ()
+test("sum", function ()
 {
 
   expect(arr([1, 2, 3])->sum())
@@ -936,7 +958,7 @@ it('can sum', function ()
 
 });
 
-it('can uasort', function ()
+test("uasort", function ()
 {
 
   $arr = arr([1, 2, 3])->uasort(fn () => 1);
@@ -950,7 +972,7 @@ it('can uasort', function ()
 
 });
 
-it('can udiff', function ()
+test("udiff", function ()
 {
 
   $arr = arr([1, 2, 3])->udiff(fn () => 1);
@@ -960,7 +982,7 @@ it('can udiff', function ()
 
 });
 
-it('can udiffassoc', function ()
+test("udiffassoc", function ()
 {
 
   $arr = arr([1, 2, 3])->udiffassoc(fn () => 1);
@@ -970,7 +992,7 @@ it('can udiffassoc', function ()
 
 });
 
-it('can udiffuassoc', function ()
+test("udiffuassoc", function ()
 {
 
   $arr = arr([1, 2, 3])->udiffuassoc(fn () => 1, fn () => 0);
@@ -980,7 +1002,7 @@ it('can udiffuassoc', function ()
 
 });
 
-it('can uintersect', function ()
+test("uintersect", function ()
 {
 
   $arr = arr([1, 2, 3])->uintersect(fn () => 1);
@@ -990,7 +1012,7 @@ it('can uintersect', function ()
 
 });
 
-it('can uksort', function ()
+test("uksort", function ()
 {
 
   $arr = arr([1, 2, 3])->uksort(fn () => 1);
@@ -1004,7 +1026,7 @@ it('can uksort', function ()
 
 });
 
-it('can usort', function ()
+test("usort", function ()
 {
 
   $arr = arr([1, 2, 3])->usort(fn () => 1);
@@ -1018,7 +1040,7 @@ it('can usort', function ()
 
 });
 
-it('can unique', function ()
+test("unique", function ()
 {
 
   $arr = arr([1, 2, 3])->unique();
@@ -1028,7 +1050,7 @@ it('can unique', function ()
 
 });
 
-it('can unserialize', function ()
+test("unserialize", function ()
 {
 
   $arr = arr()->unserialize(serialize([1, 2, 3]));
@@ -1038,7 +1060,7 @@ it('can unserialize', function ()
 
 });
 
-it('can unshift', function ()
+test("unshift", function ()
 {
 
   $arr = arr([1, 2, 3])->unshift();
@@ -1052,7 +1074,7 @@ it('can unshift', function ()
 
 });
 
-it('can values', function ()
+test("values", function ()
 {
 
   $arr = arr([1, 2, 3])->values();
@@ -1062,7 +1084,7 @@ it('can values', function ()
 
 });
 
-it('can vardump', function ()
+test("vardump", function ()
 {
 
   $this->expectOutputString("array(3) {
@@ -1079,7 +1101,7 @@ it('can vardump', function ()
 
 });
 
-it('can uintersectassoc', function ()
+test("uintersectassoc", function ()
 {
 
   $arr = arr([1, 2, 3])->uintersectassoc(fn () => 1);
@@ -1089,7 +1111,7 @@ it('can uintersectassoc', function ()
 
 });
 
-it('can uintersectuassoc', function ()
+test("uintersectuassoc", function ()
 {
 
   $arr = arr([1, 2, 3])->uintersectuassoc(fn () => 1, fn () => 0);
@@ -1099,7 +1121,7 @@ it('can uintersectuassoc', function ()
 
 });
 
-it('can walk', function ()
+test("walk", function ()
 {
 
   $arr = arr([1, 2, 3])->walk(fn () => 1);
@@ -1113,7 +1135,7 @@ it('can walk', function ()
 
 });
 
-it('can walkrecursive', function ()
+test("walkrecursive", function ()
 {
 
   $arr = arr([1, 2, 3])->walkrecursive(fn () => 1);
@@ -1127,25 +1149,25 @@ it('can walkrecursive', function ()
 
 });
 
-it('can extract', function ()
+test("extract", function ()
 {
 
-  $arr1 = arr(['b', 'a'])
+  $arr1 = arr(["b", "a"])
   ->extract($arr2)
   ->sort();
 
   expect($arr1())
-  ->toBe(['a', 'b']);
+  ->toBe(["a", "b"]);
 
   expect($arr2)
   ->toBeInstanceOf(Arr::class);
 
   expect($arr2())
-  ->toBe(['b', 'a']);
+  ->toBe(["b", "a"]);
 
 });
 
-it('can max', function ()
+test("max", function ()
 {
 
   $num = arr([0.5, -1.5])
@@ -1165,7 +1187,7 @@ it('can max', function ()
 
 });
 
-it('can min', function ()
+test("min", function ()
 {
 
   $num = arr([0.5, -1.5])
@@ -1185,15 +1207,97 @@ it('can min', function ()
 
 });
 
-it('can use properties as methods', function ()
+it("can use properties as methods", function ()
 {
 
-  $arr = arr(['a', 'b'])->sort;
+  $arr = arr(["a", "b"])->sort;
 
   expect($arr)
   ->toBeInstanceOf(Arr::class);
 
   expect($arr->count)
   ->toBe(2);
+
+});
+
+it("can iterate over arr", function ()
+{
+
+  $arr = [];
+
+  foreach (arr([1, 2]) as $key => $value)
+  {
+    $arr[$key] = $value;
+  }
+
+  expect($arr)
+  ->toBe([1, 2]);
+
+});
+
+it("can check if arr offset exists", function ()
+{
+
+  $arr = arr([1, 2]);
+
+  expect(isset($arr[1]))
+  ->toBe(true);
+
+});
+
+it("can get arr offset", function ()
+{
+
+  $arr = arr([1, 2]);
+
+  expect($arr[0])
+  ->toBe(1);
+
+});
+
+it("can set arr offset", function ()
+{
+
+  $arr = arr([1]);
+
+  $arr[1] = 2;
+
+  expect($arr())
+  ->toBe([1, 2]);
+
+});
+
+it("can unset arr offset", function ()
+{
+
+  $arr = arr([1, 2]);
+
+  unset($arr[0]);
+
+  expect($arr())
+  ->toBe([1 => 2]);
+
+});
+
+it("can magic serialize", function ()
+{
+
+  $arr = arr([1, 2]);
+
+  expect(serialize($arr))
+  ->toBe('O:21:"WTFramework\Types\Arr":2:{i:0;i:1;i:1;i:2;}');
+
+});
+
+it("can magic unserialize", function ()
+{
+
+  $arr = unserialize('O:21:"WTFramework\Types\Arr":2:{i:0;i:1;i:1;i:2;}');
+
+  expect($arr)
+  ->toBeInstanceOf(Arr::class);
+
+  expect($arr())
+  ->toBe([1, 2]);
 
 });

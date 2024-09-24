@@ -28,7 +28,7 @@ trait Macroable
     {
 
       throw new BadMethodCallException(sprintf(
-        'Call to undefined method %s::%s()', static::class, $name
+        "Call to undefined method %s::%s()", static::class, $name
       ));
 
     }
