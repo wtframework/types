@@ -1,3 +1,5 @@
+### Superseded by https://github.com/MichaelRushton/php-types
+
 # What the Framework?! types
 
 This library provides a fluent interface for manipulating strings, arrays, and numbers.
